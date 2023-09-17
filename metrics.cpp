@@ -63,7 +63,7 @@ Metrics::Metrics(Portfolio *p) {
 
     // std::cout << max_dd << std::endl;
 
-    std::cout << SHARPE_RATIO(252) << std::endl;
+    // std::cout << SHARPE_RATIO(252) << std::endl;
 }
 
 double Metrics::SHARPE_RATIO(int periods) {
