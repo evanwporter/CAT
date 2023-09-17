@@ -5,6 +5,8 @@ Originally this project was too calculate the Block-Scholes model and various ot
 
 Where as AT is more focused on crypto, CAT is only focused on stocks, thus it doesn't concern itself with many of nuances of crypto such as quote and base side of a pair.
 
+In the future I forsee myself as spending any available time in which I want to code on CAT (rather than AT or Sloth). After all Sloth was created purely for AT. And CAT is better that AT in almost every performance based metric.
+
 Currently works, however it has ~~extremely~~ limited functionality.
 
 CAT stands for C++ Algorithmic Trader.
