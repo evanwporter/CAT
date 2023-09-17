@@ -1,4 +1,5 @@
 #include "portfolio.h"
+#include "cash.h"
 
 Portfolio::Portfolio() {};
 
@@ -10,23 +11,28 @@ Portfolio::Portfolio(DataHandler *data_handler)
         positions[symbol] = Position();
         holdings[symbol].reserve(dh->symbol_dates[symbol].size());
     };
-    positions["USD"] = Position();
+    CASH_position = CASH();
+    CASH_holding.reserve(dh->symbol_dates["GOOG"].size());
 }
 
-void Portfolio::on_signal(double price, std::string symbol, Direction direction)
+void Portfolio::on_signal(std::string symbol, Direction direction)
 {
+    double price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Close"]);
     update_position(price, symbol, 1, direction);
 }
 
 void Portfolio::update_position(double price, std::string symbol, int quantity, Direction direction)
 {
-    positions[symbol].add_trade(price, quantity, direction);
+    positions[symbol].update_position(price, quantity, direction);
+    CASH_position.update_position(price, quantity, Direction::SHORT);
 }
 
-void Portfolio::update_value(double price)
-{
-    for(std::string symbol : dh->symbols) {
+void Portfolio::update_value()
+{   
+    double price;
+    for (std::string symbol : dh->symbols) {
+        price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Close"]);
         holdings[symbol].push_back(positions[symbol].update_value(price));
     };
-
+    CASH_holding.push_back(CASH_position.update_value(1));
 }

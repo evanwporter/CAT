@@ -5,5 +5,5 @@ Strategy::Strategy() {};
 
 void Strategy::on_data()
 {
-    portfolio->on_signal(100, "GOOG", Direction::LONG);
+    portfolio->on_signal("GOOG", Direction::LONG);
 };

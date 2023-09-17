@@ -3,17 +3,17 @@
 
 #include "ticker.h"
 #include "trade.h"
+#include "cash.h"
 
-class Position {
+#include <list>
+
+class Position : public CASH {
   public:
-    Ticker ticker;
-    Trade *latest_trade;
-
-    double quantity;
+    std::list<Trade> trades;
 
     Position();
 
-    void add_trade(double order_price, double order_quantity, Direction direction);
+    void update_position(double order_price, double order_quantity, Direction direction);
 
     double update_value(double price);
 

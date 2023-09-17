@@ -24,11 +24,16 @@ class Trade {
     // Average Price
     double price;
 
-    Trade *previous_trade;
+    // Trade *previous_trade;
 
     Trade();
 
-    Trade(const int execution_time, const int average_price, const int position_size, const Direction dir);
+    Trade(
+      const int execution_time, 
+      const int average_price,
+      const int position_size, 
+      const Direction dir
+    ): time(execution_time), price(average_price), size(position_size), direction(dir) {};
 };
 
 #endif

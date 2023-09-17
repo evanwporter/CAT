@@ -20,8 +20,9 @@ class DataHandler {
       void load_csv(const std::string &symbol, const std::string &path);
 
     public:
-      std::unordered_map<std::string, std::vector<std::string>> symbol_headers;
-      std::unordered_map<std::string, std::vector<datetime64>> symbol_dates;
+      std::unordered_map<std::string, std::unordered_map<std::string, int>> symbol_headers;
+      std::unordered_map<std::string, std::vector<std::string>> symbol_dates;
+      // std::unordered_map<std::string, std::vector<datetime64>> symbol_dates;
       std::unordered_map<std::string, Matrix<typename MatrixXd::Scalar, MatrixXd::RowsAtCompileTime, MatrixXd::ColsAtCompileTime, RowMajor>> symbol_data;
 
       std::map<std::string, int> s;
@@ -38,7 +39,9 @@ class DataHandler {
 
       int data_size;
 
+      Eigen::MatrixXd getLatestBarsN(std::string symbol, int N);
 
+      int current;
 
 };
 

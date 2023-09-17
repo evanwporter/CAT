@@ -16,6 +16,7 @@ using namespace std;
 
 
 int main() {
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
     vector<std::string> symbols = {"GOOG"};
 
@@ -26,54 +27,33 @@ int main() {
     strategy.dh = &dh;
     strategy.portfolio = &p;
 
-
-    // std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-
-    // dh.load_csv("GOOG", "C:\\Users\\evanw\\options\\GOOG.csv");
-
-    // std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-
-    // std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
-
-    for(int i = 0; i < dh.symbol_dates["GOOG"].size(); i++) {
-        strategy.on_data();
-        p.update_value(100);
+    for(dh.current = 0; dh.current < dh.symbol_dates["GOOG"].size(); dh.current++) {
+        if (dh.current > 100) {
+            strategy.on_data();
+            p.update_value();
+        }
     }
 
-    // vector<vector<double>> holdings;
-    // holdings.reserve(dh.symbols.size());
-
-    // std::cout << std::endl << dh.symbol_dates.size() << std::endl <<  p.holdings["GOOG"].size() << std::endl;
-
-    Eigen::MatrixXd holdings(2148, 1);//dh.symbols.size(), p.holdings["GOOG"].size());
-
-    // for (auto l : p.holdings["GOOG"]){
-    //     std::cout << l;
-    // }
-
-    int i = 0;
-    // Eigen::VectorXd h;
+    Eigen::MatrixXd holdings(p.holdings["GOOG"].size(), dh.symbols.size() + 2);
+    int i = 1;
     for(std::string symbol : dh.symbols){
-        Eigen::VectorXd h = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(p.holdings[symbol].data(), p.holdings[symbol].size());
-        // Eigen::Vector3f h(p.holdings[symbol].data());
-        holdings.col(i) = h;
-        // std::cout << dh.symbols[i];
+        holdings.col(i) = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(
+            p.holdings[symbol].data(), p.holdings[symbol].size()
+        );
         i++;
     };
-    std::cout << std::endl << p.positions["GOOG"].quantity;
+    holdings.col(0) = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(
+        p.CASH_holding.data(), p.CASH_holding.size()
+    );
+    // Total Equity
+    holdings.col(i) = holdings.rowwise().sum();
 
+    std::cout << p.positions["GOOG"].quantity << std::endl;
 
-    // auto data = d.symbol_data["GOOG"];
+    // std::cout << holdings;
 
-    // Eigen::Matrix<double, Dynamic, 5> h;
-
-    // h = data.topRows(10);
-
-    // std::cout << h << std::endl;
-
-    // for (auto i: d.values) {
-    //     std::cout << i << ' ';
-    // }
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
 
     return 0;
 }
