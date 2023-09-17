@@ -3,6 +3,8 @@
 #include "direction.h"
 #include "dh.h"
 #include "strategy.h"
+#include "metrics.h"
+
 
 #include <chrono>
 
@@ -34,26 +36,17 @@ int main() {
         }
     }
 
-    Eigen::MatrixXd holdings(p.holdings["GOOG"].size(), dh.symbols.size() + 2);
-    int i = 1;
-    for(std::string symbol : dh.symbols){
-        holdings.col(i) = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(
-            p.holdings[symbol].data(), p.holdings[symbol].size()
-        );
-        i++;
-    };
-    holdings.col(0) = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(
-        p.CASH_holding.data(), p.CASH_holding.size()
-    );
-    // Total Equity
-    holdings.col(i) = holdings.rowwise().sum();
-
     std::cout << p.positions["GOOG"].quantity << std::endl;
 
-    // std::cout << holdings;
+
+    Metrics m(&p);
+    // std::cout << m.holdings;
 
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+
+    m.display_metrics();
+
 
     return 0;
 }
