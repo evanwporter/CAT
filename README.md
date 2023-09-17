@@ -12,3 +12,5 @@ Edit: This C++ version is so much faster than the python version. There's a diff
 This link proved to be exceedingly helpful:
 https://eigen.tuxfamily.org/dox/AsciiQuickReference.txt
 (putting it here for easy access)
+
+Uses only Eigen 3.4.0
