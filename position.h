@@ -9,11 +9,13 @@ class Position {
     Ticker ticker;
     Trade *latest_trade;
 
-    int quantity;
+    double quantity;
 
     Position();
 
-    void add_trade(int price, int quantity, Direction direction); 
+    void add_trade(double order_price, double order_quantity, Direction direction);
+
+    double update_value(double price);
 
 };
 

@@ -18,7 +18,7 @@ Position::Position()
     latest_trade->previous_trade = NULL;
 }
 
-void Position::add_trade(int order_price, int order_quantity, Direction direction) 
+void Position::add_trade(double order_price, double order_quantity, Direction direction) 
 {
     Trade *t = new Trade(0, order_price, quantity, direction);
     t->previous_trade = latest_trade;
@@ -26,4 +26,8 @@ void Position::add_trade(int order_price, int order_quantity, Direction directio
 
     quantity = quantity + ( direction * order_quantity );
 
+}
+double Position::update_value(double price)
+{
+    return quantity * price;
 };

@@ -2,11 +2,23 @@
 
 DataHandler::DataHandler(){};
 
+DataHandler::DataHandler(std::vector<std::string> sym) {
+    symbols = sym;
+
+    for(unsigned int i = 0; i < symbols.size(); i++)
+    // for(std::string symbol : symbols)
+    {
+        load_csv(symbols[i], "C:\\Users\\evanw\\options\\");
+
+    }
+
+};
+
 void DataHandler::load_csv(const std::string &symbol, const std::string &path)
 {
     // int load_csv (const std::string & path) {
     std::ifstream indata;
-    indata.open(path);
+    indata.open(path + symbol + ".csv");
     std::string line;
 
     std::vector<double> values;
