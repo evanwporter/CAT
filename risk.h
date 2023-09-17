@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include <string>
 
+// Risk is completely unimplemented ATM. This will change in the future.
+
 class RiskHandler {
     public:
       // Maximum Leverage Ratio
