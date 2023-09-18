@@ -30,6 +30,11 @@ class Portfolio {
     void update_position(double price, std::string symbol, int quantity, Direction direction);
 
     void update_value();
+
+    std::vector<double> TOTAL_EQUITY, ASSETS, LIABILITIES;
+
+    double A, L, TE;
+
 };
 
 #endif

@@ -9,10 +9,15 @@ Portfolio::Portfolio(DataHandler *data_handler)
 
     for(std::string symbol : dh->symbols) {
         positions[symbol] = Position();
-        holdings[symbol].reserve(dh->symbol_dates[symbol].size());
+        holdings[symbol].reserve(dh->total_bars);
     };
     CASH_position = CASH(10000);
-    CASH_holding.reserve(dh->symbol_dates["GOOG"].size());
+    CASH_holding.reserve(dh->total_bars);
+
+    TOTAL_EQUITY.reserve(dh->total_bars);
+    ASSETS.reserve(dh->total_bars);
+    LIABILITIES.reserve(dh->total_bars);
+
 }
 
 void Portfolio::on_signal(std::string symbol, Direction direction)
@@ -29,10 +34,30 @@ void Portfolio::update_position(double price, std::string symbol, int quantity, 
 
 void Portfolio::update_value()
 {   
-    double price;
+    double price, value;
+
+    A = 0;
+    L = 0;
+
     for (std::string symbol : dh->symbols) {
         price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Close"]);
-        holdings[symbol].push_back(positions[symbol].update_value(price));
+        value = positions[symbol].update_value(price);
+        holdings[symbol].push_back(value);
+
+        if (value >= 0) A += value;
+        else L += value;
     };
-    CASH_holding.push_back(CASH_position.update_value(1));
+
+    value = CASH_position.update_value(1);
+    CASH_holding.push_back(value);
+
+    if (value >= 0) A += value;
+    else L += value;
+
+    TE = A + L;
+
+    ASSETS.push_back(A);
+    LIABILITIES.push_back(L);
+    TOTAL_EQUITY.push_back(TE);
+    
 }

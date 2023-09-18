@@ -1,17 +1,19 @@
 #include "dh.h"
 
+#include <vector>
+#include <algorithm>
+
 DataHandler::DataHandler(){};
 
 DataHandler::DataHandler(std::vector<std::string> sym) {
     symbols = sym;
 
     // for(unsigned int i = 0; i < symbols.size(); i++)
-    for(std::string symbol : symbols)
-    {
-        load_csv(symbol, "C:\\Users\\evanw\\options\\");
+    for(std::string symbol : symbols) load_csv(symbol, "C:\\Users\\evanw\\options\\");
 
-    }
+    for(std::string symbol : symbols) total_symbol_dates = unionize(total_symbol_dates, symbol, symbol_dates[symbol]);
 
+    total_bars = total_symbol_dates.size();
 };
 
 void DataHandler::load_csv(const std::string &symbol, const std::string &path)
@@ -61,3 +63,37 @@ Eigen::MatrixXd DataHandler::getLatestBarsN(std::string symbol, int N)
 {
     return symbol_data[symbol].topRows(current).bottomRows(N);
 };
+
+std::vector<std::string> DataHandler::unionize(std::vector<std::string> a, std::string symbol, std::vector<std::string> b) {
+    // unsigned int a_loc[2] = {0, a.size()};
+    unsigned int b_loc[2] = {0, b.size()};
+
+    std::vector<std::string> c;
+
+    int i = 0, j = 0;
+    while( i < a.size() && j < b.size()) {
+
+        if( a[ i ] == b[ j ] ) {
+            c.push_back( a[ i ] );
+            ++i, ++j;
+        }
+        else if( a[ i ] < b[ j ] ) c.push_back( a[ i++ ] );
+        else c.push_back( b[ j++ ] );
+
+        // if (i == 1 && j > 0) a_loc[0] = j - 1;
+        if (i > 0 && j == 1) b_loc[0] = i - 1;
+
+    }
+
+    while( i < a.size()) c.push_back( a[ i++ ] );
+    while( j < b.size()) c.push_back( b[ j++ ] );
+
+    // a_loc[1] += a_loc[0] - 1;
+    b_loc[1] += b_loc[0] - 1;
+
+    symbol_data_locations[symbol][0] = b_loc[0];
+    symbol_data_locations[symbol][1] = b_loc[1];
+
+    return c;
+}
+

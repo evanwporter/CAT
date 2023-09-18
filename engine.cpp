@@ -28,7 +28,7 @@ void engine() {
     strategy.dh = &dh;
     strategy.portfolio = &p;
 
-    for(dh.current = 0; dh.current < dh.symbol_dates["GOOG"].size(); dh.current++) {
+    for(dh.current = 0; dh.current < dh.total_bars; dh.current++) {
         if (dh.current > 100) {
             strategy.on_data();
             p.update_value();

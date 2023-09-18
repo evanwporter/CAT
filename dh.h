@@ -25,7 +25,15 @@ class DataHandler {
       // std::unordered_map<std::string, std::vector<datetime64>> symbol_dates;
       std::unordered_map<std::string, Matrix<typename MatrixXd::Scalar, MatrixXd::RowsAtCompileTime, MatrixXd::ColsAtCompileTime, RowMajor>> symbol_data;
 
+      // stores the location of the symbol data relative to the master collection
+      std::unordered_map<std::string, unsigned int[2]> symbol_data_locations;
+
+
       std::map<std::string, int> s;
+
+      std::vector<std::string> total_symbol_dates;
+
+      unsigned int total_bars;
 
       // std::unordered_map<std::string, std::vector<double>> symbol_data;
 
@@ -41,7 +49,9 @@ class DataHandler {
 
       Eigen::MatrixXd getLatestBarsN(std::string symbol, int N);
 
-      int current;
+      unsigned int current;
+
+      std::vector<std::string> unionize(std::vector<std::string> a, std::string symbol, std::vector<std::string> b );
 
 };
 

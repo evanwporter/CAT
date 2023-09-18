@@ -4,8 +4,19 @@
 #include <unordered_map>
 #include <string>
 
+#include "dh.h"
+#include "portfolio.h"
+
 class RiskHandler {
     public:
+      RiskHandler();
+      RiskHandler(DataHandler *data_handler,  Portfolio *p);
+
+      DataHandler *dh;
+      Portfolio *portfolio;
+
+      double TE;
+
       // Maximum Leverage Ratio
       double MLR = 1;
 
@@ -14,7 +25,8 @@ class RiskHandler {
  
       std::unordered_map<std::string, double> weight_bounds;
 
-      void check_weights();
+    private:
+      void check_leverage();
 
 
     
