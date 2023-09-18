@@ -7,6 +7,7 @@ class CASH {
     public:
       double quantity;
       CASH();
+      CASH(double starting_quantity);
       void update_position(double order_price, double order_quantity, Direction direction);
       double update_value(double price);
 };

@@ -5,7 +5,6 @@
 #include "strategy.h"
 #include "metrics.h"
 
-
 #include <chrono>
 
 #include <Eigen/Dense>
@@ -38,16 +37,14 @@ void engine() {
 
     // std::cout << p.positions["GOOG"].quantity << std::endl;
 
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
     Metrics m(&p);
+    m.TIME_TAKEN = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
+
     // std::cout << m.holdings;
 
-    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-    std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
-
     m.display_metrics();
-
-
 }
 
 int main() {

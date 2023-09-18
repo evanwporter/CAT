@@ -36,20 +36,22 @@ Metrics::Metrics(Portfolio *p) {
 
     PnL = TOTAL_EQUITY(TOTAL_EQUITY.size() - 1) - TOTAL_EQUITY(0);
 
-
     // std::cout<<"4";
 
     // Total Returns
     TOTAL_RETURNS = Eigen::MatrixXd(holdings.rows(), 1);
-    TOTAL_RETURNS(0) = 0;
+    TOTAL_RETURNS(0) = 1;
 
     // std::cout<<"5";// << std::endl;
 
-    for (int j = 1; j < holdings.rows(); j++) {
-        TOTAL_RETURNS(j) = (TOTAL_EQUITY(j) - TOTAL_EQUITY(j - 1)) / TOTAL_EQUITY(j - 1);
+    for (int j = 1; j < TOTAL_EQUITY.size(); j++) {
+        if (TOTAL_EQUITY(j - 1) == 0) TOTAL_RETURNS(j) = 0;
+        else TOTAL_RETURNS(j) = (TOTAL_EQUITY(j) - TOTAL_EQUITY(j - 1)) / TOTAL_EQUITY(j - 1);
     };
 
     TOTAL_RETURN = TOTAL_RETURNS(TOTAL_RETURNS.size() - 1);
+
+    // std::cout << "TOTAL EQUITY" << std::endl << TOTAL_EQUITY.head(10) << std::endl;
 
     cumulative_product(TOTAL_RETURNS, EQUITY_CURVE);
 
@@ -64,6 +66,10 @@ Metrics::Metrics(Portfolio *p) {
     // std::cout << max_dd << std::endl;
 
     // std::cout << SHARPE_RATIO(252) << std::endl;
+
+    // std::cout << "EQ CURVE Head" << std::endl << EQUITY_CURVE.head(10) << std::endl;
+    // std::cout << "EQ CURVE Tail" << std::endl << EQUITY_CURVE.tail(10) << std::endl;
+
 }
 
 double Metrics::SHARPE_RATIO(int periods) {
@@ -101,10 +107,16 @@ void Metrics::calculate_drawdown() {
 };
 
 void Metrics::cumulative_product(Eigen::VectorXd vec, Eigen::VectorXd& make_vec) {
+    // Note this function automatically adds one to whatever its cumulatively multiplying.
+
     make_vec = Eigen::MatrixXd(vec.size(), 1);
     make_vec(0) = vec(0);
 
+    // std::cout << "TOTAL RETURNS" << std::endl << vec.head(10) << std::endl;
+
     vec.array() += 1.f;
+
+    // std::cout << "TOTAL RETURNS + 1" << std::endl << vec.head(10) << std::endl;
 
     for (int j = 1; j < vec.size(); j++) {
         make_vec(j) = (vec(j) * vec(j - 1));
@@ -115,6 +127,7 @@ void Metrics::cumulative_product(Eigen::VectorXd vec, Eigen::VectorXd& make_vec)
 void Metrics::display_metrics() {
     VariadicTable<std::string, double> vt({"Metric", "Value"}, 10);
 
+    vt.addRow("Time Taken", TIME_TAKEN);
     vt.addRow("Sharpe Ratio", SHARPE_RATIO(252));
     vt.addRow("Total Return", TOTAL_RETURN);
     vt.addRow("Max DD", MAX_DRAWDOWN);
@@ -124,4 +137,4 @@ void Metrics::display_metrics() {
 
     vt.print(std::cout);
 
-}
+};

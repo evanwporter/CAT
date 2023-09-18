@@ -11,7 +11,7 @@ Portfolio::Portfolio(DataHandler *data_handler)
         positions[symbol] = Position();
         holdings[symbol].reserve(dh->symbol_dates[symbol].size());
     };
-    CASH_position = CASH();
+    CASH_position = CASH(10000);
     CASH_holding.reserve(dh->symbol_dates["GOOG"].size());
 }
 
@@ -24,7 +24,7 @@ void Portfolio::on_signal(std::string symbol, Direction direction)
 void Portfolio::update_position(double price, std::string symbol, int quantity, Direction direction)
 {
     positions[symbol].update_position(price, quantity, direction);
-    CASH_position.update_position(price, quantity, Direction::SHORT);
+    CASH_position.update_position(price, quantity, direction);
 }
 
 void Portfolio::update_value()

@@ -11,9 +11,11 @@
 #include <algorithm>
 #include <limits>
 
-// I didn't make this!
-// I found this here and liked it
+// EP NOTE
+// I didn't make this.
+// I found it and liked it
 // https://github.com/friedmud/variadic_table/tree/master
+// I did however make a few changes.
 
 /**
  * Used to specify the column format
@@ -97,7 +99,7 @@ public:
       total_width += col_size + (2 * _cell_padding);
 
     // Print out the top line
-    stream << std::string(total_width, '-') << "\n";
+    stream << "+" << std::string(total_width - 2, '-') << "+" << "\n";
 
     // Print out the headers
     stream << "|";
@@ -114,7 +116,7 @@ public:
     stream << "\n";
 
     // Print out the line below the header
-    stream << std::string(total_width, '-') << "\n";
+    stream << "+" << std::string(total_width - 2, '-') << "+" << "\n";
 
     // Now print the rows of the table
     for (auto & row : _data)
@@ -125,7 +127,7 @@ public:
     }
 
     // Print out the line below the header
-    stream << std::string(total_width, '-') << "\n";
+    stream << "+" << std::string(total_width -2 , '-') << "+" << "\n";
   }
 
   /**

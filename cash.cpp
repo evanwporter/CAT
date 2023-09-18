@@ -1,7 +1,11 @@
 #include "cash.h"
 #include "direction.h"
 
-CASH::CASH() {};
+CASH::CASH() {}
+
+CASH::CASH(double starting_quantity) {
+    quantity = starting_quantity;
+};
 
 double CASH::update_value(double price)
 {

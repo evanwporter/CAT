@@ -10,9 +10,9 @@
 using Eigen::MatrixXd;
 using namespace std;
 
-Position::Position()
+Position::Position(double starting_quantity)
 {
-    quantity = 0;
+    quantity = starting_quantity;
 }
 
 void Position::update_position(double order_price, double order_quantity, Direction direction)

@@ -7,11 +7,13 @@
 
 #include <list>
 
-class Position : public CASH {
+class Position {
   public:
     std::list<Trade> trades;
 
-    Position();
+    double quantity;
+
+    Position(double starting_quantity = 0);
 
     void update_position(double order_price, double order_quantity, Direction direction);
 
