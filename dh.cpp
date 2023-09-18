@@ -52,8 +52,9 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
         ++rows;
     };
 
-    for(unsigned int i = 0; i < headers.size(); i++){
-        symbol_headers[symbol][headers[i]] = i;
+    // Starts at 1 to eliminate Date header
+    for(unsigned int i = 1; i < headers.size(); i++){
+        symbol_headers[symbol][headers[i]] = i - 1;
     };
 
     symbol_data[symbol] = Map<const Matrix<typename MatrixXd::Scalar, MatrixXd::RowsAtCompileTime, MatrixXd::ColsAtCompileTime, RowMajor>> (values.data(), rows, values.size()/rows);
@@ -61,7 +62,16 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
 
 Eigen::MatrixXd DataHandler::getLatestBarsN(std::string symbol, int N)
 {
-    return symbol_data[symbol].topRows(current).bottomRows(N);
+    // a = {0, 1, 2, 3, 4, 5}
+    // b = {3, 4, 5, 6, 7, 8}
+    // c = {0, 1, 2, 3, 4, 5, 6, 7, 8}
+    // current = 6
+    // symbol = b
+    // N = 2
+    // a_loc = {0, 5}
+    // b_loc = {3, 8}
+    // return {5, 6} indices: {2, 3}
+    return symbol_data[symbol].topRows(current - symbol_data_locations[symbol][0]).bottomRows(N);
 };
 
 std::vector<std::string> DataHandler::unionize(std::vector<std::string> a, std::string symbol, std::vector<std::string> b) {

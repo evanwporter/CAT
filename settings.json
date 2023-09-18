@@ -1,0 +1,68 @@
+// Settings Page
+// -------------
+// TODO
+//  * Documentation
+
+
+// There are three modes
+//  * Backtest `backtest`: Uses the `HistoricDataHandler` and the `SimulatedExecutionHandler`
+//  * Paper Trading `paper`: Uses the `LiveDataHandler` and the `SimulatedExecutionHandler`
+//  * Live Trader `live`: Uses the `LiveDataHandler` and the `ExchangeHandler`
+
+{
+    "MODE" : "backtest",
+
+    "FEES" : {
+        "NASDAQ" : 0.0
+    },
+
+    "SYMBOLS" : [
+        "GOOG"
+    ],
+
+    "DATA_INTERVAL" : "1d",
+    "TRADING_INTERVAL" : "1d",
+
+    // ----------------
+    // | Data Handler |
+    // ----------------
+    // Warmup period is how many the starting point for the data. Everything in the
+    // warmup period can be used as data right from the start.
+    "DATA_WARMUP_PERIOD" : 500,
+    "DATA_DIRECTORY" : "C:\\Users\\evanh\\Projects\\AT\\Data",
+
+    // ------------
+    // | Strategy |
+    // ------------
+
+    // Strategy you want to use. Backtesting uses getattr to read the strategy 
+    // provided that their is a equivalently named strategy in the strategy folder.
+    "STRATEGY" : "UpDownTick",
+    "PARAMETERS" : {"method": "TREND"},
+
+    // ----------------
+    // | Risk Handler |
+    // ----------------
+    "TAKE_PROFITS" : false,
+    "STOP_LOSSES" : false,
+    "LEVERAGE_RATIO" : 1.0,
+
+    // Percent of total equity
+    "CASH_BUFFER" : 0.2,
+    "WEIGHTING" : "long-only",
+    "POSITION_SIZER" : {"method": "Fixed Size", "size": ".1"},
+
+    // -------------
+    // | Portfolio |
+    // -------------
+    "INITIAL_CASH" : 1000,
+
+    // ----------
+    // | Broker |
+    // ----------
+    "QUIET" : true,
+
+    // FEE MODEL
+    "ADJUST_QUANTITY" : true,
+    "SLIPPAGE_LAG" : 1
+}

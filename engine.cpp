@@ -35,8 +35,6 @@ void engine() {
         }
     }
 
-    // std::cout << p.positions["GOOG"].quantity << std::endl;
-
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
     Metrics m(&p);
@@ -47,7 +45,7 @@ void engine() {
     m.display_metrics();
 }
 
-int main() {
-    engine();
-    return 0;
-}
+// int main() {
+//     engine();
+//     return 0;
+// }

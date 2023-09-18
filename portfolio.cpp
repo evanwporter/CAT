@@ -23,7 +23,16 @@ Portfolio::Portfolio(DataHandler *data_handler)
 void Portfolio::on_signal(std::string symbol, Direction direction)
 {
     double price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Close"]);
-    update_position(price, symbol, 1, direction);
+    update_position(price, symbol, 10, direction);
+
+    // std::cout << "Executed trade for 1 share of " << symbol << " at " << price << "." <<std::endl;
+
+    // std::cout << dh->symbol_data["GOOG"] << std::endl;
+    // std::cout << dh->getLatestBarsN(symbol, 1) << std::endl;
+
+    // std::cout << dh->symbol_headers[symbol]["Close"] << std::endl;
+
+
 }
 
 void Portfolio::update_position(double price, std::string symbol, int quantity, Direction direction)
