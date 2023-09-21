@@ -19,4 +19,6 @@ This link proved to be exceedingly helpful:
 https://eigen.tuxfamily.org/dox/AsciiQuickReference.txt
 (putting it here for easy access)
 
-Uses only Eigen 3.4.0
+Uses
+Eigen 3.4.0
+(Variadic Table)[https://github.com/friedmud/variadic_table/tree/master]
