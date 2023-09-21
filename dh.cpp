@@ -44,10 +44,10 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
         std::istringstream ss(cell);
 
         // symbol_dates[symbol].push_back(std::stod(cell));
-        symbol_dates[symbol].push_back(cell);
+        symbol_dates[symbol].push_back(stoll(cell));
 
         while (std::getline(lineStream, cell, ',')) {
-            values.push_back(std::stod(cell));
+            values.push_back(std::stoll(cell) * 1000);
         };
         ++rows;
     };
@@ -74,11 +74,11 @@ Eigen::MatrixXd DataHandler::getLatestBarsN(std::string symbol, int N)
     return symbol_data[symbol].topRows(current - symbol_data_locations[symbol][0]).bottomRows(N);
 };
 
-std::vector<std::string> DataHandler::unionize(std::vector<std::string> a, std::string symbol, std::vector<std::string> b) {
+std::vector<datetime64> DataHandler::unionize(std::vector<datetime64> a, std::string symbol, std::vector<datetime64> b) {
     // unsigned int a_loc[2] = {0, a.size()};
     unsigned int b_loc[2] = {0, b.size()};
 
-    std::vector<std::string> c;
+    std::vector<datetime64> c;
 
     int i = 0, j = 0;
     while( i < a.size() && j < b.size()) {
@@ -106,4 +106,3 @@ std::vector<std::string> DataHandler::unionize(std::vector<std::string> a, std::
 
     return c;
 }
-

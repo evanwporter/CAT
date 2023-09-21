@@ -45,7 +45,7 @@ void engine() {
     m.display_metrics();
 }
 
-// int main() {
-//     engine();
-//     return 0;
-// }
+int main() {
+    engine();
+    return 0;
+}

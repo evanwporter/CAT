@@ -13,7 +13,7 @@
 using namespace Eigen;
 
 // Milliseconds
-typedef std::uint64_t datetime64;
+typedef unsigned long long datetime64;
 
 class DataHandler {
     private:
@@ -21,9 +21,10 @@ class DataHandler {
 
     public:
       std::unordered_map<std::string, std::unordered_map<std::string, int>> symbol_headers;
-      std::unordered_map<std::string, std::vector<std::string>> symbol_dates;
-      // std::unordered_map<std::string, std::vector<datetime64>> symbol_dates;
+      // std::unordered_map<std::string, std::vector<std::string>> symbol_dates;
+      std::unordered_map<std::string, std::vector<datetime64>> symbol_dates;
       std::unordered_map<std::string, Matrix<typename MatrixXd::Scalar, MatrixXd::RowsAtCompileTime, MatrixXd::ColsAtCompileTime, RowMajor>> symbol_data;
+      // std::unordered_map<std::string, std::unordered_map<std::string, std::vector<long int>>> symbol_data;
 
       // stores the location of the symbol data relative to the master collection
       std::unordered_map<std::string, unsigned int[2]> symbol_data_locations;
@@ -31,7 +32,7 @@ class DataHandler {
 
       std::map<std::string, int> s;
 
-      std::vector<std::string> total_symbol_dates;
+      std::vector<datetime64> total_symbol_dates;
 
       unsigned int total_bars;
 
@@ -51,7 +52,7 @@ class DataHandler {
 
       unsigned int current;
 
-      std::vector<std::string> unionize(std::vector<std::string> a, std::string symbol, std::vector<std::string> b );
+      std::vector<datetime64> unionize(std::vector<datetime64> a, std::string symbol, std::vector<datetime64> b);
 
 };
 
