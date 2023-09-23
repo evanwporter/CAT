@@ -1,29 +1,50 @@
-// #include "risk.h"
+#include "risk.h"
+#include "Direction.h"
+#include "DataHandler"
 
-// RiskHandler::RiskHandler() {};
+RiskHandler::RiskHandler() {};
 
-// RiskHandler::RiskHandler(DataHandler *data_handler,  Portfolio *p) {
-//     dh = data_handler;
-//     portfolio = p;
-// }
+RiskHandler::RiskHandler(DataHandler *data_handler,  Portfolio *p) {
+    dh = data_handler;
+    portfolio = p;
 
+    weights["APPL"] = .5;
+    weights["GOOG"] = .5;
+}
 
-// void RiskHandler::check_leverage()
-// {
-//     double MC, MAV, UAV;
+double RishHandler::check_weights(std::string symbol, double weight_adjustment, cents price, Direction direction) {
+    // Weight Adjustment is how of asset to buy or sell
+    // Reflected as a percentage of Total Equity
 
-//     // Minimum Cash
-//     MC = CB * portfolio->TE;
+    double max_weight = weights[symbol];
+    double current_weight = (portfolio->holdings[symbol][-1] / portfolio->TE);
 
-//     // Maximum Asset Value
-//     MAV = MLR * portfolio->TE;
+    double potential_weight = current_weight + (weight_adjustment * direction);
 
-//     // Usable Asset Value
-//     UAV = MAV - MC;
+    if (max_weight < potential_weight) {
+        // Scale quantity down
+        weight_adjustment = max_weight - current_weight;
+    }
 
-//     // # Maximum Quantity
-//     // MQ = UAV / price
+    return weight_adjustment;
+}
 
-//     // if self.quantity > MQ:
-//     //     self.quantity = MQ
-// }
+void RiskHandler::check_leverage()
+{
+    double MC, MAV, UAV;
+
+    // Minimum Cash
+    MC = CB * portfolio->TE;
+
+    // Maximum Asset Value
+    MAV = MLR * portfolio->TE;
+
+    // Usable Asset Value
+    UAV = MAV - MC;
+
+    // # Maximum Quantity
+    // MQ = UAV / price
+
+    // if self.quantity > MQ:
+    //     self.quantity = MQ
+}

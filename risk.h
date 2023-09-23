@@ -22,8 +22,18 @@ class RiskHandler {
 
       // Cash Buffer
       double CB;
- 
-      std::unordered_map<std::string, double> weight_bounds;
+
+      // The weights are how much of the Total Equity are in a particular asset
+      // Weight bounds are predefined maximum weights for each asset
+      // This function checks to see if the proposed trade will go over 
+      // or under the weight bounds
+      std::unordered_map<std::string, double> weights;
+
+      double RishHandler::check_weights(std::string symbol, double weight_adjustment, cents price, Direction direction);
+
+      // How of asset to buy or sell
+      // Reflected as a percentage of Total Equity
+      // weight_adjustment = .1
 
     private:
       void check_leverage();
