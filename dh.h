@@ -42,6 +42,7 @@ class DataHandler {
       std::vector<std::string> symbols;// = {"GOOG", "AAPL"};
 
       sd::ondemand::document settings;
+      bool quiet = true;
 
       unsigned int total_bars, current, data_size;
 

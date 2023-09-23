@@ -9,7 +9,6 @@
 
 using namespace simdjson;
 
-
 DataHandler::DataHandler() {
     ondemand::parser parser;
     padded_string json = padded_string::load("settings.json");
@@ -21,34 +20,46 @@ DataHandler::DataHandler() {
 
     std::string path = std::string(std::string_view(settings["DATA_DIRECTORY"].get_string()));
 
-    for(std::string symbol : symbols) load_csv(symbol, "C:\\Users\\evanw\\options\\");
+    quiet = settings["QUIET"].get_bool();
+
+    for(std::string symbol : symbols) load_csv(symbol, path);//"C:\\Users\\evanw\\options\\");
 
     for(std::string symbol : symbols) total_symbol_dates = unionize(total_symbol_dates, symbol, symbol_dates[symbol]);
 
     total_bars = total_symbol_dates.size();
 };
 
+// TODO: Optimize (somehow)
 void DataHandler::load_csv(const std::string &symbol, const std::string &path)
 {
+    std::vector<double> values;
+    unsigned int rows = 0;
+    std::size_t data_length, data_width;
+
     // int load_csv (const std::string & path) {
     std::ifstream indata;
     indata.open(path + symbol + ".csv");
     std::string line;
-
-    std::vector<double> values;
-
-    unsigned int rows = 0;
     
-    // First line goes to column headers
+    std::getline(indata, line);
+    data_length = stoi(line);
+
+    // HEADERS
+    // Parse the header/second line
     std::getline(indata, line);
     std::stringstream lineStream(line);
     std::vector<std::string> headers;
     std::string header;
-
     while (getline(lineStream, header, ',')) {
         headers.push_back(header);
     }
+    data_width = headers.size();
 
+    values.reserve(data_length * data_width);
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+
+    // DATA
+    // Parse the rest of the data
     while (std::getline(indata, line)) {
         std::stringstream lineStream(line);
         std::string cell;
@@ -64,13 +75,14 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
         };
         ++rows;
     };
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+
 
     // Starts at 1 to eliminate Date header
-    for(unsigned int i = 1; i < headers.size(); i++){
-        symbol_headers[symbol][headers[i]] = i - 1;
-    };
+    for(unsigned int i = 1; i < headers.size(); i++) symbol_headers[symbol][headers[i]] = i - 1;
 
     symbol_data[symbol] = Map<const Matrix<typename MatrixXd::Scalar, MatrixXd::RowsAtCompileTime, MatrixXd::ColsAtCompileTime, RowMajor>> (values.data(), rows, values.size()/rows);
+    std::cout << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << std::endl;
 };
 
 Eigen::MatrixXd DataHandler::getLatestBarsN(std::string symbol, int N)

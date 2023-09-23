@@ -12,7 +12,7 @@
     "DATA_INTERVAL" : "1d",
     "TRADING_INTERVAL" : "1d",
     "DATA_WARMUP_PERIOD" : 500,
-    "DATA_DIRECTORY" : "C:\\Users\\evanw\\Options\\Data",
+    "DATA_DIRECTORY" : "Data\\",
 
     "STRATEGY" : "UpDownTick",
     "PARAMETERS" : {"method": "TREND"},

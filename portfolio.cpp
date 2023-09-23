@@ -25,7 +25,7 @@ void Portfolio::on_signal(std::string symbol, Direction direction)
     long price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
     update_position(price, symbol, 1, direction);
 
-    std::cout << "Executed trade for 1 share of " << symbol << " at " << price << "." <<std::endl;
+    if (!dh->quiet) std::cout << "Executed trade for 1 share of " << symbol << " at " << price << "." <<std::endl;
 
 }
 
