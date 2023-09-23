@@ -25,6 +25,7 @@ TODO:
   * Position sizing
   * Portfolio weightings
 * File organization and structure
+* Convert strings to string_view for memory efficiency
 
 Libraries:
 * [Eigen 3.4.0](https://eigen.tuxfamily.org/index.php?title=Main_Page)
