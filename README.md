@@ -20,7 +20,7 @@ https://eigen.tuxfamily.org/dox/AsciiQuickReference.txt
 (putting it here for easy access)
 
 TODO:
-* ~~Full parse everything (relevant) out of settings.json~~
+* ~~Parse everything (relevant) out of settings.json~~
 * Risk management
   * Position sizing
   * Portfolio weightings
