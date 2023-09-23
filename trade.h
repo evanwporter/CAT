@@ -1,6 +1,8 @@
 #ifndef TRADE_H
 #define TRADE_H
 
+#pragma once
+
 #include <string>
 #include "direction.h"
 
