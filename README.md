@@ -26,6 +26,8 @@ TODO:
   * Portfolio weightings
 * File organization and structure
 * Convert strings to string_view for memory efficiency
+* More strategies
+  * Abstract Base Strategy Class
 
 Libraries:
 * [Eigen 3.4.0](https://eigen.tuxfamily.org/index.php?title=Main_Page)
