@@ -156,12 +156,12 @@ void Metrics::display_metrics() {
 
     vt.print(std::cout);
 
-    MatrixXd l(EQUITY_CURVE.size(), 3);
-    l.col(2) = EQUITY_CURVE;
-    l.col(1) = RETURNS;
-    l.col(0) = TOTAL_EQUITY;
+    // MatrixXd l(EQUITY_CURVE.size(), 3);
+    // l.col(2) = EQUITY_CURVE;
+    // l.col(1) = RETURNS;
+    // l.col(0) = TOTAL_EQUITY;
 
-    printf_csv("./h.csv", l);
+    // printf_csv("./h.csv", l);
 
 };
 
