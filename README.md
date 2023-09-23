@@ -24,6 +24,7 @@ TODO:
 * Risk management
   * Position sizing
   * Portfolio weightings
+* File organization and structure
 
 Libraries:
 * [Eigen 3.4.0](https://eigen.tuxfamily.org/index.php?title=Main_Page)
