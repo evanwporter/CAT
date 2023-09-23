@@ -11,7 +11,7 @@ Portfolio::Portfolio(DataHandler *data_handler)
         positions[symbol] = Position();
         holdings[symbol].reserve(dh->total_bars);
     };
-    CASH_position = CASH(200 * 1000);
+    CASH_position = CASH(10 * 1000000);
     CASH_holding.reserve(dh->total_bars);
 
     TOTAL_EQUITY.reserve(dh->total_bars);
@@ -22,10 +22,10 @@ Portfolio::Portfolio(DataHandler *data_handler)
 
 void Portfolio::on_signal(std::string symbol, Direction direction)
 {
-    long price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Close"]);
+    long price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
     update_position(price, symbol, 1, direction);
 
-    // std::cout << "Executed trade for 1 share of " << symbol << " at " << price << "." <<std::endl;
+    std::cout << "Executed trade for 1 share of " << symbol << " at " << price << "." <<std::endl;
 
 }
 
@@ -43,7 +43,7 @@ void Portfolio::update_value()
     L = 0;
 
     for (std::string symbol : dh->symbols) {
-        price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Close"]);
+        price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
         value = positions[symbol].update_value(price);
         holdings[symbol].push_back(value);
 

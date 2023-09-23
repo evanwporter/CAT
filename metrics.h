@@ -32,7 +32,7 @@ class Metrics {
 
       void display_metrics();
 
-      // void printf_csv(std::string path) {
+      void printf_csv(std::string path, Eigen::MatrixXd matrix);
     
     private:
       void calculate_drawdown();

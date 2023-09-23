@@ -19,9 +19,9 @@ using namespace std;
 void engine() {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
-    vector<std::string> symbols = {"GOOG"};
+    // vector<std::string> symbols = {"GOOG", "AAPL"};
 
-    DataHandler dh = DataHandler(symbols);
+    DataHandler dh = DataHandler();
     Portfolio p = Portfolio(&dh);
     Strategy strategy = Strategy();
 
@@ -40,12 +40,14 @@ void engine() {
     Metrics m(&p);
     m.TIME_TAKEN = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
 
-    // std::cout << m.holdings;
+    // std::cout << Eigen::Matrix({m.EQUITY_CURVE, m.RETURNS});
 
     m.display_metrics();
+
 }
 
 int main() {
     engine();
+    
     return 0;
 }

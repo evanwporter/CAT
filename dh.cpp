@@ -1,15 +1,26 @@
 #include "dh.h"
+#include "simdjson.h"
 
 #include <vector>
 #include <algorithm>
 #include <string>
+#include <string_view>
+#include <iostream>
 
-DataHandler::DataHandler(){};
+using namespace simdjson;
 
-DataHandler::DataHandler(std::vector<std::string> sym) {
-    symbols = sym;
 
-    // for(unsigned int i = 0; i < symbols.size(); i++)
+DataHandler::DataHandler() {
+    ondemand::parser parser;
+    padded_string json = padded_string::load("settings.json");
+    settings = parser.iterate(json);
+
+    for (ondemand::value symbol : settings["SYMBOLS"]) {
+        symbols.push_back(std::string(std::string_view(symbol.get_string())));
+    };
+
+    std::string path = std::string(std::string_view(settings["DATA_DIRECTORY"].get_string()));
+
     for(std::string symbol : symbols) load_csv(symbol, "C:\\Users\\evanw\\options\\");
 
     for(std::string symbol : symbols) total_symbol_dates = unionize(total_symbol_dates, symbol, symbol_dates[symbol]);
@@ -48,7 +59,7 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
         symbol_dates[symbol].push_back(stoll(cell));
 
         while (std::getline(lineStream, cell, ',')) {
-            cents val = std::stod(cell) * 1000;
+            cents val = std::stod(cell) * 1000000;
             values.push_back( val );
         };
         ++rows;

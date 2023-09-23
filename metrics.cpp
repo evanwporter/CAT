@@ -5,7 +5,7 @@
 
 #include <cmath>
 #include <algorithm>
-// #include <ostream>
+#include <fstream>
 
 #include "VariadicTable.h"
 
@@ -13,7 +13,7 @@ Metrics::Metrics(Portfolio *p) {
 
     portfolio = p;
 
-    holdings = Eigen::MatrixXd(portfolio->holdings["GOOG"].size(), portfolio->dh->symbols.size() + 1);
+    holdings = Eigen::MatrixXd(portfolio->CASH_holding.size(), portfolio->dh->symbols.size() + 1);
     
     // std::cout<<"1";
 
@@ -112,28 +112,37 @@ void Metrics::cumulative_product(Eigen::VectorXd vec, Eigen::VectorXd& make_vec)
     // Note this function automatically adds one to whatever its cumulatively multiplying.
 
     make_vec = Eigen::MatrixXd(vec.size(), 1);
-    make_vec(0) = vec(0);
+    // make_vec(0) = vec(0);
 
     // std::cout << "TOTAL RETURNS" << std::endl << vec.head(10) << std::endl;
 
+    make_vec(0) = vec(0);
     vec.array() += 1.f;
 
     // std::cout << "TOTAL RETURNS + 1" << std::endl << vec.head(10) << std::endl;
 
     for (int j = 1; j < vec.size(); j++) {
-        make_vec(j) = (vec(j) * vec(j - 1));
+        make_vec(j) = (vec(j) * make_vec(j - 1));
     };
 
 }
 
-// void Metrics::printf_csv(std::string path) {
-//     std::ofstream out(path);
+void Metrics::printf_csv(std::string path, Eigen::MatrixXd matrix) {
+    const static Eigen::IOFormat CSVFormat(StreamPrecision, DontAlignCols, ", ", "\n");
+    std::ofstream file(path);
+    file << matrix.format(CSVFormat);
 
-//     for (auto& row : temp_matrix) {
-//         for (auto col : row) out << col << ',';
-//         out << '\n';
-//     }
-// }
+
+    // std::cout << matrix;
+
+    // for (int row = 0; row < matrix.rows(); row++) {
+    //     for (int col = 0; col < matrix.cols(); col++) std::cout << col << ',';
+    //     std::cout << '\n';
+    // }
+
+    // for (auto row : matrix)
+
+}
 
 void Metrics::display_metrics() {
     VariadicTable<std::string, double> vt({"Metric", "Value"}, 10);
@@ -145,8 +154,14 @@ void Metrics::display_metrics() {
     vt.addRow("DD Duration", DRAWDOWN_DURATION);
     // vt.addRow("Profit and Loss", PnL);
 
-
     vt.print(std::cout);
+
+    MatrixXd l(EQUITY_CURVE.size(), 3);
+    l.col(2) = EQUITY_CURVE;
+    l.col(1) = RETURNS;
+    l.col(0) = TOTAL_EQUITY;
+
+    printf_csv("./h.csv", l);
 
 };
 
