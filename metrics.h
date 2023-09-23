@@ -4,6 +4,7 @@
 #include "portfolio.h"
 
 #include <vector>
+#include <string>
 
 using namespace Eigen;
 
@@ -15,11 +16,9 @@ class Metrics {
 
       Portfolio *portfolio;
 
-      std::vector<double> returns;
-
       Matrix<double, Dynamic, Dynamic> holdings;
 
-      VectorXd TOTAL_RETURNS, TOTAL_EQUITY, EQUITY_CURVE;
+      VectorXd RETURNS, TOTAL_EQUITY, EQUITY_CURVE;
 
       double SHARPE_RATIO(int periods);
 
@@ -32,6 +31,8 @@ class Metrics {
       int DRAWDOWN_DURATION;
 
       void display_metrics();
+
+      // void printf_csv(std::string path) {
     
     private:
       void calculate_drawdown();

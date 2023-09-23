@@ -5,6 +5,7 @@
 
 #include <cmath>
 #include <algorithm>
+// #include <ostream>
 
 #include "VariadicTable.h"
 
@@ -39,25 +40,26 @@ Metrics::Metrics(Portfolio *p) {
     // std::cout<<"4";
 
     // Total Returns
-    TOTAL_RETURNS = Eigen::MatrixXd(holdings.rows(), 1);
-    TOTAL_RETURNS(0) = 1;
+    RETURNS = Eigen::MatrixXd(holdings.rows(), 1);
+    RETURNS(0) = 1;
 
     // std::cout<<"5";// << std::endl;
 
     for (int j = 1; j < TOTAL_EQUITY.size(); j++) {
-        if (TOTAL_EQUITY(j - 1) == 0) TOTAL_RETURNS(j) = 0;
-        else TOTAL_RETURNS(j) = (TOTAL_EQUITY(j) - TOTAL_EQUITY(j - 1)) / TOTAL_EQUITY(j - 1);
+        if (TOTAL_EQUITY(j - 1) == 0) RETURNS(j) = 0;
+        else RETURNS(j) = (TOTAL_EQUITY(j) - TOTAL_EQUITY(j - 1)) / TOTAL_EQUITY(j - 1);
     };
-
-    TOTAL_RETURN = TOTAL_RETURNS(TOTAL_RETURNS.size() - 1);
 
     // std::cout << "TOTAL EQUITY" << std::endl << TOTAL_EQUITY.head(10) << std::endl;
 
-    cumulative_product(TOTAL_RETURNS, EQUITY_CURVE);
+    cumulative_product(RETURNS, EQUITY_CURVE);
+
+    TOTAL_RETURN = EQUITY_CURVE(EQUITY_CURVE.size() - 1);
+
 
     // std::cout<<"6";
 
-    // std::cout << TOTAL_RETURNS << std::endl;
+    // std::cout << RETURNS << std::endl;
 
     // std::cout<<"7";
 
@@ -73,7 +75,7 @@ Metrics::Metrics(Portfolio *p) {
 }
 
 double Metrics::SHARPE_RATIO(int periods) {
-    return std::sqrt(periods) * TOTAL_RETURNS.mean() / std(TOTAL_RETURNS);
+    return std::sqrt(periods) * RETURNS.mean() / std(RETURNS);
 }
 
 double Metrics::std(Eigen::VectorXd vec) {
@@ -124,6 +126,15 @@ void Metrics::cumulative_product(Eigen::VectorXd vec, Eigen::VectorXd& make_vec)
 
 }
 
+// void Metrics::printf_csv(std::string path) {
+//     std::ofstream out(path);
+
+//     for (auto& row : temp_matrix) {
+//         for (auto col : row) out << col << ',';
+//         out << '\n';
+//     }
+// }
+
 void Metrics::display_metrics() {
     VariadicTable<std::string, double> vt({"Metric", "Value"}, 10);
 
@@ -138,3 +149,4 @@ void Metrics::display_metrics() {
     vt.print(std::cout);
 
 };
+

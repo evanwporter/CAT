@@ -14,7 +14,7 @@ class Strategy {
 
       void on_data();
 
-      bool traded;
+      bool traded = false;
 
 };
 

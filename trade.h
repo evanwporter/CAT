@@ -1,8 +1,6 @@
 #ifndef TRADE_H
 #define TRADE_H
 
-#pragma once
-
 #include <string>
 #include "direction.h"
 
@@ -24,7 +22,7 @@ class Trade {
     Direction direction;
 
     // Average Price
-    double price;
+    long price;
 
     // Trade *previous_trade;
 

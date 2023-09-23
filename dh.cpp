@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <string>
 
 DataHandler::DataHandler(){};
 
@@ -47,7 +48,8 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
         symbol_dates[symbol].push_back(stoll(cell));
 
         while (std::getline(lineStream, cell, ',')) {
-            values.push_back(std::stoll(cell) * 1000);
+            cents val = std::stod(cell) * 1000;
+            values.push_back( val );
         };
         ++rows;
     };

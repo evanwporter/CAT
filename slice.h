@@ -1,24 +1,38 @@
 #ifndef SLICE_H
 #define SLICE_H
 
-#include <vector>
 #include <iostream>
+#include <vector>
 
-class slice 
-{
+using namespace std;
+
+template <class T>
+class slice {
     private:
-        std::vector<long int> *v;
+        std::vector<T>* v;
         std::size_t offset;
         std::size_t count;
+        std::size_t vector_size;
 
     public:
-        slice(std::vector<long int> *vec, int o, int, c): v(vec), offset(o), count(c) {};
+        slice(vector<T>* vec, int o, int c = 0) : v(vec), offset(o), count(c) {
+            vector_size = v->size();
+            if (count == 0 || count > vector_size - offset) {
+                count = vector_size - offset;
+            };
+        };
 
-        void at(index) {
-            std::cout << v->at(index + offset);
-        }
+    T& operator[](int index) {
+        return at(index);
+    };
 
+    T& at(int index) {
+        return v->at(offset + index);
+    };    
 
-}
+    constexpr int size() {
+        return count;
+    }
+};
 
 #endif

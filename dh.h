@@ -15,6 +15,8 @@ using namespace Eigen;
 // Milliseconds
 typedef unsigned long long datetime64;
 
+typedef long cents;
+
 class DataHandler {
     private:
       void load_csv(const std::string &symbol, const std::string &path);
