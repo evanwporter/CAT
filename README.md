@@ -19,6 +19,13 @@ This link proved to be exceedingly helpful:
 https://eigen.tuxfamily.org/dox/AsciiQuickReference.txt
 (putting it here for easy access)
 
-Uses
+TODO:
+* Full parse everything out of settings.json
+* Risk management
+  * Position sizing
+  * Portfolio weightings
+
+Libraries:
 * Eigen 3.4.0
 * [Variadic Table](https://github.com/friedmud/variadic_table/tree/master)
+* [SimdJSON](https://github.com/simdjson/simdjson/blob/master/doc/basics.md#string_view)
