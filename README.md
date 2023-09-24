@@ -15,8 +15,11 @@ https://eigen.tuxfamily.org/dox/AsciiQuickReference.txt
 ## TODO:
 * ~~Parse everything (relevant) out of settings.json~~
 * Risk management
-  * Position sizing
-  * Portfolio weightings
+  * ~~Position sizing~~
+  * ~~Portfolio weightings~~
+  * Use correlation to create optimal weightings
+    * Implement hierarchical risk parity and Black-Litterman allocation
+    * MOAR RISK MANAGEMENT!!! (can never be safe enough)
 * ~~File organization and structure~~
 * Convert strings to string_view for memory efficiency
 * More strategies
