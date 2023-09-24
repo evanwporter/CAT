@@ -8,6 +8,10 @@ Whereas AT is more focused on crypto, CAT is only focused on stocks, thus it doe
 
 In the future I forsee myself working solely on CAT (rather than AT or Sloth). After all Sloth was created purely for AT. And CAT is better that AT in almost every performance based metric.
 
+Why is speed important?
+
+Because of optimizations of the backtest around a variable. Optimizations require the backtest to be run numerous times thus the backtester needs to be quick, and unfortunately python was too slow. (Also I really like optimizing things). 
+
 This link proved to be exceedingly helpful:
 https://eigen.tuxfamily.org/dox/AsciiQuickReference.txt
 (putting it here for easy access)
@@ -26,3 +30,4 @@ https://eigen.tuxfamily.org/dox/AsciiQuickReference.txt
   * Abstract Base Strategy Class
 * Put direction in enum file/folder
 * Use native chrono or roll my own timestamp manager
+* Add optimization function
