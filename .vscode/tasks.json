@@ -9,6 +9,7 @@
                 "/EHsc",
                 "/nologo",
                 "/Fe${fileDirname}\\build\\backtest.exe",
+
                 "${fileDirname}\\**.cpp",
                 "${fileDirname}\\Strategy\\**.cpp",
                 "${fileDirname}\\DataHandler\\**.cpp",
@@ -17,6 +18,7 @@
                 "${fileDirname}\\Libraries\\**.cpp",
                 "${fileDirname}\\Metrics\\**.cpp",
                 "/I${fileDirname}\\Libraries\\Eigen",
+                
                 "/std:c++20",
             ],
             "options": {
