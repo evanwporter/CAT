@@ -42,6 +42,7 @@ void engine() {
     m.TIME_TAKEN = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
 
     // std::cout << Eigen::Matrix({m.EQUITY_CURVE, m.RETURNS});
+    // std::cout << m.holdings;
 
     m.display_metrics();
 

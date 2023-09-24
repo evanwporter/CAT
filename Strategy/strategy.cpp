@@ -6,8 +6,10 @@ Strategy::Strategy() {};
 void Strategy::on_data()
 {
     if (!traded) {
-        rh->on_signal("GOOG", Direction::LONG);
-        rh->on_signal("AAPL", Direction::LONG);
+        for (auto symbol : dh->symbols) rh->on_signal(symbol, Direction::LONG);
+        // rh->on_signal("GOOG", Direction::LONG);
+        // rh->on_signal("AAPL", Direction::LONG);
+        // rh->on_signal("DIS", Direction::LONG);
         traded = true;
     }
 };

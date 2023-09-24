@@ -17,6 +17,9 @@ Portfolio::Portfolio(DataHandler *data_handler)
     CASH_position = CASH(10 * dh->money_mult);
     CASH_holding.reserve(dh->total_bars);
 
+    // std::cout << "Starting bank amount: " << CASH_position.quantity << std::endl;
+    // std::cout << "Effective money mult: " << dh->money_mult << std::endl;
+
     TOTAL_EQUITY.reserve(dh->total_bars);
     ASSETS.reserve(dh->total_bars);
     LIABILITIES.reserve(dh->total_bars);

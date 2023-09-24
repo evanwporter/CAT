@@ -40,9 +40,10 @@ double RiskHandler::check_weights(std::string symbol, double weight_adjustment, 
 void RiskHandler::on_signal(std::string symbol, Direction direction)
 {
     cents price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
-    double weight_adjustment = check_weights(symbol, .4, price, direction);
+    // double weight_adjustment = check_weights(symbol, .4, price, direction);
 
-    int quantity = std::floor(portfolio->TE * weight_adjustment / price);
+    // int quantity = std::floor(portfolio->TE * weight_adjustment / price);
+    int quantity = 1;
 
-    portfolio->on_fill(symbol, price, quantity, direction);
+    if (quantity != 0) portfolio->on_fill(symbol, price, quantity, direction);
 }
