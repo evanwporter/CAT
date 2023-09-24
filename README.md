@@ -19,7 +19,7 @@ This link proved to be exceedingly helpful:
 https://eigen.tuxfamily.org/dox/AsciiQuickReference.txt
 (putting it here for easy access)
 
-TODO:
+### TODO:
 * ~~Parse everything (relevant) out of settings.json~~
 * Risk management
   * Position sizing
