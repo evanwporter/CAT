@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <fstream>
 
+#include "stats.h"
+
 #include "../Libraries/VariadicTable.h"
 
 Metrics::Metrics(Portfolio *p) {
@@ -39,16 +41,17 @@ Metrics::Metrics(Portfolio *p) {
 
     // std::cout<<"4";
 
+    RETURNS = calculate_percent_change(TOTAL_EQUITY);
     // Total Returns
-    RETURNS = Eigen::MatrixXd(holdings.rows(), 1);
-    RETURNS(0) = 1;
+    // RETURNS = Eigen::MatrixXd(holdings.rows(), 1);
+    // RETURNS(0) = 1;
 
-    // std::cout<<"5";// << std::endl;
+    // // std::cout<<"5";// << std::endl;
 
-    for (int j = 1; j < TOTAL_EQUITY.size(); j++) {
-        if (TOTAL_EQUITY(j - 1) == 0) RETURNS(j) = 0;
-        else RETURNS(j) = (TOTAL_EQUITY(j) - TOTAL_EQUITY(j - 1)) / TOTAL_EQUITY(j - 1);
-    };
+    // for (int j = 1; j < TOTAL_EQUITY.size(); j++) {
+    //     if (TOTAL_EQUITY(j - 1) == 0) RETURNS(j) = 0;
+    //     else RETURNS(j) = (TOTAL_EQUITY(j) - TOTAL_EQUITY(j - 1)) / TOTAL_EQUITY(j - 1);
+    // };
 
     // std::cout << "TOTAL EQUITY" << std::endl << TOTAL_EQUITY.head(10) << std::endl;
 
