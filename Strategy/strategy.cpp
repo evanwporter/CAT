@@ -1,5 +1,5 @@
 #include "strategy.h"
-#include "../direction.h"
+#include "../utility.h"
 
 Strategy::Strategy() {};
 

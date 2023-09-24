@@ -1,7 +1,7 @@
 #ifndef CASH_H
 #define CASH_H
 
-#include "../direction.h"
+#include "../utility.h"
 
 class CASH {
     public:

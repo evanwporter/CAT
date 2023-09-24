@@ -1,5 +1,5 @@
 #include "cash.h"
-#include "../direction.h"
+#include "../utility.h"
 
 #include <iostream>
 

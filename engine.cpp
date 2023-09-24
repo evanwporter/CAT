@@ -1,6 +1,6 @@
 #include "Portfolio/ticker.h"
 #include "Portfolio/position.h"
-#include "direction.h"
+#include "utility.h"
 #include "DataHandler/dh.h"
 #include "Strategy/strategy.h"
 #include "Metrics/metrics.h"

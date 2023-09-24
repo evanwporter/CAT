@@ -1,6 +1,6 @@
 #include "position.h"
 #include "trade.h"
-#include "../direction.h"
+#include "../utility.h"
 
 
 #include <iostream>

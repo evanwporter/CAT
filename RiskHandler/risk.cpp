@@ -1,5 +1,5 @@
 #include "risk.h"
-#include "../Direction.h"
+#include "../utility.h"
 #include "../DataHandler/dh.h"
 
 #include <cmath>

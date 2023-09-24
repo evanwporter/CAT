@@ -2,7 +2,7 @@
 #define TRADE_H
 
 #include <string>
-#include "../direction.h"
+#include "../utility.h"
 
 
 // For space efficiency, each trade is a node in a linked list.

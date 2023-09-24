@@ -28,6 +28,6 @@ https://eigen.tuxfamily.org/dox/AsciiQuickReference.txt
 * Convert strings to string_view for memory efficiency
 * More strategies
   * Abstract Base Strategy Class
-* Put direction in enum file/folder
+* ~~Put direction in enum file/folder~~
 * Use native chrono or roll my own timestamp manager
 * Add optimization function

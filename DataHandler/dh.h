@@ -14,14 +14,13 @@
 
 #include "../Libraries/simdjson.h"
 
+#include "../utility.h"
+
 
 namespace sd = simdjson;
 using namespace Eigen;
 
 // Milliseconds
-typedef unsigned long long datetime64;
-
-typedef long cents;
 
 class DataHandler {
     private:

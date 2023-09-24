@@ -5,7 +5,7 @@
 #include "trade.h"
 #include "position.h"
 #include "cash.h"
-#include "../direction.h"
+#include "../utility.h"
 #include "../DataHandler/dh.h"
 
 #include <unordered_map>
