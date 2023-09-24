@@ -25,10 +25,10 @@
     "WEIGHTING" : "long-only",
     "POSITION_SIZER" : {"method": "Fixed Size", "size": ".1"},
 
-    "INITIAL_CASH" : 10,
-
     "QUIET" : true,
     "SLIPPAGE_LAG" : 1,
 
-    "MONEY MULTIPLIER": 100
+    "MONEY MULTIPLIER": 100,
+    "INITIAL CASH" : 10
+
 }

@@ -14,7 +14,7 @@ Portfolio::Portfolio(DataHandler *data_handler)
         positions[symbol] = Position();
         holdings[symbol].reserve(dh->total_bars);
     };
-    CASH_position = CASH(10 * dh->money_mult);
+    CASH_position = CASH(dh->settings["INITIAL CASH"].get_uint64() * dh->money_mult);
     CASH_holding.reserve(dh->total_bars);
 
     // std::cout << "Starting bank amount: " << CASH_position.quantity << std::endl;
