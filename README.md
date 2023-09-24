@@ -24,7 +24,7 @@ TODO:
 * Risk management
   * Position sizing
   * Portfolio weightings
-* File organization and structure
+* ~~File organization and structure~~
 * Convert strings to string_view for memory efficiency
 * More strategies
   * Abstract Base Strategy Class
