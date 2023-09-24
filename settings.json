@@ -29,5 +29,7 @@
 
     "QUIET" : true,
     "ADJUST_QUANTITY" : true,
-    "SLIPPAGE_LAG" : 1
+    "SLIPPAGE_LAG" : 1,
+
+    "MONEY MULTIPLIER": 1000000
 }

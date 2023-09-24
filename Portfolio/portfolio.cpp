@@ -14,7 +14,7 @@ Portfolio::Portfolio(DataHandler *data_handler)
         positions[symbol] = Position();
         holdings[symbol].reserve(dh->total_bars);
     };
-    CASH_position = CASH(10 * 1000000);
+    CASH_position = CASH(10 * dh->money_mult);
     CASH_holding.reserve(dh->total_bars);
 
     TOTAL_EQUITY.reserve(dh->total_bars);
@@ -29,7 +29,7 @@ void Portfolio::on_fill(std::string symbol, cents price, int quantity, Direction
     update_position(price, symbol, quantity, direction);
 
     if (!dh->quiet) std::cout << "Executed trade for 1 share of " << symbol << " at $" 
-                              << std::fixed << std::setprecision(2) << (double(price) / 1000000.) 
+                              << std::fixed << std::setprecision(2) << (double(price) / double(dh->money_mult)) 
                               << "." << std::endl;
 
 }

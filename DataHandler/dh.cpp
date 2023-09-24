@@ -21,6 +21,7 @@ DataHandler::DataHandler() {
     std::string path = std::string(std::string_view(settings["DATA_DIRECTORY"].get_string()));
 
     quiet = settings["QUIET"].get_bool();
+    money_mult = settings["MONEY MULTIPLIER"].get_uint64();
 
     for(std::string symbol : symbols) load_csv(symbol, path);//"C:\\Users\\evanw\\options\\");
 
@@ -70,7 +71,7 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
         symbol_dates[symbol].push_back(stoll(cell));
 
         while (std::getline(lineStream, cell, ',')) {
-            cents val = std::stod(cell) * 1000000;
+            cents val = std::stod(cell) * money_mult;
             values.push_back( val );
         };
         ++rows;
