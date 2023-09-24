@@ -41,7 +41,7 @@ Metrics::Metrics(Portfolio *p) {
 
     // std::cout<<"4";
 
-    RETURNS = calculate_percent_change(TOTAL_EQUITY);
+    RETURNS = pct_change(TOTAL_EQUITY);
     // Total Returns
     // RETURNS = Eigen::MatrixXd(holdings.rows(), 1);
     // RETURNS(0) = 1;
@@ -78,12 +78,12 @@ Metrics::Metrics(Portfolio *p) {
 }
 
 double Metrics::SHARPE_RATIO(int periods) {
-    return std::sqrt(periods) * RETURNS.mean() / std(RETURNS);
+    return std::sqrt(periods) * RETURNS.mean() / stdev(RETURNS);
 }
 
-double Metrics::std(Eigen::VectorXd vec) {
-    return std::sqrt((vec.array() - vec.mean()).square().sum() / (vec.size() - 1));
-}
+// double Metrics::std(Eigen::VectorXd vec) {
+//     return std::sqrt((vec.array() - vec.mean()).square().sum() / (vec.size() - 1));
+// }
 
 
 void Metrics::calculate_drawdown() {

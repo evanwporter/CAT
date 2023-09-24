@@ -6,7 +6,7 @@
 using namespace Eigen;
 
 
-VectorXd calculate_percent_change(VectorXd vec) {
+VectorXd pct_change(VectorXd vec) {
     VectorXd ret = MatrixXd(vec.rows(), 1);
     ret(0) = 1;
 
@@ -20,4 +20,17 @@ VectorXd calculate_percent_change(VectorXd vec) {
 
 double stdev(VectorXd vec) {
     return std::sqrt((vec.array() - vec.mean()).square().sum() / (vec.size() - 1));
+}
+
+// This currently does not work.
+MatrixXd correlation(MatrixXd RETURNS){
+
+    MatrixXd centered = RETURNS.rowwise() - RETURNS.colwise().mean();
+    MatrixXd cov = (centered.adjoint() * centered) / double(RETURNS.rows() - 1);
+
+    auto Dinv = cov.inverse();
+
+    // std::cout << cov;
+
+    return Dinv * cov * Dinv;
 }
