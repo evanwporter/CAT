@@ -1,5 +1,6 @@
 # CAT
-WIP port of AT in c++.
+
+(C++ Algorithmic Trader)
 
 Originally this project was too calculate the Block-Scholes model and various other ways of pricing an option. However I decided to pivot it to a port of AT in pure C++ (something I've been wanting to do for a while).
 
