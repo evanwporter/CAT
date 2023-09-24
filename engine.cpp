@@ -23,10 +23,11 @@ void engine() {
 
     DataHandler dh = DataHandler();
     Portfolio p = Portfolio(&dh);
+    RiskHandler rh = RiskHandler(&dh, &p);
     Strategy strategy = Strategy();
 
     strategy.dh = &dh;
-    strategy.portfolio = &p;
+    strategy.rh = &rh;
 
     for(dh.current = 0; dh.current < dh.total_bars; dh.current++) {
         if (dh.current > 100) {
@@ -48,6 +49,5 @@ void engine() {
 
 int main() {
     engine();
-    
     return 0;
 }

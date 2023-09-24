@@ -25,7 +25,7 @@ class Portfolio {
     Portfolio();
 
     Portfolio(DataHandler *data_handler);
-    void on_signal(std::string symbol, Direction direction);
+    void on_fill(std::string symbol, cents price, int quantity, Direction direction);
 
     void update_position(long price, std::string symbol, int quantity, Direction direction);
 

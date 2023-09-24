@@ -20,10 +20,10 @@ Portfolio::Portfolio(DataHandler *data_handler)
 
 }
 
-void Portfolio::on_signal(std::string symbol, Direction direction)
+void Portfolio::on_fill(std::string symbol, cents price, int quantity, Direction direction)
 {
-    long price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
-    update_position(price, symbol, 1, direction);
+    // long price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
+    update_position(price, symbol, quantity, direction);
 
     if (!dh->quiet) std::cout << "Executed trade for 1 share of " << symbol << " at " << price << "." <<std::endl;
 

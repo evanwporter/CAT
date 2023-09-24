@@ -2,7 +2,7 @@
 #define STRATEGY_H
 
 #include "../DataHandler/dh.h"
-#include "../Portfolio/portfolio.h"
+#include "../RiskHandler/risk.h"
 
 
 class Strategy {
@@ -10,7 +10,7 @@ class Strategy {
       Strategy();
 
       DataHandler *dh;
-      Portfolio *portfolio;
+      RiskHandler *rh;
 
       void on_data();
 

@@ -6,8 +6,8 @@ Strategy::Strategy() {};
 void Strategy::on_data()
 {
     if (!traded) {
-        portfolio->on_signal("GOOG", Direction::LONG);
-        portfolio->on_signal("AAPL", Direction::LONG);
+        rh->on_signal("GOOG", Direction::LONG);
+        rh->on_signal("AAPL", Direction::LONG);
         traded = true;
     }
 };
