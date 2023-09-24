@@ -57,13 +57,3 @@ void cumulative_product(Eigen::VectorXd vec, Eigen::VectorXd& make_vec, float of
     };
 
 }
-=======
-    // std::cout << cov; 
-    // https://www.geeksforgeeks.org/convert-covariance-matrix-to-correlation-matrix-using-python/amp/
-    return Dinv * cov * Dinv;
-
-
-
-    
-}
->>>>>>> ab20e137e851b393afb4a567d191e4b45ed32fe4
