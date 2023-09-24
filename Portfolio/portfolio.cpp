@@ -1,6 +1,9 @@
 #include "portfolio.h"
 #include "cash.h"
 
+#include <iomanip>
+
+
 Portfolio::Portfolio() {};
 
 Portfolio::Portfolio(DataHandler *data_handler)
@@ -25,7 +28,9 @@ void Portfolio::on_fill(std::string symbol, cents price, int quantity, Direction
     // long price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
     update_position(price, symbol, quantity, direction);
 
-    if (!dh->quiet) std::cout << "Executed trade for 1 share of " << symbol << " at " << price << "." <<std::endl;
+    if (!dh->quiet) std::cout << "Executed trade for 1 share of " << symbol << " at $" 
+                              << std::fixed << std::setprecision(2) << (double(price) / 1000000.) 
+                              << "." << std::endl;
 
 }
 

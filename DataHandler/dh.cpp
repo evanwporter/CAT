@@ -82,7 +82,7 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
     for(unsigned int i = 1; i < headers.size(); i++) symbol_headers[symbol][headers[i]] = i - 1;
 
     symbol_data[symbol] = Map<const Matrix<typename MatrixXd::Scalar, MatrixXd::RowsAtCompileTime, MatrixXd::ColsAtCompileTime, RowMajor>> (values.data(), rows, values.size()/rows);
-    std::cout << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << std::endl;
+    if (!quiet) std::cout << "Loaded " << symbol << ". Time taken: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << " microseconds." << std::endl;
 };
 
 Eigen::MatrixXd DataHandler::getLatestBarsN(std::string symbol, int N)

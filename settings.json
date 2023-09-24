@@ -6,7 +6,8 @@
     },
     "SYMBOLS" : [
         "GOOG",
-        "AAPL"
+        "AAPL",
+        "DIS"
     ],
 
     "DATA_INTERVAL" : "1d",
