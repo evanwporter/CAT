@@ -30,7 +30,11 @@ MatrixXd correlation(MatrixXd RETURNS){
 
     auto Dinv = cov.inverse();
 
-    // std::cout << cov;
-
+    // std::cout << cov; 
+    // https://www.geeksforgeeks.org/convert-covariance-matrix-to-correlation-matrix-using-python/amp/
     return Dinv * cov * Dinv;
+
+
+
+    
 }
