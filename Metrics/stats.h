@@ -24,16 +24,16 @@ double stdev(VectorXd vec) {
 
 MatrixXd covariance(MatrixXd M) {
     // Returns covariance matrix
-    MatrixXd centered = RETURNS.rowwise() - RETURNS.colwise().mean();
-    MatrixXd cov = (centered.adjoint() * centered) / double(RETURNS.rows() - 1);
+    MatrixXd centered = M.rowwise() - M.colwise().mean();
+    MatrixXd cov = (centered.adjoint() * centered) / double(M.rows() - 1);
+
+    return cov;
 }
 
 double cov(VectorXd x, VectorXd y) {
     // Returns scalar quantity
     VectorXd xM = (x.array() - x.mean());
     VectorXd yM = (y.array() - y.mean());
-
-<<<<<<< HEAD
     VectorXd MM = xM.array() * yM.array();
 
     return MM.sum() / x.size();
