@@ -7,7 +7,7 @@
     "SYMBOLS" : [
         "GOOG",
         "AAPL",
-        "DIS"
+        "MSFT"
     ],
 
     "DATA_INTERVAL" : "1d",
@@ -25,7 +25,7 @@
     "WEIGHTING" : "long-only",
     "POSITION_SIZER" : {"method": "Fixed Size", "size": ".1"},
 
-    "QUIET" : true,
+    "QUIET" : false,
     "SLIPPAGE_LAG" : 1,
 
     "MONEY MULTIPLIER": 100,

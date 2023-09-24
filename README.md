@@ -31,3 +31,4 @@ https://eigen.tuxfamily.org/dox/AsciiQuickReference.txt
 * ~~Put direction in enum file/folder~~
 * Use native chrono or roll my own timestamp manager
 * Add optimization function
+* Add errors
