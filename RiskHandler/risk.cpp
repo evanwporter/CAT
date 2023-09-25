@@ -13,16 +13,16 @@ RiskHandler::RiskHandler(DataHandler *data_handler,  Portfolio *p) {
     portfolio = p;
 
     weights["APPL"][0] = 0;
-    weights["APPL"][1] = .25;
+    weights["APPL"][1] = .5;
 
     weights["GOOG"][0] = 0;
-    weights["GOOG"][1] = .25;
+    weights["GOOG"][1] = .5;
 
-    weights["MSFT"][0] = 0;
-    weights["MSFT"][1] = .25;
+    // weights["MSFT"][0] = 0;
+    // weights["MSFT"][1] = .25;
 
-    weights["BRK-B"][0] = 0;
-    weights["BRK-B"][1] = .25;
+    // weights["BRK-B"][0] = 0;
+    // weights["BRK-B"][1] = .25;
 
 }
 
