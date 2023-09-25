@@ -32,16 +32,18 @@ double RiskHandler::check_weights(std::string symbol, double weight_adjustment, 
 
     double max_weight, current_weight, potential_weight;
 
+    current_weight = (portfolio->holdings[symbol][dh->current]) / portfolio->TE);
+
     if (direction == Direction::LONG) {
         max_weight = weights[symbol][1];
+        potential_weight = current_weight + (weight_adjustment * 1);
     }
-    else max_weight = weights[symbol][0];
+    else {
+        max_weight = weights[symbol][0];
+        potential_weight = current_weight + (weight_adjustment * -1);
+    };
     
-    if (portfolio->holdings[symbol][-1] == 0) current_weight = 0;
-    else current_weight = (portfolio->holdings[symbol][-1] / portfolio->TE);
-    potential_weight = current_weight + (weight_adjustment * direction);
-
-    // std::cout << symbol << " " << current_weight << " " << portfolio->holdings[symbol][-1] << " ";
+    std::cout << symbol << " " << current_weight << " " << portfolio->holdings[symbol][dh->current] << " ";
 
 
     // Scale quantity down
@@ -58,6 +60,8 @@ void RiskHandler::on_signal(std::string symbol, Direction direction)
 
     // int quantity = (portfolio->TE * WA / price);
     int quantity = 1;
-    // std::cout << portfolio->positions[symbol].quantity * price << " " << WA << " " << portfolio->TE << " " << price << " " << portfolio->positions[symbol].quantity << std::endl;
+    std::cout << " " << portfolio->positions[symbol].quantity * price << " " << WA << " " << portfolio->TE << " " << price << " " << portfolio->positions[symbol].quantity << std::endl;
+
+    for (auto i: portfolio->holdings[symbol]) std::cout << i << " ";
     if (quantity != 0) portfolio->on_fill(symbol, price, quantity, direction);
 }

@@ -31,8 +31,9 @@ void engine() {
 
     for(dh.current = dh.warmup_period; dh.current < dh.total_bars; dh.current++) {
         if (dh.current) {
-            strategy.on_data();
             p.update_value();
+            strategy.on_data();
+
         };
     };
 
