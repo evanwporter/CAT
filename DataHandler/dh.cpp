@@ -18,11 +18,12 @@ DataHandler::DataHandler() {
         symbols.push_back(std::string(std::string_view(symbol.get_string())));
     };
 
-    std::string path = std::string(std::string_view(settings["DATA_DIRECTORY"].get_string()));
+    warmup_period = settings["DATA_WARMUP_PERIOD"].get_uint64();
 
+    std::string path = std::string(std::string_view(settings["DATA_DIRECTORY"].get_string()));
+    
     quiet = settings["QUIET"].get_bool();
     money_mult = settings["MONEY MULTIPLIER"].get_uint64();
-    // warmup_period = settings["MONEY MULTIPLIER"].get_uint64();
 
     for(std::string symbol : symbols) load_csv(symbol, path);//"C:\\Users\\evanw\\options\\");
 

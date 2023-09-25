@@ -11,7 +11,7 @@
 
     "DATA_INTERVAL" : "1d",
     "TRADING_INTERVAL" : "1d",
-    "DATA_WARMUP_PERIOD" : 500,
+    "DATA_WARMUP_PERIOD" : 100,
     "DATA_DIRECTORY" : "Data\\",
 
     "STRATEGY" : "UpDownTick",

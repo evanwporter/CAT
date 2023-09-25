@@ -40,6 +40,7 @@ class DataHandler {
       sd::ondemand::document settings;
       bool quiet = true;
       unsigned long money_mult = 1;
+      unsigned long warmup_period = 1;
 
       unsigned int total_bars, current, data_size;
 
