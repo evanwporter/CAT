@@ -45,6 +45,7 @@ void engine() {
     // std::cout << m.holdings;
 
     m.display_metrics();
+    std::cout << "yay";
 
 }
 

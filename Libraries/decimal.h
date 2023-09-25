@@ -45,6 +45,10 @@
 #include <sstream>
 #include <locale>
 
+#include <Eigen/Core>
+#include <Eigen/Dense>
+
+
 #ifndef DEC_TYPE_LEVEL
 #define DEC_TYPE_LEVEL 2
 #endif
@@ -2011,4 +2015,5 @@ bool fromStream(StreamType &input, const basic_decimal_format &format, decimal_t
     }
 
 } // namespace
+
 #endif // _DECIMAL_H__

@@ -13,14 +13,13 @@
 #include <string_view>
 
 #include "../Libraries/simdjson.h"
-
 #include "../utility.h"
 
 
 namespace sd = simdjson;
 using namespace Eigen;
 
-// Milliseconds
+typedef Matrix< long, Dynamic, Dynamic > MatrixXl;
 
 class DataHandler {
     private:
@@ -30,7 +29,7 @@ class DataHandler {
     public:
       std::unordered_map<std::string, std::unordered_map<std::string, int>> symbol_headers;
       std::unordered_map<std::string, std::vector<datetime64>> symbol_dates;
-      std::unordered_map<std::string, Matrix<typename MatrixXd::Scalar, MatrixXd::RowsAtCompileTime, MatrixXd::ColsAtCompileTime, RowMajor>> symbol_data;
+      std::unordered_map<std::string, MatrixXl> symbol_data;
 
       // stores the location of the symbol data relative to the master collection
       std::unordered_map<std::string, unsigned int[2]> symbol_data_locations;
@@ -49,7 +48,7 @@ class DataHandler {
       DataHandler();
       // DataHandler(std::vector<std::string> sym);
 
-      Eigen::MatrixXd getLatestBarsN(std::string symbol, int N);
+      MatrixXl getLatestBarsN(std::string symbol, int N);
 };
 
 #endif

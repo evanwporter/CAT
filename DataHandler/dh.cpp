@@ -82,11 +82,12 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
     // Starts at 1 to eliminate Date header
     for(unsigned int i = 1; i < headers.size(); i++) symbol_headers[symbol][headers[i]] = i - 1;
 
-    symbol_data[symbol] = Map<const Matrix<typename MatrixXd::Scalar, MatrixXd::RowsAtCompileTime, MatrixXd::ColsAtCompileTime, RowMajor>> (values.data(), rows, values.size()/rows);
+    MatrixXd temp = Map<MatrixXd> (values.data(), rows, values.size()/rows);
+    symbol_data[symbol] = temp.cast<long>();
     if (!quiet) std::cout << "Loaded " << symbol << ". Time taken: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << " microseconds." << std::endl;
 };
 
-Eigen::MatrixXd DataHandler::getLatestBarsN(std::string symbol, int N)
+MatrixXl DataHandler::getLatestBarsN(std::string symbol, int N)
 {
     // a = {0, 1, 2, 3, 4, 5}
     // b = {3, 4, 5, 6, 7, 8}
