@@ -12,7 +12,7 @@ Portfolio::Portfolio(DataHandler *data_handler)
 
     for(std::string symbol : dh->symbols) {
         positions[symbol] = Position();
-        holdings[symbol].reserve(dh->total_bars);
+        holdings[symbol].reserve(dh->total_bars - 100);
     };
     CASH_position = CASH(dh->settings["INITIAL CASH"].get_uint64() * dh->money_mult);
     CASH_holding.reserve(dh->total_bars);

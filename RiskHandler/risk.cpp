@@ -3,6 +3,7 @@
 #include "../DataHandler/dh.h"
 
 #include <cmath>
+#include <iostream>
 
 
 RiskHandler::RiskHandler() {};
@@ -23,27 +24,34 @@ double RiskHandler::check_weights(std::string symbol, double weight_adjustment, 
     // Weight Adjustment is how of asset to buy or sell
     // Reflected as a percentage of Total Equity
 
-    double max_weight;
+    double max_weight, current_weight, potential_weight;
 
-    if (direction == Direction::LONG) max_weight = weights[symbol][1];
+    if (direction == Direction::LONG) {
+        max_weight = weights[symbol][1];
+    }
     else max_weight = weights[symbol][0];
     
-    double current_weight = (portfolio->holdings[symbol][-1] / portfolio->TE);
-    double potential_weight = current_weight + (weight_adjustment * direction);
+    if (portfolio->holdings[symbol][-1] == 0) current_weight = 0;
+    else current_weight = (portfolio->holdings[symbol][-1] / portfolio->TE);
+    potential_weight = current_weight + (weight_adjustment * direction);
 
-    // // Scale quantity down
-    if (max_weight < potential_weight) weight_adjustment = max_weight - current_weight;
+    std::cout << symbol << " " << current_weight << " " << portfolio->holdings[symbol][-1] << " ";
 
+
+    // Scale quantity down
+    if (max_weight < potential_weight) {
+        weight_adjustment = max_weight - current_weight;
+    }
     return weight_adjustment;
 };
 
 void RiskHandler::on_signal(std::string symbol, Direction direction)
 {
-    cents price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
-    // double weight_adjustment = check_weights(symbol, .4, price, direction);
+    // cents price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
+    // double WA = check_weights(symbol, .4, price, direction);
 
-    // int quantity = std::floor(portfolio->TE * weight_adjustment / price);
+    // int quantity = (portfolio->TE * WA / price);
     int quantity = 1;
-
+    // std::cout << WA << " " << portfolio->TE << " " << price << std::endl;
     if (quantity != 0) portfolio->on_fill(symbol, price, quantity, direction);
 }
