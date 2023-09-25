@@ -22,6 +22,7 @@ DataHandler::DataHandler() {
 
     quiet = settings["QUIET"].get_bool();
     money_mult = settings["MONEY MULTIPLIER"].get_uint64();
+    // warmup_period = settings["MONEY MULTIPLIER"].get_uint64();
 
     for(std::string symbol : symbols) load_csv(symbol, path);//"C:\\Users\\evanw\\options\\");
 
@@ -34,6 +35,7 @@ DataHandler::DataHandler() {
 void DataHandler::load_csv(const std::string &symbol, const std::string &path)
 {
     std::vector<money> values;
+
     unsigned int rows = 0;
     std::size_t data_length, data_width;
 
@@ -67,13 +69,20 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
         std::getline(lineStream, cell, ',');
         std::istringstream ss(cell);
 
+        // DATES
         // symbol_dates[symbol].push_back(std::stod(cell));
         symbol_dates[symbol].push_back(stoll(cell));
 
-        while (std::getline(lineStream, cell, ',')) {
+        // VOLUME
+        // while (std::getline(lineStream, cell, ',')) {
+        for (unsigned int i = 0; i < headers.size() - 2; i++) {
+            std::getline(lineStream, cell, ',');
             money val = std::stod(cell) * money_mult;
-            values.push_back( val );
+            values.push_back(val);
         };
+
+        // VOLUME
+        std::getline(lineStream, cell, ',');
         ++rows;
     };
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
@@ -82,7 +91,9 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
     // Starts at 1 to eliminate Date header
     for(unsigned int i = 1; i < headers.size(); i++) symbol_headers[symbol][headers[i]] = i - 1;
 
-    symbol_data[symbol] = Map<MoneyMatrixX> (values.data(), rows, values.size()/rows);
+    // for (auto i: values) std::cout << i << " ";
+
+    symbol_data[symbol] = Map<MoneyMatrixX> (values.data(), rows, headers.size() - 2);
     if (!quiet) std::cout << "Loaded " << symbol << ". Time taken: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << " microseconds." << std::endl;
 };
 

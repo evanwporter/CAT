@@ -13,9 +13,11 @@ Portfolio::Portfolio(DataHandler *data_handler)
     for(std::string symbol : dh->symbols) {
         positions[symbol] = Position();
         holdings[symbol].reserve(dh->total_bars - 100);
+        holdings[symbol].push_back(0);
     };
     CASH_position = CASH(dh->settings["INITIAL CASH"].get_uint64() * dh->money_mult);
     CASH_holding.reserve(dh->total_bars);
+    CASH_holding.push_back(CASH_position.quantity);
 
     // std::cout << "Starting bank amount: " << CASH_position.quantity << std::endl;
     // std::cout << "Effective money mult: " << dh->money_mult << std::endl;
@@ -55,8 +57,11 @@ void Portfolio::update_value()
         value = positions[symbol].update_value(price);
         holdings[symbol].push_back(value);
 
-        if (value >= 0) A += value;
+        if (value > 0) A += value;
         else L += value;
+
+        if (symbol == "GOOG" && positions["GOOG"].quantity < 1) std::cout << value << " "
+                                                                          << price << " " << positions["GOOG"].quantity << std::endl;
     };
 
     value = CASH_position.update_value(1);

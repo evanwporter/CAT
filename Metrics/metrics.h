@@ -17,9 +17,10 @@ class Metrics {
 
       Portfolio *portfolio;
 
-      MoneyMatrixX holdings;
+      MoneyMatrixX holdings, TOTAL_EQUITY;
 
-      MoneyVectorX RETURNS, TOTAL_EQUITY, EQUITY_CURVE;
+      Matrix< double, Dynamic, 1 > RETURNS, EQUITY_CURVE;
+      
 
       double SHARPE_RATIO(int periods);
 

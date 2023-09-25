@@ -31,8 +31,8 @@ void engine() {
 
     for(dh.current = 0; dh.current < dh.total_bars; dh.current++) {
         if (dh.current > 100) {
-            p.update_value();
             strategy.on_data();
+            p.update_value();
         };
     };
 
@@ -46,6 +46,8 @@ void engine() {
 
     m.display_metrics();
 
+    // std::cout << dh.symbol_data["GOOG"];
+    // std::cout << dh.symbol_data["AAPL"];
 }
 
 int main() {

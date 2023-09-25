@@ -6,9 +6,9 @@
 using namespace Eigen;
 
 
-template <typename T>
-Matrix< T, Dynamic, 1 > pct_change(Matrix< money, Dynamic, 1 > vec) {
-    Matrix< T, Dynamic, 1 > ret = Matrix< T, Dynamic, Dynamic >(vec.rows(), 1);
+template <typename I, typename R>
+Matrix< R, Dynamic, 1 > pct_change(Matrix< I, Dynamic, 1 > vec) {
+    Matrix< R, Dynamic, 1 > ret = Matrix< R, Dynamic, Dynamic >(vec.rows(), 1);
     ret(0) = 1;
 
     for (int j = 1; j < vec.size(); j++) {

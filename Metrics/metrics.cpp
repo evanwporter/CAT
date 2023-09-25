@@ -42,7 +42,7 @@ Metrics::Metrics(Portfolio *p) {
 
     // std::cout<<"4";
 
-    RETURNS = pct_change<money>(TOTAL_EQUITY);
+    RETURNS = pct_change<double, double>(TOTAL_EQUITY.cast<double>());
     // Total Returns
     // RETURNS = Eigen::MatrixXd(holdings.rows(), 1);
     // RETURNS(0) = 1;
@@ -56,25 +56,26 @@ Metrics::Metrics(Portfolio *p) {
 
     // std::cout << "TOTAL EQUITY" << std::endl << TOTAL_EQUITY.head(10) << std::endl;
 
-    cumulative_product<money>(RETURNS, EQUITY_CURVE);
+    cumulative_product<double>(RETURNS, EQUITY_CURVE, 1);
 
     TOTAL_RETURN = EQUITY_CURVE(EQUITY_CURVE.size() - 1);
 
 
     // std::cout<<"6";
-
     // std::cout << RETURNS << std::endl;
+
+    // std::cout << EQUITY_CURVE << std::endl;
 
     // std::cout<<"7";
 
-    calculate_drawdown();
+    // calculate_drawdown();
 
     // std::cout << max_dd << std::endl;
 
     // std::cout << SHARPE_RATIO(252) << std::endl;
 
-    // std::cout << "EQ CURVE Head" << std::endl << EQUITY_CURVE.head(10) << std::endl;
-    // std::cout << "EQ CURVE Tail" << std::endl << EQUITY_CURVE.tail(10) << std::endl;
+    // std::cout << "EQ CURVE Head" << std::endl << TOTAL_EQUITY.head(10) << std::endl;
+    // std::cout << "EQ CURVE Tail" << std::endl << TOTAL_EQUITY << std::endl;
 
 }
 
@@ -87,30 +88,30 @@ double Metrics::SHARPE_RATIO(int periods) {
 // }
 
 
-void Metrics::calculate_drawdown() {
+// void Metrics::calculate_drawdown() {
 
-    MoneyVectorX high_water_mark = MoneyMatrixX(EQUITY_CURVE.size(), 1);
-    MoneyVectorX drawdown = MoneyMatrixX(EQUITY_CURVE.size(), 1);
-    MoneyVectorX drawdown_duration = MoneyMatrixX(EQUITY_CURVE.size(), 1);
+//     MoneyVectorX high_water_mark = MoneyMatrixX(EQUITY_CURVE.size(), 1);
+//     MoneyVectorX drawdown = MoneyMatrixX(EQUITY_CURVE.size(), 1);
+//     MoneyVectorX drawdown_duration = MoneyMatrixX(EQUITY_CURVE.size(), 1);
 
-    for (int t = 1; t < EQUITY_CURVE.size(); t++) {
-        high_water_mark(t) = std::max(high_water_mark(t - 1), EQUITY_CURVE(t));
-        drawdown(t) = high_water_mark(t) - EQUITY_CURVE(t);
-        if (drawdown(t) == 0) {
-            drawdown_duration(t) = 0;
-        }
-        else {
-            drawdown_duration(t) = drawdown_duration(t-1) + 1;
-        };
-    //     high_water_mark[t] = max(high_water_mark[t-1], self.eq_curve[t])
-    //     drawdown[t]= high_water_mark[t] - self.eq_curve[t]
-    //     drawdown_duration[t]= 0 if drawdown[t] == 0 else drawdown_duration[t-1] + 1
-    };
+//     for (int t = 1; t < EQUITY_CURVE.size(); t++) {
+//         high_water_mark(t) = std::max(high_water_mark(t - 1), EQUITY_CURVE(t));
+//         drawdown(t) = high_water_mark(t) - EQUITY_CURVE(t);
+//         if (drawdown(t) == 0) {
+//             drawdown_duration(t) = 0;
+//         }
+//         else {
+//             drawdown_duration(t) = drawdown_duration(t-1) + 1;
+//         };
+//     //     high_water_mark[t] = max(high_water_mark[t-1], self.eq_curve[t])
+//     //     drawdown[t]= high_water_mark[t] - self.eq_curve[t]
+//     //     drawdown_duration[t]= 0 if drawdown[t] == 0 else drawdown_duration[t-1] + 1
+//     };
     
-    MAX_DRAWDOWN = drawdown.maxCoeff();
-    DRAWDOWN_DURATION = drawdown_duration.maxCoeff();
+//     MAX_DRAWDOWN = drawdown.maxCoeff();
+//     DRAWDOWN_DURATION = drawdown_duration.maxCoeff();
 
-};
+// };
 
 // void Metrics::cumulative_product(MoneyVectorX vec, MoneyVectorX& make_vec) {
 //     // Note this function automatically adds one to whatever its cumulatively multiplying.
@@ -154,8 +155,8 @@ void Metrics::display_metrics() {
     vt.addRow("Time Taken", TIME_TAKEN);
     vt.addRow("Sharpe Ratio", SHARPE_RATIO(252));
     vt.addRow("Total Return", TOTAL_RETURN);
-    vt.addRow("Max DD", MAX_DRAWDOWN);
-    vt.addRow("DD Duration", DRAWDOWN_DURATION);
+    vt.addRow("Max DD", 100);//MAX_DRAWDOWN);
+    vt.addRow("DD Duration", 100);//DRAWDOWN_DURATION);
     // vt.addRow("Profit and Loss", PnL);
 
     vt.print(std::cout);

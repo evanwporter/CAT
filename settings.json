@@ -6,9 +6,7 @@
     },
     "SYMBOLS" : [
         "GOOG",
-        "AAPL",
-        "MSFT",
-        "BRK-B"
+        "AAPL"
     ],
 
     "DATA_INTERVAL" : "1d",
@@ -30,6 +28,6 @@
     "SLIPPAGE_LAG" : 1,
 
     "MONEY MULTIPLIER": 100000,
-    "INITIAL CASH" : 10
+    "INITIAL CASH" : 50
 
 }

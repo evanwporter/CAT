@@ -21,6 +21,9 @@ RiskHandler::RiskHandler(DataHandler *data_handler,  Portfolio *p) {
     weights["MSFT"][0] = 0;
     weights["MSFT"][1] = .25;
 
+    weights["BRK-B"][0] = 0;
+    weights["BRK-B"][1] = .25;
+
 }
 
 double RiskHandler::check_weights(std::string symbol, double weight_adjustment, money price, Direction direction) {
@@ -55,6 +58,6 @@ void RiskHandler::on_signal(std::string symbol, Direction direction)
 
     // int quantity = (portfolio->TE * WA / price);
     int quantity = 1;
-    std::cout << WA << " " << portfolio->TE << " " << price << " " << portfolio->positions[symbol].quantity << std::endl;
+    std::cout << portfolio->positions[symbol].quantity * price << " " << WA << " " << portfolio->TE << " " << price << " " << portfolio->positions[symbol].quantity << std::endl;
     if (quantity != 0) portfolio->on_fill(symbol, price, quantity, direction);
 }

@@ -11,13 +11,13 @@ class Position {
   public:
     std::list<Trade> trades;
 
-    double quantity;
+    quantity_t quantity;
 
-    Position(double starting_quantity = 0);
+    Position(quantity_t starting_quantity = 0);
 
-    void update_position(double order_price, double order_quantity, Direction direction);
+    void update_position(money order_price, quantity_t order_quantity, Direction direction);
 
-    double update_value(long price);
+    money update_value(money price);
 
 };
 
