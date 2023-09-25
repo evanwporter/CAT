@@ -33,7 +33,7 @@ DataHandler::DataHandler() {
 // TODO: Optimize (somehow)
 void DataHandler::load_csv(const std::string &symbol, const std::string &path)
 {
-    std::vector<double> values;
+    std::vector<money> values;
     unsigned int rows = 0;
     std::size_t data_length, data_width;
 
@@ -71,7 +71,7 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
         symbol_dates[symbol].push_back(stoll(cell));
 
         while (std::getline(lineStream, cell, ',')) {
-            cents val = std::stod(cell) * money_mult;
+            money val = std::stod(cell) * money_mult;
             values.push_back( val );
         };
         ++rows;
@@ -82,8 +82,7 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
     // Starts at 1 to eliminate Date header
     for(unsigned int i = 1; i < headers.size(); i++) symbol_headers[symbol][headers[i]] = i - 1;
 
-    MatrixXd temp = Map<MatrixXd> (values.data(), rows, values.size()/rows);
-    symbol_data[symbol] = temp.cast<long>();
+    symbol_data[symbol] = Map<MatrixXl> (values.data(), rows, values.size()/rows);
     if (!quiet) std::cout << "Loaded " << symbol << ". Time taken: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << " microseconds." << std::endl;
 };
 

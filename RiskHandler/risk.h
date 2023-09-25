@@ -9,7 +9,7 @@
 
 class RiskHandler {
     private:
-      double check_weights(std::string symbol, double weight_adjustment, cents price, Direction direction);
+      double check_weights(std::string symbol, double weight_adjustment, money price, Direction direction);
 
 
     public:

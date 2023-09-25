@@ -19,8 +19,6 @@
 namespace sd = simdjson;
 using namespace Eigen;
 
-typedef Matrix< long, Dynamic, Dynamic > MatrixXl;
-
 class DataHandler {
     private:
       void load_csv(const std::string &symbol, const std::string &path);

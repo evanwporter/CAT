@@ -26,7 +26,7 @@ Portfolio::Portfolio(DataHandler *data_handler)
 
 }
 
-void Portfolio::on_fill(std::string symbol, cents price, int quantity, Direction direction)
+void Portfolio::on_fill(std::string symbol, money price, int quantity, Direction direction)
 {
     // long price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
     update_position(price, symbol, quantity, direction);

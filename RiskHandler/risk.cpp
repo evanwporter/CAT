@@ -20,7 +20,7 @@ RiskHandler::RiskHandler(DataHandler *data_handler,  Portfolio *p) {
 
 }
 
-double RiskHandler::check_weights(std::string symbol, double weight_adjustment, cents price, Direction direction) {
+double RiskHandler::check_weights(std::string symbol, double weight_adjustment, money price, Direction direction) {
     // Weight Adjustment is how of asset to buy or sell
     // Reflected as a percentage of Total Equity
 
@@ -47,7 +47,7 @@ double RiskHandler::check_weights(std::string symbol, double weight_adjustment, 
 
 void RiskHandler::on_signal(std::string symbol, Direction direction)
 {
-    cents price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
+    money price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
     // double WA = check_weights(symbol, .4, price, direction);
 
     // int quantity = (portfolio->TE * WA / price);
