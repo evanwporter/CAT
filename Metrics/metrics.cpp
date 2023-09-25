@@ -10,25 +10,26 @@
 #include "stats.h"
 
 #include "../Libraries/VariadicTable.h"
+#include "../utility.h"
 
 Metrics::Metrics(Portfolio *p) {
 
     portfolio = p;
 
-    holdings = Eigen::MatrixXd(portfolio->CASH_holding.size(), portfolio->dh->symbols.size() + 1);
+    holdings = MoneyMatrixX(portfolio->CASH_holding.size(), portfolio->dh->symbols.size() + 1);
     
     // std::cout<<"1";
 
     int i = 1;
     for(std::string symbol : portfolio->dh->symbols){
-        holdings.col(i) = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(
+        holdings.col(i) = Eigen::Map<MoneyVectorX, Eigen::Unaligned>(
             portfolio->holdings[symbol].data(), portfolio->holdings[symbol].size()
         );
         i++;
     };
     // std::cout<<"2";
 
-    holdings.col(0) = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(
+    holdings.col(0) = Eigen::Map<MoneyVectorX, Eigen::Unaligned>(
         portfolio->CASH_holding.data(), portfolio->CASH_holding.size()
     );
 
@@ -41,7 +42,7 @@ Metrics::Metrics(Portfolio *p) {
 
     // std::cout<<"4";
 
-    RETURNS = pct_change(TOTAL_EQUITY);
+    RETURNS = pct_change<money>(TOTAL_EQUITY);
     // Total Returns
     // RETURNS = Eigen::MatrixXd(holdings.rows(), 1);
     // RETURNS(0) = 1;
@@ -55,7 +56,7 @@ Metrics::Metrics(Portfolio *p) {
 
     // std::cout << "TOTAL EQUITY" << std::endl << TOTAL_EQUITY.head(10) << std::endl;
 
-    cumulative_product(RETURNS, EQUITY_CURVE);
+    cumulative_product<money>(RETURNS, EQUITY_CURVE);
 
     TOTAL_RETURN = EQUITY_CURVE(EQUITY_CURVE.size() - 1);
 
@@ -88,9 +89,9 @@ double Metrics::SHARPE_RATIO(int periods) {
 
 void Metrics::calculate_drawdown() {
 
-    Eigen::VectorXd high_water_mark = Eigen::MatrixXd(EQUITY_CURVE.size(), 1);
-    Eigen::VectorXd drawdown = Eigen::MatrixXd(EQUITY_CURVE.size(), 1);
-    Eigen::VectorXd drawdown_duration = Eigen::MatrixXd(EQUITY_CURVE.size(), 1);
+    MoneyVectorX high_water_mark = MoneyMatrixX(EQUITY_CURVE.size(), 1);
+    MoneyVectorX drawdown = MoneyMatrixX(EQUITY_CURVE.size(), 1);
+    MoneyVectorX drawdown_duration = MoneyMatrixX(EQUITY_CURVE.size(), 1);
 
     for (int t = 1; t < EQUITY_CURVE.size(); t++) {
         high_water_mark(t) = std::max(high_water_mark(t - 1), EQUITY_CURVE(t));
@@ -111,26 +112,26 @@ void Metrics::calculate_drawdown() {
 
 };
 
-void Metrics::cumulative_product(Eigen::VectorXd vec, Eigen::VectorXd& make_vec) {
-    // Note this function automatically adds one to whatever its cumulatively multiplying.
+// void Metrics::cumulative_product(MoneyVectorX vec, MoneyVectorX& make_vec) {
+//     // Note this function automatically adds one to whatever its cumulatively multiplying.
 
-    make_vec = Eigen::MatrixXd(vec.size(), 1);
-    // make_vec(0) = vec(0);
+//     make_vec = Eigen::MatrixXd(vec.size(), 1);
+//     // make_vec(0) = vec(0);
 
-    // std::cout << "TOTAL RETURNS" << std::endl << vec.head(10) << std::endl;
+//     // std::cout << "TOTAL RETURNS" << std::endl << vec.head(10) << std::endl;
 
-    make_vec(0) = vec(0);
-    vec.array() += 1.f;
+//     make_vec(0) = vec(0);
+//     vec.array() += 1.f;
 
-    // std::cout << "TOTAL RETURNS + 1" << std::endl << vec.head(10) << std::endl;
+//     // std::cout << "TOTAL RETURNS + 1" << std::endl << vec.head(10) << std::endl;
 
-    for (int j = 1; j < vec.size(); j++) {
-        make_vec(j) = (vec(j) * make_vec(j - 1));
-    };
+//     for (int j = 1; j < vec.size(); j++) {
+//         make_vec(j) = (vec(j) * make_vec(j - 1));
+//     };
 
-}
+// }
 
-void Metrics::printf_csv(std::string path, Eigen::MatrixXd matrix) {
+void Metrics::printf_csv(std::string path, MoneyMatrixX matrix) {
     const static Eigen::IOFormat CSVFormat(StreamPrecision, DontAlignCols, ", ", "\n");
     std::ofstream file(path);
     file << matrix.format(CSVFormat);

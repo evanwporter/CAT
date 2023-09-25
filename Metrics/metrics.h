@@ -2,6 +2,7 @@
 #define METRICS_h
 
 #include "../Portfolio/portfolio.h"
+#include "../utility.h"
 
 #include <vector>
 #include <string>
@@ -16,14 +17,14 @@ class Metrics {
 
       Portfolio *portfolio;
 
-      Matrix<double, Dynamic, Dynamic> holdings;
+      MoneyMatrixX holdings;
 
-      VectorXd RETURNS, TOTAL_EQUITY, EQUITY_CURVE;
+      MoneyVectorX RETURNS, TOTAL_EQUITY, EQUITY_CURVE;
 
       double SHARPE_RATIO(int periods);
 
-      static double std(VectorXd vec);
-      static void cumulative_product(Eigen::VectorXd vec, VectorXd& make_vec);
+      // static double std(VectorXd vec);
+      // static void cumulative_product(Eigen::VectorXd vec, VectorXd& make_vec);
     
       double MAX_DRAWDOWN, TOTAL_RETURN, PnL;
       double TIME_TAKEN;
@@ -32,7 +33,7 @@ class Metrics {
 
       void display_metrics();
 
-      void printf_csv(std::string path, Eigen::MatrixXd matrix);
+      void printf_csv(std::string path, MoneyMatrixX matrix);
     
     private:
       void calculate_drawdown();

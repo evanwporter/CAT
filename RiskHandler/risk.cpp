@@ -13,10 +13,13 @@ RiskHandler::RiskHandler(DataHandler *data_handler,  Portfolio *p) {
     portfolio = p;
 
     weights["APPL"][0] = 0;
-    weights["APPL"][1] = .5;
+    weights["APPL"][1] = .25;
 
     weights["GOOG"][0] = 0;
-    weights["GOOG"][1] = .5;
+    weights["GOOG"][1] = .25;
+
+    weights["MSFT"][0] = 0;
+    weights["MSFT"][1] = .25;
 
 }
 
@@ -48,10 +51,10 @@ double RiskHandler::check_weights(std::string symbol, double weight_adjustment, 
 void RiskHandler::on_signal(std::string symbol, Direction direction)
 {
     money price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
-    // double WA = check_weights(symbol, .4, price, direction);
+    double WA = check_weights(symbol, .4, price, direction);
 
     // int quantity = (portfolio->TE * WA / price);
     int quantity = 1;
-    // std::cout << WA << " " << portfolio->TE << " " << price << std::endl;
+    std::cout << WA << " " << portfolio->TE << " " << price << " " << portfolio->positions[symbol].quantity << std::endl;
     if (quantity != 0) portfolio->on_fill(symbol, price, quantity, direction);
 }

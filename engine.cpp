@@ -31,8 +31,8 @@ void engine() {
 
     for(dh.current = 0; dh.current < dh.total_bars; dh.current++) {
         if (dh.current > 100) {
-            strategy.on_data();
             p.update_value();
+            strategy.on_data();
         };
     };
 
@@ -45,7 +45,6 @@ void engine() {
     // std::cout << m.holdings;
 
     m.display_metrics();
-    std::cout << "yay";
 
 }
 

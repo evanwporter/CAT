@@ -6,8 +6,9 @@
 using namespace Eigen;
 
 
-VectorXd pct_change(VectorXd vec) {
-    VectorXd ret = MatrixXd(vec.rows(), 1);
+template <typename T>
+Matrix< T, Dynamic, 1 > pct_change(Matrix< money, Dynamic, 1 > vec) {
+    Matrix< T, Dynamic, 1 > ret = Matrix< T, Dynamic, Dynamic >(vec.rows(), 1);
     ret(0) = 1;
 
     for (int j = 1; j < vec.size(); j++) {
@@ -18,36 +19,41 @@ VectorXd pct_change(VectorXd vec) {
     return ret;
 }
 
-double stdev(VectorXd vec) {
+template <typename T>
+double stdev(Matrix< T, Dynamic, 1 > vec) {
     return std::sqrt((vec.array() - vec.mean()).square().sum() / (vec.size() - 1));
 }
 
-MatrixXd covariance(MatrixXd M) {
+template <typename T>
+Matrix< T, Dynamic, Dynamic > covariance(Matrix< T, Dynamic, Dynamic > M) {
     // Returns covariance matrix
-    MatrixXd centered = M.rowwise() - M.colwise().mean();
-    MatrixXd cov = (centered.adjoint() * centered) / double(M.rows() - 1);
+    Matrix< T, Dynamic, Dynamic > centered = M.rowwise() - M.colwise().mean();
+    Matrix< T, Dynamic, Dynamic > cov = (centered.adjoint() * centered) / double(M.rows() - 1);
 
     return cov;
 }
 
-double cov(VectorXd x, VectorXd y) {
+template <typename T>
+double cov(Matrix< T, Dynamic, 1 > x, Matrix< T, Dynamic, 1 > y) {
     // Returns scalar quantity
-    VectorXd xM = (x.array() - x.mean());
-    VectorXd yM = (y.array() - y.mean());
-    VectorXd MM = xM.array() * yM.array();
+    Matrix< T, Dynamic, 1 > xM = (x.array() - x.mean());
+    Matrix< T, Dynamic, 1 > yM = (y.array() - y.mean());
+    Matrix< T, Dynamic, 1 > MM = xM.array() * yM.array();
 
     return MM.sum() / x.size();
 }
 
-MatrixXd correlation(MatrixXd COV){
+template <typename T>
+Matrix< T, Dynamic, Dynamic > correlation(Matrix< T, Dynamic, Dynamic > COV){
     // Returns correlation matrix
     auto Dinv = COV.inverse();
     return Dinv * COV * Dinv;
 }
 
-void cumulative_product(Eigen::VectorXd vec, Eigen::VectorXd& make_vec, float offset = 0) {
+template <typename T>
+void cumulative_product(Matrix< T, Dynamic, 1 > vec, Matrix< T, Dynamic, 1 >& make_vec, float offset = 0) {
 
-    make_vec = Eigen::MatrixXd(vec.size(), 1);
+    make_vec = Matrix< T, Dynamic, Dynamic >(vec.size(), 1);
 
     make_vec(0) = vec(0);
     vec.array() += offset;

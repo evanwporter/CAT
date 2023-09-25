@@ -15,10 +15,10 @@
 class Portfolio {
   public:
     std::unordered_map<std::string, Position> positions;
-    std::unordered_map<std::string, std::vector<double>> holdings;
+    std::unordered_map<std::string, std::vector<money>> holdings;
 
     CASH CASH_position;
-    std::vector<double> CASH_holding;
+    std::vector<money> CASH_holding;
 
     DataHandler *dh;
 

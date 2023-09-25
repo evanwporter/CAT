@@ -16,6 +16,8 @@ typedef unsigned long long datetime64;
 
 typedef long money;
 
-typedef Eigen::Matrix< long, Eigen::Dynamic, Eigen::Dynamic > MatrixXl;
+typedef Eigen::Matrix< money, Eigen::Dynamic, Eigen::Dynamic > MoneyMatrixX;
+typedef Eigen::Matrix< money, Eigen::Dynamic, 1 > MoneyVectorX;
+
 
 #endif
