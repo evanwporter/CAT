@@ -19,6 +19,7 @@ typedef long quantity_t;
 
 typedef Eigen::Matrix< money, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor > MoneyMatrixX;
 typedef Eigen::Matrix< money, Eigen::Dynamic, 1 > MoneyVectorX;
+typedef Eigen::Matrix< double, Eigen::Dynamic, 1 > PercentVectorX;
 
 
 #endif

@@ -19,13 +19,9 @@ class Metrics {
 
       MoneyMatrixX holdings, TOTAL_EQUITY;
 
-      Matrix< double, Dynamic, 1 > RETURNS, EQUITY_CURVE;
+      PercentVectorX RETURNS, EQUITY_CURVE;
       
-
       double SHARPE_RATIO(int periods);
-
-      // static double std(VectorXd vec);
-      // static void cumulative_product(Eigen::VectorXd vec, VectorXd& make_vec);
     
       double MAX_DRAWDOWN, TOTAL_RETURN, PnL;
       double TIME_TAKEN;

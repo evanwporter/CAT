@@ -35,7 +35,7 @@ class DataHandler {
       std::map<std::string, int> s;
 
       std::vector<datetime64> total_symbol_dates;
-      std::vector<std::string> symbols;// = {"GOOG", "AAPL"};
+      std::vector<std::string> symbols;
 
       sd::ondemand::document settings;
       bool quiet = true;
@@ -45,7 +45,6 @@ class DataHandler {
       unsigned int total_bars, current, data_size;
 
       DataHandler();
-      // DataHandler(std::vector<std::string> sym);
 
       MoneyMatrixX getLatestBarsN(std::string symbol, int N);
 };
