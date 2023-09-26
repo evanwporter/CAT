@@ -60,8 +60,8 @@ void Portfolio::update_value()
         if (value > 0) A += value;
         else L += value;
 
-        if (symbol == "GOOG" && positions["GOOG"].quantity < 1) std::cout << value << " "
-                                                                          << price << " " << positions["GOOG"].quantity << std::endl;
+        // if (symbol == "GOOG" && positions["GOOG"].quantity < 1) std::cout << value << " "
+        //                                                                   << price << " " << positions["GOOG"].quantity << std::endl;
     };
 
     value = CASH_position.update_value(1);

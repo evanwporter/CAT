@@ -19,21 +19,17 @@ using namespace std;
 void engine() {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
-    // vector<std::string> symbols = {"GOOG", "AAPL"};
-
     DataHandler dh = DataHandler();
     Portfolio p = Portfolio(&dh);
     RiskHandler rh = RiskHandler(&dh, &p);
-    Strategy strategy = Strategy();
-
-    strategy.dh = &dh;
-    strategy.rh = &rh;
+    Strategy strategy = Strategy(&dh, &rh);
 
     for(dh.current = dh.warmup_period; dh.current < dh.total_bars; dh.current++) {
-        if (dh.current) {
-            p.update_value();
-            strategy.on_data();
-
+        p.update_value();
+        for (auto symbol : dh.symbols) {
+            if (dh.symbol_data_locations[symbol][0] <= dh.current && dh.current < dh.symbol_data_locations[symbol][1]) {
+                strategy.on_data(symbol);
+            };
         };
     };
 

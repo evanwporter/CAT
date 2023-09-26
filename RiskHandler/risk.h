@@ -10,7 +10,7 @@
 class RiskHandler {
     private:
       double check_weights(std::string symbol, double weight_adjustment, money price, Direction direction);
-
+      inline void generate_weights(std::string method = "equal");
 
     public:
       RiskHandler();
