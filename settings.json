@@ -9,23 +9,13 @@
         "AAPL"
     ],
 
-    "DATA_INTERVAL" : "1d",
-    "TRADING_INTERVAL" : "1d",
     "DATA_WARMUP_PERIOD" : 100,
     "DATA_DIRECTORY" : "Data\\",
 
     "STRATEGY" : "UpDownTick",
     "PARAMETERS" : {"method": "TREND"},
 
-    "TAKE_PROFITS" : false,
-    "STOP_LOSSES" : false,
-    "LEVERAGE_RATIO" : 1.0,
-    "CASH_BUFFER" : 0.2,
-    "WEIGHTING" : "long-only",
-    "POSITION_SIZER" : {"method": "Fixed Size", "size": ".1"},
-
     "QUIET" : false,
-    "SLIPPAGE_LAG" : 1,
 
     "MONEY MULTIPLIER": 100000,
     "INITIAL CASH" : 50

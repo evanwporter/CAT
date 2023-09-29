@@ -12,7 +12,10 @@
 #include "../Libraries/VariadicTable.h"
 #include "../utility.h"
 
-Metrics::Metrics(Portfolio *p) {
+Metrics::Metrics() {};
+
+Metrics::Metrics(Portfolio *p)
+{
 
     portfolio = p;
 
@@ -76,7 +79,6 @@ Metrics::Metrics(Portfolio *p) {
 
     // std::cout << "EQ CURVE Head" << std::endl << TOTAL_EQUITY.head(10) << std::endl;
     // std::cout << "EQ CURVE Tail" << std::endl << TOTAL_EQUITY << std::endl;
-
 }
 
 double Metrics::SHARPE_RATIO(int periods) {
@@ -115,7 +117,7 @@ void Metrics::printf_csv(std::string path, MoneyMatrixX matrix) {
 void Metrics::display_metrics() {
     VariadicTable<std::string, double> vt({"Metric", "Value"}, 10);
 
-    vt.addRow("Time Taken", TIME_TAKEN);
+    vt.addRow("Time Taken", 100);// TIME_TAKEN);
     vt.addRow("Sharpe Ratio", SHARPE_RATIO(252));
     vt.addRow("Total Return", TOTAL_RETURN);
     vt.addRow("Max DD", MAX_DRAWDOWN);

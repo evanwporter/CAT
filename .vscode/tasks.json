@@ -17,8 +17,9 @@
                 // "C:\\Users\\evanw\\OneDrive\\Documents\\GitHub\\CAT\\Libraries\\**.cpp",
                 // "/IC:\\Users\\evanw\\OneDrive\\Documents\\GitHub\\CAT\\Libraries\\Eigen",
 
-                "/Fe${fileDirname}\\backtest.exe",
+                "/Fe${fileDirname}\\engine.exe",
                 "${fileDirname}\\**.cpp",
+                "${fileDirname}\\Engines\\**.cpp",
                 "${fileDirname}\\Strategy\\**.cpp",
                 "${fileDirname}\\DataHandler\\**.cpp",
                 "${fileDirname}\\RiskHandler\\**.cpp",

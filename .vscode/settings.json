@@ -93,7 +93,8 @@
         "xtree": "cpp",
         "xutility": "cpp",
         "condition_variable": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "codecvt": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

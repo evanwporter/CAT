@@ -1,7 +1,10 @@
 #include "strategy.h"
 #include "../utility.h"
 
-Strategy::Strategy(DataHandler *data_handler,  RiskHandler *risk_handler) {
+Strategy::Strategy() {};
+
+Strategy::Strategy(DataHandler *data_handler, RiskHandler *risk_handler)
+{
     dh = data_handler;
     rh = risk_handler;
 

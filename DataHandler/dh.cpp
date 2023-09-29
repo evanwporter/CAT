@@ -14,7 +14,6 @@ using namespace simdjson;
 DataHandler::DataHandler() {
     std::string path = GetExePath();
     if (!std::filesystem::exists(path + "\\settings.json")) std::cout << "ERROR: couldn't load settings.json" << std::endl;
-    if (!std::filesystem::exists(path + "\\Data")) std::cout << "ERROR: couldn't find the Data Directory" << std::endl;
 
     ondemand::parser parser;
     padded_string json = padded_string::load("settings.json");
@@ -26,7 +25,7 @@ DataHandler::DataHandler() {
 
     warmup_period = settings["DATA_WARMUP_PERIOD"].get_uint64();
 
-    // std::string path = std::string(std::string_view(settings["DATA_DIRECTORY"].get_string()));
+    std::string p = std::string(std::string_view(settings["DATA_DIRECTORY"].get_string()));
     
     quiet = settings["QUIET"].get_bool();
     money_mult = settings["MONEY MULTIPLIER"].get_uint64();
