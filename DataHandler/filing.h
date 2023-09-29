@@ -21,9 +21,4 @@ static std::string GetExePath() {
     return DirName(std::string(buffer));
 }
 
-// int main () {
-//     std::cout << GetExePath();
-//     return 0;
-// }
-
 #endif

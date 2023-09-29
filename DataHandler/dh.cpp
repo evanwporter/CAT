@@ -2,14 +2,12 @@
 #include "../Libraries/simdjson.h"
 #include "filing.h"
 
-
 #include <vector>
 #include <algorithm>
 #include <string>
 #include <string_view>
 #include <iostream>
 #include <filesystem>
-
 
 using namespace simdjson;
 

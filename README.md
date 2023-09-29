@@ -12,9 +12,6 @@ Why is speed important?
 
 Because of optimizations of the backtest around a variable. Optimizations require the backtest to be run numerous times thus the backtester needs to be quick, and unfortunately python was too slow. (Also I really like optimizing things). 
 
-This link proved to be exceedingly helpful:
-https://eigen.tuxfamily.org/dox/AsciiQuickReference.txt
-(putting it here for easy access)
 
 ## TODO:
 * ~~Parse everything (relevant) out of settings.json~~
