@@ -9,6 +9,7 @@
 
 class Strategy {
     public:
+      Strategy();
       Strategy(DataHandler *data_handler,  RiskHandler *risk_handler);
 
       DataHandler *dh;

@@ -12,6 +12,7 @@ using namespace Eigen;
 
 class Metrics {
     public:
+      Metrics();
       Metrics(Portfolio *p);
       // Metrics(Portfolio *p, std::chrono::duration<std::chrono::microseconds> time_elapsed);
 
