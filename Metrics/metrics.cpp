@@ -117,7 +117,7 @@ void Metrics::printf_csv(std::string path, MoneyMatrixX matrix) {
 void Metrics::display_metrics() {
     VariadicTable<std::string, double> vt({"Metric", "Value"}, 10);
 
-    vt.addRow("Time Taken", 100);// TIME_TAKEN);
+    vt.addRow("Time Taken", TIME_TAKEN);
     vt.addRow("Sharpe Ratio", SHARPE_RATIO(252));
     vt.addRow("Total Return", TOTAL_RETURN);
     vt.addRow("Max DD", MAX_DRAWDOWN);

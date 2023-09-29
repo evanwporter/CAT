@@ -1,9 +1,13 @@
 #include "backtester.h"
 
+#include <chrono>
+
 Backtester::Backtester() {};
 
 void Backtester::run()
 {
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+
     Portfolio p = Portfolio(&dh);
     RiskHandler rh = RiskHandler(&dh, &p);
     Strategy s = Strategy(&dh, &rh);
@@ -17,6 +21,10 @@ void Backtester::run()
         };
     };
     m = Metrics(&p);
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+
+    m.TIME_TAKEN = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
+
 }
 void Backtester::metrics(){
     m.display_metrics();
