@@ -14,16 +14,16 @@ std::string DirName(const std::string& fname)
          : fname.substr(0, pos);
 }
 
-std::string GetExePath() {
+static std::string GetExePath() {
     char buffer[MAX_PATH]; 
     GetModuleFileName(NULL, buffer, MAX_PATH); 
 
     return DirName(std::string(buffer));
 }
 
-int main () {
-    std::cout << GetExePath();
-    return 0;
-}
+// int main () {
+//     std::cout << GetExePath();
+//     return 0;
+// }
 
 #endif

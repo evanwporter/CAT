@@ -1,5 +1,7 @@
 #include "dh.h"
 #include "../Libraries/simdjson.h"
+#include "filing.h"
+
 
 #include <vector>
 #include <algorithm>
@@ -7,13 +9,12 @@
 #include <string_view>
 #include <iostream>
 #include <filesystem>
-// #include "filing.h"
 
 
 using namespace simdjson;
 
 DataHandler::DataHandler() {
-    // if (!std::filesystem::exists(GetExePath + settings.json)) std::cout << "Error couldn't load settings.json";
+    if (!std::filesystem::exists(GetExePath() + "\\settings.json")) std::cout << "ERROR: couldn't load settings.json" << std::endl;
 
     ondemand::parser parser;
     padded_string json = padded_string::load("settings.json");

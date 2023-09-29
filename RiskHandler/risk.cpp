@@ -28,7 +28,7 @@ double RiskHandler::check_weights(std::string symbol, double weight_adjustment, 
 
     current_weight = ( portfolio->positions[symbol].quantity * (double) price) / (double) portfolio->TE;
 
-    if (direction == Direction::LONG) {
+    if (direction == Direction::LONG_) {
         max_weight = weights[symbol][1];
         potential_weight = current_weight + (weight_adjustment * 1);
     }

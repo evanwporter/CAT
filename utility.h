@@ -7,8 +7,8 @@
 
 enum Direction 
 {
-    LONG = 1,
-    SHORT = -1
+    LONG_ = 1,
+    SHORT_ = -1
 };
 
 // Milliseconds

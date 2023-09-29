@@ -13,7 +13,7 @@ Strategy::Strategy(DataHandler *data_handler,  RiskHandler *risk_handler) {
 void Strategy::on_data(std::string symbol)
 {
     if (!traded[symbol]) {
-        rh->on_signal(symbol, Direction::LONG);
+        rh->on_signal(symbol, Direction::LONG_);
         traded[symbol] = true;
     }
 };
