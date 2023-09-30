@@ -8,14 +8,8 @@
                 "/Zi",
                 "/EHsc",
                 "/nologo",
-                // "/FeC:\\Users\\evanw\\CAT\\DataHandler\\bt.exe",
-                // "C:\\Users\\evanw\\CAT\\DataHandler\\filing.cpp",
-
-
-                // "C:\\Users\\evanw\\OneDrive\\Documents\\GitHub\\CAT\\DataHandler\\dh.cpp",
-                // "${fileDirname}\\cov.cpp",
-                // "C:\\Users\\evanw\\OneDrive\\Documents\\GitHub\\CAT\\Libraries\\**.cpp",
-                // "/IC:\\Users\\evanw\\OneDrive\\Documents\\GitHub\\CAT\\Libraries\\Eigen",
+                // "/Fe${fileDirname}\\test.exe",
+                // "${fileDirname}\\test.cpp",
 
                 "/Fe${fileDirname}\\engine.exe",
                 "${fileDirname}\\**.cpp",

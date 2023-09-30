@@ -22,7 +22,7 @@ class Backtester {
         Portfolio p;
         DataHandler dh;
         RiskHandler rh;
-        BuyAndHold s;
+        Strategy* s;
         Metrics m;
 
         void run();

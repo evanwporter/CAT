@@ -17,7 +17,7 @@ class Strategy {
       DataHandler *dh;
       RiskHandler *rh;
 
-      void on_data(std::string symbol);
+      virtual void on_data(std::string symbol);
 
       std::unordered_map<std::string, bool> traded;
 

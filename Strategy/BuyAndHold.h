@@ -15,13 +15,12 @@ class BuyAndHold : public Strategy {
       BuyAndHold();
       BuyAndHold(DataHandler *data_handler,  RiskHandler *risk_handler);
 
-      DataHandler *dh;
-      RiskHandler *rh;
+      // DataHandler *dh;
+      // RiskHandler *rh;
 
       void on_data(std::string symbol);
 
       std::unordered_map<std::string, bool> traded;
-
 
 };
 };
