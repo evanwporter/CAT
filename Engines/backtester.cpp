@@ -29,6 +29,7 @@ void Backtester::run()
     m.TIME_TAKEN = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
 
 }
+
 void Backtester::metrics(){
     m.display_metrics();
 };

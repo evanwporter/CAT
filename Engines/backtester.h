@@ -6,8 +6,11 @@
 #include "../Portfolio/portfolio.h"
 #include "../utility.h"
 #include "../DataHandler/dh.h"
+
 #include "../Strategy/strategy.h"
 #include "../Strategy/BuyAndHold.h"
+#include "../Strategy/ma_crossover.h"
+
 #include "../Metrics/metrics.h"
 
 #include <Eigen/Dense>
