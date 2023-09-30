@@ -24,7 +24,7 @@ Because of optimizations of the backtest around a variable. Optimizations requir
 * ~~File organization and structure~~
 * Convert strings to string_view for memory efficiency
 * More strategies
-  * Abstract Base Strategy Class
+  * ~~Abstract Base Strategy Class~~
 * ~~Put direction in enum file/folder~~
 * Use native chrono or roll my own timestamp manager
 * Add optimization function
