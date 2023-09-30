@@ -20,7 +20,7 @@ DataHandler::DataHandler() {
     padded_string json = padded_string::load("settings.json");
     settings = parser.iterate(json);
 
-    mode = std::string(std::string_view(settings["MODE"]));
+    mode = std::string(std::string_view(settings["MODE"].get_string()));
 
     for (ondemand::value symbol : settings["SYMBOLS"]) {
         symbols.push_back(std::string(std::string_view(symbol.get_string())));

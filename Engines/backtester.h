@@ -6,6 +6,7 @@
 #include "../Portfolio/portfolio.h"
 #include "../utility.h"
 #include "../DataHandler/dh.h"
+#include "../DataHandler/filing.h"
 
 #include "../Strategy/strategy.h"
 #include "../Strategy/BuyAndHold.h"
@@ -13,12 +14,16 @@
 
 #include "../Metrics/metrics.h"
 
+#include "../Libraries/simdjson.h"
+
 #include <Eigen/Dense>
 #include <Eigen/Core>
 
 #include <algorithm>
 #include <iostream>
 #include <vector>
+// #include <filesystem>
+
 
 
 namespace CAT {

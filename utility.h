@@ -31,6 +31,7 @@ struct {
     money initial_cash;
     unsigned long money_mult = 1;
     unsigned long warmup_period = 1;
+    std::vector<std::string> symbols;
 } bt_settings;
 
 // };
