@@ -6,13 +6,13 @@ using namespace CAT;
 
 Backtester::Backtester() {};
 
-void Backtester::run()
+void Backtester::run(int param)
 {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
     p = Portfolio(&dh);
     rh = RiskHandler(&dh, &p);
-    BuyAndHold BaH = BuyAndHold(&dh, &rh);
+    MovingAverageCrossover BaH = MovingAverageCrossover(&dh, &rh, param);
     s = &BaH;
 
     for(dh.current = dh.warmup_period; dh.current < dh.total_bars; dh.current++) {
@@ -34,6 +34,13 @@ void Backtester::metrics(){
     m.display_metrics();
 };
 
-// void Backtester::optimize () {
-
-// }
+void Backtester::optimize () {
+    std::vector<unsigned int> param;
+    std::vector<double> results;
+    for (unsigned int i = 1; i < 30; i++) {
+        param.push_back(i);
+        run(i);
+        results.push_back(m.TOTAL_RETURN);
+    }
+    std::cout << std::distance(results.begin(), std::max_element(results.begin(), results.end()));
+}

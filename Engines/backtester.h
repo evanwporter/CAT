@@ -16,6 +16,10 @@
 #include <Eigen/Dense>
 #include <Eigen/Core>
 
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
 
 namespace CAT {
 class Backtester {
@@ -28,7 +32,7 @@ class Backtester {
         Strategy* s;
         Metrics m;
 
-        void run();
+        void run(int param = 30);
 
         void metrics();
 

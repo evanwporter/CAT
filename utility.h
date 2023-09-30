@@ -4,6 +4,7 @@
 #include <Eigen/Core>
 #include <Eigen/Dense>
 
+// namespace CAT {
 
 enum Direction 
 {
@@ -21,5 +22,6 @@ typedef Eigen::Matrix< money, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor > 
 typedef Eigen::Matrix< money, Eigen::Dynamic, 1 > MoneyVectorX;
 typedef Eigen::Matrix< double, Eigen::Dynamic, 1 > PercentVectorX;
 
+// };
 
 #endif
