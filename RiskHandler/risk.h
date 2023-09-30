@@ -7,6 +7,8 @@
 #include "../DataHandler/dh.h"
 #include "../Portfolio/portfolio.h"
 
+
+namespace CAT {
 class RiskHandler {
     private:
       double check_weights(std::string symbol, double weight_adjustment, money price, Direction direction);
@@ -43,8 +45,7 @@ class RiskHandler {
     private:
       void check_leverage();
 
-
-    
+};
 };
 
 #endif

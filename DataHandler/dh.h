@@ -19,6 +19,7 @@
 namespace sd = simdjson;
 using namespace Eigen;
 
+namespace CAT {
 class DataHandler {
     private:
       void load_csv(const std::string &symbol, const std::string &path);
@@ -47,6 +48,7 @@ class DataHandler {
       DataHandler();
 
       MoneyMatrixX getLatestBarsN(std::string symbol, int N);
+};
 };
 
 #endif

@@ -12,6 +12,8 @@
 #include "../Libraries/VariadicTable.h"
 #include "../utility.h"
 
+using namespace CAT;
+
 Metrics::Metrics() {};
 
 Metrics::Metrics(Portfolio *p)

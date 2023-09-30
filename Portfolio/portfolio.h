@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 
+namespace CAT {
 class Portfolio {
   public:
     std::unordered_map<std::string, Position> positions;
@@ -35,6 +36,7 @@ class Portfolio {
 
     double A, L, TE;
 
+};
 };
 
 #endif

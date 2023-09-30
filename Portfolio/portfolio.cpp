@@ -3,6 +3,7 @@
 
 #include <iomanip>
 
+using namespace CAT;
 
 Portfolio::Portfolio() {};
 

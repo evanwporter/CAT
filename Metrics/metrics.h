@@ -9,7 +9,7 @@
 
 using namespace Eigen;
 
-
+namespace CAT {
 class Metrics {
     public:
       Metrics();
@@ -36,6 +36,7 @@ class Metrics {
     private:
       void calculate_drawdown();
 
+};
 };
 
 #endif

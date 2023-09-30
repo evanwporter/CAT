@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <string>
 
+using namespace CAT;
 
 RiskHandler::RiskHandler() {};
 

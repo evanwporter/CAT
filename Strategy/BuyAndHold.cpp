@@ -1,11 +1,11 @@
-#include "strategy.h"
+#include "BuyAndHold.h"
 #include "../utility.h"
 
 using namespace CAT;
 
-Strategy::Strategy() {};
+BuyAndHold::BuyAndHold() {};
 
-Strategy::Strategy(DataHandler *data_handler, RiskHandler *risk_handler)
+BuyAndHold::BuyAndHold(DataHandler *data_handler, RiskHandler *risk_handler)
 {
 
     dh = data_handler;
@@ -16,7 +16,7 @@ Strategy::Strategy(DataHandler *data_handler, RiskHandler *risk_handler)
     };
 }
 
-void Strategy::on_data(std::string symbol)
+void BuyAndHold::on_data(std::string symbol)
 {
     // if (!traded[symbol]) {
     //     rh->on_signal(symbol, Direction::LONG_);

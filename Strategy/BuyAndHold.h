@@ -1,18 +1,19 @@
-#ifndef STRATEGY_H
-#define STRATEGY_H
+#ifndef BUYANDHOLD_H
+#define BUYANDHOLD_H
 
 #include "../DataHandler/dh.h"
 #include "../RiskHandler/risk.h"
+#include "strategy.h"
 
 #include <unordered_map>
 #include <string>
 
 namespace CAT {
   
-class Strategy {
+class BuyAndHold : public Strategy {
     public:
-      Strategy();
-      Strategy(DataHandler *data_handler,  RiskHandler *risk_handler);
+      BuyAndHold();
+      BuyAndHold(DataHandler *data_handler,  RiskHandler *risk_handler);
 
       DataHandler *dh;
       RiskHandler *rh;

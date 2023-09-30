@@ -10,6 +10,7 @@
 #include <filesystem>
 
 using namespace simdjson;
+using namespace CAT;
 
 DataHandler::DataHandler() {
     std::string path = GetExePath();

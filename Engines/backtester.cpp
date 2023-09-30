@@ -2,15 +2,17 @@
 
 #include <chrono>
 
+using namespace CAT;
+
 Backtester::Backtester() {};
 
 void Backtester::run()
 {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
-    Portfolio p = Portfolio(&dh);
-    RiskHandler rh = RiskHandler(&dh, &p);
-    Strategy s = Strategy(&dh, &rh);
+    p = Portfolio(&dh);
+    rh = RiskHandler(&dh, &p);
+    s = BuyAndHold(&dh, &rh);
 
     for(dh.current = dh.warmup_period; dh.current < dh.total_bars; dh.current++) {
         p.update_value();
@@ -29,3 +31,7 @@ void Backtester::run()
 void Backtester::metrics(){
     m.display_metrics();
 };
+
+// void Backtester::optimize () {
+
+// }
