@@ -16,7 +16,7 @@ Portfolio::Portfolio(DataHandler *data_handler)
         holdings[symbol].reserve(dh->total_bars - 100);
         holdings[symbol].push_back(0);
     };
-    CASH_position = CASH(dh->settings["INITIAL CASH"].get_uint64() * dh->money_mult);
+    CASH_position = CASH(dh->initial_cash * dh->money_mult);
     CASH_holding.reserve(dh->total_bars);
     CASH_holding.push_back(CASH_position.quantity);
 

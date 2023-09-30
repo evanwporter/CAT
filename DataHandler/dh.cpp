@@ -30,6 +30,7 @@ DataHandler::DataHandler() {
     
     quiet = settings["QUIET"].get_bool();
     money_mult = settings["MONEY MULTIPLIER"].get_uint64();
+    initial_cash = settings["INITIAL CASH"].get_uint64();
 
     for(std::string symbol : symbols) load_csv(symbol, path + "\\Data\\");//"C:\\Users\\evanw\\options\\");
 

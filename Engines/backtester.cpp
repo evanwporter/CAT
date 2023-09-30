@@ -37,10 +37,11 @@ void Backtester::metrics(){
 void Backtester::optimize () {
     std::vector<unsigned int> param;
     std::vector<double> results;
-    for (unsigned int i = 1; i < 30; i++) {
+    for (unsigned int i = 10; i < 30; i++) {
         param.push_back(i);
         run(i);
         results.push_back(m.TOTAL_RETURN);
+        std::cout << m.TOTAL_RETURN << " ";
     }
-    std::cout << std::distance(results.begin(), std::max_element(results.begin(), results.end()));
+    // std::cout << std::distance(results.begin(), std::max_element(results.begin(), results.end()));
 }

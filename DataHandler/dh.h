@@ -40,6 +40,7 @@ class DataHandler {
 
       sd::ondemand::document settings;
       bool quiet = true;
+      money initial_cash;
       unsigned long money_mult = 1;
       unsigned long warmup_period = 1;
 
@@ -48,6 +49,7 @@ class DataHandler {
       DataHandler();
 
       MoneyMatrixX getLatestBarsN(std::string symbol, int N);
+
 };
 };
 
