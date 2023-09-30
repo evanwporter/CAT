@@ -12,8 +12,7 @@ void Backtester::run(int param)
 
     p = Portfolio(&dh);
     rh = RiskHandler(&dh, &p);
-    MovingAverageCrossover BaH = MovingAverageCrossover(&dh, &rh, param);
-    s = &BaH;
+    s = new MovingAverageCrossover(&dh, &rh, param);
 
     for(dh.current = dh.warmup_period; dh.current < dh.total_bars; dh.current++) {
         p.update_value();
