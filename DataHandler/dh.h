@@ -39,6 +39,8 @@ class DataHandler {
       std::vector<std::string> symbols;
 
       sd::ondemand::document settings;
+      std::string mode;
+      
       bool quiet = true;
       money initial_cash;
       unsigned long money_mult = 1;

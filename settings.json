@@ -1,5 +1,6 @@
 {
     "MODE" : "backtest",
+    "RUN TIME PARAMETERS": 30,
     
     "FEES" : {
         "NASDAQ" : 0.0
