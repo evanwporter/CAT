@@ -4,6 +4,8 @@
 #include <Eigen/Core>
 #include <Eigen/Dense>
 
+#include "Libraries/simdjson.h"
+
 // namespace CAT {
 
 enum Direction 
@@ -21,6 +23,15 @@ typedef long quantity_t;
 typedef Eigen::Matrix< money, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor > MoneyMatrixX;
 typedef Eigen::Matrix< money, Eigen::Dynamic, 1 > MoneyVectorX;
 typedef Eigen::Matrix< double, Eigen::Dynamic, 1 > PercentVectorX;
+
+struct {
+    simdjson::ondemand::document doc;
+    std::string mode;
+    bool quiet;
+    money initial_cash;
+    unsigned long money_mult = 1;
+    unsigned long warmup_period = 1;
+} bt_settings;
 
 // };
 

@@ -153,3 +153,7 @@ std::vector<datetime64> DataHandler::unionize(std::vector<datetime64> a, std::st
 
     return c;
 }
+
+void parse_settings() {
+    
+}
