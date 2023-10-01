@@ -3,9 +3,13 @@
 using namespace CAT;
 int main() {
     Backtester bt;
-    // bt.optimize();
-    bt.run();
-    bt.metrics();
+    if (bt.dh.mode == "backtest") {
+        bt.run();
+        bt.metrics();
+    }
+    else if (bt.dh.mode == "optimize") {
+        bt.optimize();
+    }
 
     return 0;
 }

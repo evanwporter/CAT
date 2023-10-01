@@ -6,7 +6,6 @@
 #include "../Portfolio/portfolio.h"
 #include "../utility.h"
 #include "../DataHandler/dh.h"
-#include "../DataHandler/filing.h"
 
 #include "../Strategy/strategy.h"
 #include "../Strategy/BuyAndHold.h"
@@ -22,7 +21,6 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
-// #include <filesystem>
 
 
 

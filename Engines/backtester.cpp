@@ -5,27 +5,6 @@
 using namespace CAT;
 
 Backtester::Backtester() {};
-//     std::string path = GetExePath();
-//     if (!std::filesystem::exists(path + "\\settings.json")) std::cout << "ERROR: couldn't load settings.json" << std::endl;
-
-//     simdjson::ondemand::parser parser;
-//     simdjson::padded_string json = simdjson::padded_string::load("settings.json");
-//     bt_settings.doc = parser.iterate(json);
-
-//     bt_settings.mode = std::string(std::string_view(bt_settings.doc["MODE"]));
-
-//     for (simdjson::ondemand::value symbol : bt_settings.doc["SYMBOLS"]) {
-//         bt_settings.symbols.push_back(std::string(std::string_view(symbol)));
-//     };
-
-//     bt_settings.warmup_period = bt_settings.doc["DATA_WARMUP_PERIOD"].get_uint64();
-
-//     std::string p = std::string(std::string_view(bt_settings.doc["DATA_DIRECTORY"].get_string()));
-    
-//     bt_settings.quiet = bt_settings.doc["QUIET"].get_bool();
-//     bt_settings.money_mult = bt_settings.doc["MONEY MULTIPLIER"].get_uint64();
-//     bt_settings.initial_cash = bt_settings.doc["INITIAL CASH"].get_uint64();
-// };
 
 void Backtester::run(int param)
 {
