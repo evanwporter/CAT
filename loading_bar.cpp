@@ -1,4 +1,3 @@
-// // C++ program to create loading bar
 // #include <iostream>
 // #include <windows.h>
 // #include <string>
