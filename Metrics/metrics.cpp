@@ -23,8 +23,6 @@ Metrics::Metrics(Portfolio *p)
 
     holdings = MoneyMatrixX(portfolio->CASH_holding.size(), portfolio->dh->symbols.size() + 1);
     
-    // std::cout<<"1";
-
     int i = 1;
     for(std::string symbol : portfolio->dh->symbols){
         holdings.col(i) = Eigen::Map<MoneyVectorX, Eigen::Unaligned>(
@@ -32,55 +30,31 @@ Metrics::Metrics(Portfolio *p)
         );
         i++;
     };
-    // std::cout<<"2";
 
     holdings.col(0) = Eigen::Map<MoneyVectorX, Eigen::Unaligned>(
         portfolio->CASH_holding.data(), portfolio->CASH_holding.size()
     );
-
-    // std::cout<<"3";
 
     // Total Equity
     TOTAL_EQUITY = holdings.rowwise().sum();
 
     PnL = TOTAL_EQUITY(TOTAL_EQUITY.size() - 1) - TOTAL_EQUITY(0);
 
-    // std::cout<<"4";
-
     RETURNS = pct_change<double, double>(TOTAL_EQUITY.cast<double>());
+
     // Total Returns
     // RETURNS = Eigen::MatrixXd(holdings.rows(), 1);
     // RETURNS(0) = 1;
-
-    // // std::cout<<"5";// << std::endl;
-
     // for (int j = 1; j < TOTAL_EQUITY.size(); j++) {
     //     if (TOTAL_EQUITY(j - 1) == 0) RETURNS(j) = 0;
     //     else RETURNS(j) = (TOTAL_EQUITY(j) - TOTAL_EQUITY(j - 1)) / TOTAL_EQUITY(j - 1);
     // };
 
-    // std::cout << "TOTAL EQUITY" << std::endl << TOTAL_EQUITY.head(10) << std::endl;
-
     cumulative_product<double>(RETURNS, EQUITY_CURVE, 1);
 
     TOTAL_RETURN = EQUITY_CURVE(EQUITY_CURVE.size() - 1);
 
-
-    // std::cout<<"6";
-    // std::cout << RETURNS << std::endl;
-
-    // std::cout << EQUITY_CURVE << std::endl;
-
-    // std::cout<<"7";
-
     calculate_drawdown();
-
-    // std::cout << max_dd << std::endl;
-
-    // std::cout << SHARPE_RATIO(252) << std::endl;
-
-    // std::cout << "EQ CURVE Head" << std::endl << TOTAL_EQUITY.head(10) << std::endl;
-    // std::cout << "EQ CURVE Tail" << std::endl << TOTAL_EQUITY << std::endl;
 }
 
 double Metrics::SHARPE_RATIO(int periods) {
