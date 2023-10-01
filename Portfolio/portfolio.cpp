@@ -34,11 +34,11 @@ void Portfolio::on_fill(std::string symbol, money price, int quantity, Direction
     // long price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
     update_position(price, symbol, quantity, direction);
 
-    if (!dh->quiet) std::cout << "Executed trade for 1 share of " << symbol << " at $" 
-                              << std::fixed << std::setprecision(2) << (double(price) / double(dh->money_mult)) 
-                              << "." << std::endl;
+    if (!dh->quiet) std::cout << "Executed trade for " << direction * quantity << " share of " << symbol << " at $" 
+                        << std::fixed << std::setprecision(2) << (double(price) / double(dh->money_mult)) 
+                        << "." << std::endl;
 
-}
+};
 
 void Portfolio::update_position(long price, std::string symbol, int quantity, Direction direction)
 {

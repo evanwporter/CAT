@@ -40,7 +40,6 @@ class Backtester {
         void metrics();
 
         void optimize();
-        void optimizer_run();
 
 };
 };
