@@ -15,12 +15,12 @@ void Backtester::run()
     s = std::make_unique<MovingAverageCrossover>(&dh, &rh);
 
     for(dh.current = dh.warmup_period; dh.current < dh.total_bars; dh.current++) {
-        p.update_value();
         for (auto symbol : dh.symbols) {
             if (dh.symbol_data_locations[symbol][0] <= dh.current && dh.current < dh.symbol_data_locations[symbol][1]) {
                 s->on_data(symbol);
             };
         };
+        p.update_value();
     };
     m = Metrics(&p);
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();

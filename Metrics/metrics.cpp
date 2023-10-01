@@ -107,7 +107,7 @@ void Metrics::display_metrics() {
     // l.col(1) = RETURNS;
     // l.col(0) = TOTAL_EQUITY;
 
-    // printf_csv("./h.csv", l);
+    printf_csv("./h.csv", holdings);
 
 };
 

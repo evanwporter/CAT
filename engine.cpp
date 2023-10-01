@@ -7,6 +7,7 @@ int main() {
         bt.run();
         bt.metrics();
     }
+    
     else if (bt.dh.mode == "optimize") {
         bt.optimize();
     }
