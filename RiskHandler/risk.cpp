@@ -15,6 +15,8 @@ RiskHandler::RiskHandler(DataHandler *data_handler,  Portfolio *p) {
     dh = data_handler;
     portfolio = p;
 
+    if (dh->mode == "backtest") simple = dh->settings["SIMPLE RISK"].get_bool();
+
     generate_weights("equal");
 
 }
@@ -27,7 +29,7 @@ double RiskHandler::check_weights(std::string symbol, double weight_adjustment, 
 
     double max_weight, current_weight, potential_weight;
 
-    current_weight = ( portfolio->positions[symbol].quantity * (double) price) / (double) portfolio->TE;
+    current_weight = ( portfolio->positions[symbol].quantity * (double) price * 100) / (double) portfolio->TE;
 
     if (direction == Direction::LONG_) {
         max_weight = weights[symbol][1];
@@ -63,10 +65,13 @@ void RiskHandler::generate_weights(std::string method) {
 void RiskHandler::on_signal(std::string symbol, Direction direction)
 {
     money price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
-    double WA = check_weights(symbol, .04, price, direction);
+    int quantity;
 
-    // int quantity = std::floor(double(portfolio->TE) * WA / price);
-    int quantity = 1;
+    if (!simple) {
+        double WA = check_weights(symbol, .04 * 100, price, direction) / 100;
+        quantity = std::floor(double(portfolio->TE) * WA / price);
+    }
+    else quantity = 1;
 
     // std::cout << " " << portfolio->positions[symbol].quantity * price << " " << WA << " " << portfolio->TE << " " << price << " " << portfolio->positions[symbol].quantity << std::endl;
 

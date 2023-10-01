@@ -14,6 +14,9 @@ class RiskHandler {
       double check_weights(std::string symbol, double weight_adjustment, money price, Direction direction);
       inline void generate_weights(std::string method = "equal");
 
+      void check_leverage();
+      bool simple;
+
     public:
       RiskHandler();
       RiskHandler(DataHandler *data_handler,  Portfolio *p);
@@ -41,9 +44,6 @@ class RiskHandler {
 
       void on_signal(std::string symbol, Direction direction);
 
-
-    private:
-      void check_leverage();
 
 };
 };
