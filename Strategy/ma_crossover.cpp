@@ -3,7 +3,7 @@
 
 using namespace CAT;
 
-MovingAverageCrossover::MovingAverageCrossover(DataHandler *data_handler, RiskHandler *risk_handler, unsigned int wdow)
+MovingAverageCrossover::MovingAverageCrossover(DataHandler *data_handler, RiskHandler *risk_handler)
 {
     dh = data_handler;
     rh = risk_handler;

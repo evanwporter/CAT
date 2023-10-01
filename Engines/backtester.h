@@ -21,6 +21,7 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include <memory>
 
 
 
@@ -32,7 +33,7 @@ class Backtester {
         Portfolio p;
         DataHandler dh;
         RiskHandler rh;
-        Strategy* s;
+        std::unique_ptr<Strategy> s;
         Metrics m;
 
         void run(int param = 30);

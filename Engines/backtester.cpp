@@ -12,7 +12,7 @@ void Backtester::run(int param)
 
     p = Portfolio(&dh);
     rh = RiskHandler(&dh, &p);
-    s = new MovingAverageCrossover(&dh, &rh, param);
+    s = std::make_unique<MovingAverageCrossover>(&dh, &rh);
 
     for(dh.current = dh.warmup_period; dh.current < dh.total_bars; dh.current++) {
         p.update_value();
