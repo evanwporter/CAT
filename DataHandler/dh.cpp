@@ -21,15 +21,15 @@ DataHandler::DataHandler() {
     padded_string json = padded_string::load("settings.json");
     settings = parser.iterate(json);
 
-    mode = std::string(std::string_view(settings["MODE"].get_string()));
+    mode = std::string(std::string_view(settings["MODE"]));
 
     for (ondemand::value symbol : settings["SYMBOLS"]) {
-        symbols.push_back(std::string(std::string_view(symbol.get_string())));
+        symbols.push_back(std::string(std::string_view(symbol)));
     };
 
     warmup_period = settings["DATA_WARMUP_PERIOD"].get_uint64();
 
-    std::string p = std::string(std::string_view(settings["DATA_DIRECTORY"].get_string()));
+    std::string p = std::string(std::string_view(settings["DATA_DIRECTORY"]));
     
     quiet = settings["QUIET"].get_bool();
     money_mult = settings["MONEY MULTIPLIER"].get_uint64();
