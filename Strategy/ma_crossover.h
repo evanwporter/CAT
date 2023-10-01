@@ -16,8 +16,6 @@ class MovingAverageCrossover : public Strategy {
 
       void on_data(std::string symbol);
 
-      unsigned int window;
-
 };
 };
 

@@ -11,13 +11,13 @@ MovingAverageCrossover::MovingAverageCrossover(DataHandler *data_handler, RiskHa
 
     if (dh->mode == "backtest") {
         // dh->settings.rewind();
-        window = dh->settings["RUN TIME PARAMETERS"].get_uint64();
+        param = dh->settings["RUN TIME PARAMETERS"].get_int64();
     }
 }
 
 void MovingAverageCrossover::on_data(std::string symbol)
 {
-    MoneyVectorX bars = dh->getLatestBarsN(symbol, window).col(dh->symbol_headers[symbol]["Adj Close"]);
+    MoneyVectorX bars = dh->getLatestBarsN(symbol, param).col(dh->symbol_headers[symbol]["Adj Close"]);
     money moving_average = bars.mean();
     money current_price = bars.tail<1>()[0];
     if (moving_average < current_price) rh->on_signal(symbol, Direction::LONG_);

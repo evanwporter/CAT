@@ -36,8 +36,9 @@ void Backtester::metrics(){
 void Backtester::optimize () {
     std::vector<unsigned int> param;
     std::vector<double> results;
-    for (unsigned int i = 10; i < 30; i++) {
+    for (int i = 10; i < 30; i++) {
         param.push_back(i);
+        s->param = i;
         run();
         results.push_back(m.TOTAL_RETURN);
         std::cout << m.TOTAL_RETURN << " ";

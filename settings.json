@@ -1,5 +1,5 @@
 {
-    "MODE" : "backtest",
+    "MODE" : "optimize",
     
     "FEES" : {
         "NASDAQ" : 0.0

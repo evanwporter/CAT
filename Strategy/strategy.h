@@ -21,6 +21,8 @@ class Strategy {
 
       std::unordered_map<std::string, bool> traded;
 
+      int param;
+
 
 };
 };
