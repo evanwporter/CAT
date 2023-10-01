@@ -63,9 +63,9 @@ void RiskHandler::generate_weights(std::string method) {
 void RiskHandler::on_signal(std::string symbol, Direction direction)
 {
     money price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
-    double WA = check_weights(symbol, .4, price, direction);
+    double WA = check_weights(symbol, .04, price, direction);
 
-    // int quantity = (portfolio->TE * WA / price);
+    // int quantity = std::floor(double(portfolio->TE) * WA / price);
     int quantity = 1;
 
     // std::cout << " " << portfolio->positions[symbol].quantity * price << " " << WA << " " << portfolio->TE << " " << price << " " << portfolio->positions[symbol].quantity << std::endl;
