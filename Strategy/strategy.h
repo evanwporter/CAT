@@ -12,14 +12,16 @@ namespace CAT {
 class Strategy {
     public:
       Strategy() {};
-      Strategy(DataHandler *data_handler,  RiskHandler *risk_handler) : dh(data_handler), rh(risk_handler) {};
+      Strategy(DataHandler *data_handler,  RiskHandler *risk_handler, int p) : dh(data_handler), rh(risk_handler), param(p) {};
 
       DataHandler *dh;
       RiskHandler *rh;
 
-      virtual void on_data(std::string symbol) = 0;
+      virtual void on_data(std::string symbol, int p) = 0;
 
-      std::unordered_map<std::string, bool> traded;
+      void modify_param(int p) {
+        param = p;
+      }
 
       int param;
 

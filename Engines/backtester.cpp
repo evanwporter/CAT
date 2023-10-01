@@ -18,7 +18,7 @@ void Backtester::run()
         p.update_value();
         for (auto symbol : dh.symbols) {
             if (dh.symbol_data_locations[symbol][0] <= dh.current && dh.current < dh.symbol_data_locations[symbol][1]) {
-                s->on_data(symbol);
+                s->on_data(symbol, 30);
             };
         };
     };
@@ -34,14 +34,46 @@ void Backtester::metrics(){
 };
 
 void Backtester::optimize () {
-    std::vector<unsigned int> param;
+
+    std::vector<int> param;
     std::vector<double> results;
     for (int i = 10; i < 30; i++) {
-        param.push_back(i);
-        s->param = i;
-        run();
+        p = Portfolio(&dh);
+        rh = RiskHandler(&dh, &p);
+        s = std::make_unique<MovingAverageCrossover>(&dh, &rh, i);
+        // s->modify_param(i);
+
+        for(dh.current = dh.warmup_period; dh.current < dh.total_bars; dh.current++) {
+            p.update_value();
+            for (auto symbol : dh.symbols) {
+                if (dh.symbol_data_locations[symbol][0] <= dh.current && dh.current < dh.symbol_data_locations[symbol][1]) {
+                    s->on_data(symbol, i);
+                };
+            };
+        };
+
+        m = Metrics(&p);
+        m.TIME_TAKEN = 0;   
         results.push_back(m.TOTAL_RETURN);
+        param.push_back(i);
+
         std::cout << m.TOTAL_RETURN << " ";
+
     }
     // std::cout << std::distance(results.begin(), std::max_element(results.begin(), results.end()));
 }
+
+// void Backtester::optimizer_run() {
+//     for(dh.current = dh.warmup_period; dh.current < dh.total_bars; dh.current++) {
+//         p.update_value();
+//         for (auto symbol : dh.symbols) {
+//             if (dh.symbol_data_locations[symbol][0] <= dh.current && dh.current < dh.symbol_data_locations[symbol][1]) {
+//                 s->on_data(symbol);
+//             };
+//         };
+//     };
+//     std::cout << "here4;
+
+//     m = Metrics(&p);
+//     m.TIME_TAKEN = 0;   
+// }

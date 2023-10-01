@@ -12,10 +12,11 @@ namespace CAT {
   
 class MovingAverageCrossover : public Strategy {
     public:
-      MovingAverageCrossover(DataHandler *data_handler,  RiskHandler *risk_handler);
+      MovingAverageCrossover(DataHandler *data_handler,  RiskHandler *risk_handler, int p = 30);
 
-      void on_data(std::string symbol);
+      void on_data(std::string symbol, int p);
 
+      int param = 0;
 };
 };
 
