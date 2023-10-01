@@ -18,7 +18,7 @@ void Backtester::run()
         p.update_value();
         for (auto symbol : dh.symbols) {
             if (dh.symbol_data_locations[symbol][0] <= dh.current && dh.current < dh.symbol_data_locations[symbol][1]) {
-                s->on_data(symbol, 30);
+                s->on_data(symbol);
             };
         };
     };
@@ -40,14 +40,15 @@ void Backtester::optimize () {
     for (int i = 10; i < 30; i++) {
         p = Portfolio(&dh);
         rh = RiskHandler(&dh, &p);
-        s = std::make_unique<MovingAverageCrossover>(&dh, &rh, i);
+        s = std::make_unique<MovingAverageCrossover>(&dh, &rh);
         // s->modify_param(i);
+        s->parameter = i;
 
         for(dh.current = dh.warmup_period; dh.current < dh.total_bars; dh.current++) {
             p.update_value();
             for (auto symbol : dh.symbols) {
                 if (dh.symbol_data_locations[symbol][0] <= dh.current && dh.current < dh.symbol_data_locations[symbol][1]) {
-                    s->on_data(symbol, i);
+                    s->on_data(symbol);
                 };
             };
         };
