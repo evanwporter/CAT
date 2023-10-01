@@ -6,12 +6,11 @@
 #include "../Portfolio/portfolio.h"
 #include "../utility.h"
 #include "../DataHandler/dh.h"
+#include "../Metrics/metrics.h"
 
 #include "../Strategy/strategy.h"
 #include "../Strategy/BuyAndHold.h"
 #include "../Strategy/ma_crossover.h"
-
-#include "../Metrics/metrics.h"
 
 #include "../Libraries/simdjson.h"
 
@@ -36,7 +35,7 @@ class Backtester {
         std::unique_ptr<Strategy> s;
         Metrics m;
 
-        void run(int param = 30);
+        void run();
 
         void metrics();
 

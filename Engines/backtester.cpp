@@ -6,7 +6,7 @@ using namespace CAT;
 
 Backtester::Backtester() {};
 
-void Backtester::run(int param)
+void Backtester::run()
 {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
@@ -38,7 +38,7 @@ void Backtester::optimize () {
     std::vector<double> results;
     for (unsigned int i = 10; i < 30; i++) {
         param.push_back(i);
-        run(i);
+        run();
         results.push_back(m.TOTAL_RETURN);
         std::cout << m.TOTAL_RETURN << " ";
     }
