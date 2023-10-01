@@ -22,12 +22,3 @@ void MovingAverageCrossover::on_data(std::string symbol)
     if (moving_average < current_price) rh->on_signal(symbol, Direction::LONG_);
     else rh->on_signal(symbol, Direction::SHORT_);
 }
-
-// void MovingAverageCrossover::on_data(std::string symbol, int p)
-// {
-//     MoneyVectorX bars = dh->getLatestBarsN(symbol, p).col(dh->symbol_headers[symbol]["Adj Close"]);
-//     money moving_average = bars.mean();
-//     money current_price = bars.tail<1>()[0];
-//     if (moving_average < current_price) rh->on_signal(symbol, Direction::LONG_);
-//     else rh->on_signal(symbol, Direction::SHORT_);
-// }

@@ -63,18 +63,3 @@ void Backtester::optimize () {
     }
     // std::cout << std::distance(results.begin(), std::max_element(results.begin(), results.end()));
 }
-
-// void Backtester::optimizer_run() {
-//     for(dh.current = dh.warmup_period; dh.current < dh.total_bars; dh.current++) {
-//         p.update_value();
-//         for (auto symbol : dh.symbols) {
-//             if (dh.symbol_data_locations[symbol][0] <= dh.current && dh.current < dh.symbol_data_locations[symbol][1]) {
-//                 s->on_data(symbol);
-//             };
-//         };
-//     };
-//     std::cout << "here4;
-
-//     m = Metrics(&p);
-//     m.TIME_TAKEN = 0;   
-// }

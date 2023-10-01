@@ -18,12 +18,6 @@ class Strategy {
       RiskHandler *rh;
 
       virtual void on_data(std::string symbol) = 0;
-      // virtual void opt_on_data(std::string symbol, int p) = 0;
-
-
-      // void modify_param(int p) {
-      //   param = p;
-      // }
 
       int parameter;
 

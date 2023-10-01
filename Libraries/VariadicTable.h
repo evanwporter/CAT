@@ -87,6 +87,7 @@ public:
    */
   template <typename StreamType>
   void print(StreamType & stream)
+  // friend std::ostream& operator<<(ostream& os, const VariadicTable& vt)
   {
     size_columns();
 
