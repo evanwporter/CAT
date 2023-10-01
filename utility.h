@@ -24,15 +24,15 @@ typedef Eigen::Matrix< money, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor > 
 typedef Eigen::Matrix< money, Eigen::Dynamic, 1 > MoneyVectorX;
 typedef Eigen::Matrix< double, Eigen::Dynamic, 1 > PercentVectorX;
 
-struct {
-    simdjson::ondemand::document doc;
-    std::string mode;
-    bool quiet;
-    money initial_cash;
-    unsigned long money_mult = 1;
-    unsigned long warmup_period = 1;
-    std::vector<std::string> symbols;
-} bt_settings;
+// struct {
+//     simdjson::ondemand::document doc;
+//     std::string mode;
+//     bool quiet;
+//     money initial_cash;
+//     unsigned long money_mult = 1;
+//     unsigned long warmup_period = 1;
+//     std::vector<std::string> symbols;
+// } bt_settings;
 
 // };
 

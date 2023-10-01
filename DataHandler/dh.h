@@ -40,7 +40,7 @@ class DataHandler {
       std::vector<std::string> symbols;
 
       sd::ondemand::document settings;
-      std::string mode;
+      std::string_view mode;
 
       bool quiet = true;
       money initial_cash;
