@@ -29,3 +29,5 @@ Because of optimizations of the backtest around a variable. Optimizations requir
 * Use chrono or roll my own timestamp manager
 * Add optimization function
 * Add errors
+* Add << operator variadic table
+  * Add << operator to Metrics
