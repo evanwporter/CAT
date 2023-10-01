@@ -1,6 +1,5 @@
 {
     "MODE" : "backtest",
-    "RUN TIME PARAMETERS": 30,
     
     "FEES" : {
         "NASDAQ" : 0.0
@@ -19,6 +18,8 @@
     "QUIET" : true,
 
     "MONEY MULTIPLIER": 100000,
-    "INITIAL CASH" : 50
+    "INITIAL CASH" : 50,
+    
+    "RUN TIME PARAMETERS": 30
 
 }
