@@ -24,7 +24,6 @@ class DataHandler {
     private:
       void load_csv(const std::string &symbol, const std::string &path);
       std::vector<datetime64> unionize(std::vector<datetime64> a, std::string symbol, std::vector<datetime64> b);
-      void parse_settings();
 
     public:
       std::unordered_map<std::string, std::unordered_map<std::string, int>> symbol_headers;

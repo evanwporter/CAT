@@ -124,7 +124,7 @@ MoneyMatrixX DataHandler::getLatestBarsN(std::string symbol, int N)
 
 std::vector<datetime64> DataHandler::unionize(std::vector<datetime64> a, std::string symbol, std::vector<datetime64> b) {
     // unsigned int a_loc[2] = {0, a.size()};
-    unsigned int b_loc[2] = {0, b.size()};
+    std::size_t b_loc[2] = {0, b.size()};
 
     std::vector<datetime64> c;
 
@@ -153,8 +153,4 @@ std::vector<datetime64> DataHandler::unionize(std::vector<datetime64> a, std::st
     symbol_data_locations[symbol][1] = b_loc[1];
 
     return c;
-}
-
-void parse_settings() {
-    
 }
