@@ -27,7 +27,8 @@ Because of optimizations of the backtest around a variable. Optimizations requir
   * ~~Abstract Base Strategy Class~~
 * ~~Put direction in enum file/folder~~
 * Use chrono or roll my own timestamp manager
-* Add optimization function
+* ~~Add optimization function~~
 * Add errors
 * Add << operator variadic table
   * Add << operator to Metrics
+* Use c++ std::variant to allow more types within the settings.json
