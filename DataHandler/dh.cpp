@@ -35,7 +35,7 @@ DataHandler::DataHandler() {
     money_mult = settings["MONEY MULTIPLIER"].get_uint64();
     initial_cash = settings["INITIAL CASH"].get_uint64();
 
-    for(std::string symbol : symbols) load_csv(symbol, path + "\\Data\\");//"C:\\Users\\evanw\\options\\");
+    for(std::string symbol : symbols) load_csv(symbol, path + "\\Data\\");
 
     for(std::string symbol : symbols) total_symbol_dates = unionize(total_symbol_dates, symbol, symbol_dates[symbol]);
 
@@ -98,11 +98,8 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
     };
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
-
     // Starts at 1 to eliminate Date header
     for(unsigned int i = 1; i < headers.size(); i++) symbol_headers[symbol][headers[i]] = i - 1;
-
-    // for (auto i: values) std::cout << i << " ";
 
     symbol_data[symbol] = Map<MoneyMatrixX> (values.data(), rows, headers.size() - 2);
     if (!quiet) std::cout << "Loaded " << symbol << ". Time taken: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << " microseconds." << std::endl;
