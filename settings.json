@@ -16,7 +16,7 @@
     "STRATEGY" : "UpDownTick",
     "PARAMETERS" : {"method": "TREND"},
 
-    "QUIET" : true,
+    "QUIET" : false,
 
     "MONEY MULTIPLIER": 100000,
     "INITIAL CASH" : 500,

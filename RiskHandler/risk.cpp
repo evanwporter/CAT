@@ -28,10 +28,11 @@ double RiskHandler::check_weights(std::string symbol, double weight_adjustment, 
     // Weight Adjustment is how of asset to buy or sell
     // Reflected as a percentage of Total Equity
 
-    double max_weight, min_weight, current_weight, current_cash_weight, potential_weight;
+    double max_weight, min_weight, symbol_weight, cash_weight, potential_weight;
 
-    current_weight = ( portfolio->positions[symbol].quantity * (double) price * 100) / (double) portfolio->TE;
-    current_cash_weight = portfolio->CASH_position.quantity * 100 / portfolio->TE;
+    // Current weights
+    symbol_weight = (( portfolio->positions[symbol].quantity * price ) / (double) portfolio->TE ) * 100;
+    cash_weight = ( (double) portfolio->CASH_position.quantity / portfolio->TE ) * 100;
 
     // std::cout << "Current Weights " << current_weight << " " << current_cash_weight << std::endl;
     // std::cout << "Cash Quantity " << portfolio->CASH_position.quantity << " TE " << portfolio->TE << std::endl;
@@ -39,20 +40,43 @@ double RiskHandler::check_weights(std::string symbol, double weight_adjustment, 
     if (direction == Direction::LONG_) {
         // CASH WEIGHT goes DOWN
         // SYMBOL WEIGHT goes UP
-        max_weight = weights[symbol][1];
-        min_weight = CASH_weight[0];
-        if (current_weight + weight_adjustment > max_weight) weight_adjustment = max_weight - current_weight;
-        if (current_cash_weight - weight_adjustment < min_weight) weight_adjustment = current_cash_weight - min_weight;
+
+        // Weight Bounds
+        max_weight = weights[symbol][1]; // symbol
+        min_weight = CASH_weight[0];     // cash
+
+        double cash_distance = cash_weight - min_weight;               
+        double symbol_distance = max_weight - symbol_weight;
+
+        double distance = cash_distance > symbol_distance ? symbol_distance : cash_distance;
+        
+        if (distance < weight_adjustment) {
+            // Scales quanity down
+            weight_adjustment = distance;
+        }
+
+        // if (current_weight + weight_adjustment > max_weight) weight_adjustment = max_weight - current_weight;
+        // if (current_cash_weight - weight_adjustment < min_weight) weight_adjustment = current_cash_weight - min_weight;
     }
     else { // SHORT_
         // CASH WEIGHT goes UP
         // SYMBOL WEIGHT goes DOWN
-        min_weight = weights[symbol][0];
-        max_weight = CASH_weight[1];
-        if (current_weight - weight_adjustment < min_weight) weight_adjustment = current_weight - min_weight;
-        if (current_cash_weight + weight_adjustment > max_weight) weight_adjustment = max_weight - current_cash_weight;
+        
+        min_weight = weights[symbol][0]; // symbol
+        max_weight = CASH_weight[1];     // cash
+
+        double cash_distance = max_weight - cash_weight;               
+        double symbol_distance = symbol_weight - min_weight;
+
+        double distance = cash_distance > symbol_distance ? symbol_distance : cash_distance;
+        
+        if (distance < weight_adjustment) {
+            // Scales quanity up
+            weight_adjustment = distance;
+        }
     };
-    
+    std::cout << " " << symbol << " " << weight_adjustment << " "; 
+
     return weight_adjustment;
 }
 
@@ -75,9 +99,9 @@ void RiskHandler::generate_weights(std::string method) {
             weights[symbol][0] = individual_min_weight;
             weights[symbol][1] = individual_max_weight;
 
-            std::cout << individual_min_weight << " " << individual_max_weight << std::endl;
+            // std::cout << individual_min_weight << " " << individual_max_weight << std::endl;
         }
-        std::cout << Min_Cash_Weight << " " << Max_Cash_Weight;
+        // std::cout << Min_Cash_Weight << " " << Max_Cash_Weight;
     }
     else throw std::invalid_argument("At this time only equal weighting is accepted for the weight generation process.");
 };
