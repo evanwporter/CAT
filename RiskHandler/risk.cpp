@@ -16,6 +16,7 @@ RiskHandler::RiskHandler(DataHandler *data_handler,  Portfolio *p) {
     portfolio = p;
 
     if (dh->mode == "backtest") simple = dh->settings["SIMPLE RISK"].get_bool();
+    MLR = dh->settings["MAXIMUM LEVERAGE RATIO"].get_uint64();
 
     generate_weights("equal");
 
@@ -27,34 +28,56 @@ double RiskHandler::check_weights(std::string symbol, double weight_adjustment, 
     // Weight Adjustment is how of asset to buy or sell
     // Reflected as a percentage of Total Equity
 
-    double max_weight, current_weight, potential_weight;
+    double max_weight, min_weight, current_weight, current_cash_weight, potential_weight;
 
     current_weight = ( portfolio->positions[symbol].quantity * (double) price * 100) / (double) portfolio->TE;
+    current_cash_weight = portfolio->CASH_position.quantity * 100 / portfolio->TE;
+
+    // std::cout << "Current Weights " << current_weight << " " << current_cash_weight << std::endl;
+    // std::cout << "Cash Quantity " << portfolio->CASH_position.quantity << " TE " << portfolio->TE << std::endl;
 
     if (direction == Direction::LONG_) {
+        // CASH WEIGHT goes DOWN
+        // SYMBOL WEIGHT goes UP
         max_weight = weights[symbol][1];
-        potential_weight = current_weight + (weight_adjustment * 1);
+        min_weight = CASH_weight[0];
+        if (current_weight + weight_adjustment > max_weight) weight_adjustment = max_weight - current_weight;
+        if (current_cash_weight - weight_adjustment < min_weight) weight_adjustment = current_cash_weight - min_weight;
     }
-    else {
-        max_weight = weights[symbol][0];
-        potential_weight = current_weight + (weight_adjustment * -1);
+    else { // SHORT_
+        // CASH WEIGHT goes UP
+        // SYMBOL WEIGHT goes DOWN
+        min_weight = weights[symbol][0];
+        max_weight = CASH_weight[1];
+        if (current_weight - weight_adjustment < min_weight) weight_adjustment = current_weight - min_weight;
+        if (current_cash_weight + weight_adjustment > max_weight) weight_adjustment = max_weight - current_cash_weight;
     };
     
-    // Scale quantity down
-    if (max_weight < potential_weight) {
-        weight_adjustment = max_weight - current_weight;
-    }
     return weight_adjustment;
 }
 
 void RiskHandler::generate_weights(std::string method) {
+    double Max_Total_Weight = 100*MLR + 100;
+    double Max_Cash_Weight = 100*MLR + 100;
+
+    double Min_Cash_Weight = 100 - Max_Total_Weight;
+    double Min_Total_Weight = 100 - Min_Cash_Weight;
+
+    CASH_weight[0] = Min_Cash_Weight;
+    CASH_weight[1] = Max_Cash_Weight;
+
     if (method == "equal") {
-        int n_symbols = dh->symbols.size();
-        int individual_weighting = std::floor(100 / n_symbols);
-        for (auto symbol : dh->symbols) {
-            weights[symbol][0] = 0;
-            weights[symbol][1] = individual_weighting;
+
+        double individual_max_weight = Max_Total_Weight / dh->symbols.size();
+        double individual_min_weight = Min_Total_Weight / dh->symbols.size();
+
+        for (std::string symbol : dh->symbols) {
+            weights[symbol][0] = individual_min_weight;
+            weights[symbol][1] = individual_max_weight;
+
+            std::cout << individual_min_weight << " " << individual_max_weight << std::endl;
         }
+        std::cout << Min_Cash_Weight << " " << Max_Cash_Weight;
     }
     else throw std::invalid_argument("At this time only equal weighting is accepted for the weight generation process.");
 };
@@ -65,7 +88,7 @@ void RiskHandler::on_signal(std::string symbol, Direction direction)
     int quantity;
 
     if (!simple) {
-        double WA = check_weights(symbol, .04 * 100, price, direction) / 100;
+        double WA = check_weights(symbol, 10, price, direction) / 100;
         quantity = std::floor(double(portfolio->TE) * WA / price);
     }
     else {

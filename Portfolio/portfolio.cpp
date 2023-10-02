@@ -24,8 +24,17 @@ Portfolio::Portfolio(DataHandler *data_handler)
     // std::cout << "Effective money mult: " << dh->money_mult << std::endl;
 
     TOTAL_EQUITY.reserve(dh->total_bars);
+    TE = CASH_position.quantity;
+    TOTAL_EQUITY.push_back(CASH_position.quantity);
+    
     ASSETS.reserve(dh->total_bars);
+    A = TE;
+    ASSETS.push_back(A);
+
     LIABILITIES.reserve(dh->total_bars);
+    L = 0;
+    LIABILITIES.push_back(L);
+
 
 }
 

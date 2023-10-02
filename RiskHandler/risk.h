@@ -37,6 +37,7 @@ class RiskHandler {
       // This function checks to see if the proposed trade will go over 
       // or under the weight bounds
       std::unordered_map<std::string, double[2]> weights;
+      double CASH_weight[2];
 
       // How of asset to buy or sell
       // Reflected as a percentage of Total Equity
