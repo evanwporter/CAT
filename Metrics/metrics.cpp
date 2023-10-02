@@ -106,8 +106,8 @@ void Metrics::display_metrics() {
     // l.col(2) = EQUITY_CURVE;
     // l.col(1) = RETURNS;
     // l.col(0) = TOTAL_EQUITY;
-
-    printf_csv("./h.csv", holdings);
+    //if (portfolio->dh->settings["HOLDINGS TO CSV"].get_bool()) 
+    printf_csv("./holdings.csv", holdings);
 
 };
 

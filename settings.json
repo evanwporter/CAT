@@ -6,7 +6,8 @@
     },
     "SYMBOLS" : [
         "GOOG",
-        "AAPL"
+        "AAPL",
+        "MSFT"
     ],
 
     "DATA_WARMUP_PERIOD" : 100,
@@ -15,13 +16,15 @@
     "STRATEGY" : "UpDownTick",
     "PARAMETERS" : {"method": "TREND"},
 
-    "QUIET" : false,
+    "QUIET" : true,
 
     "MONEY MULTIPLIER": 100000,
-    "INITIAL CASH" : 50,
+    "INITIAL CASH" : 500,
 
-    "SIMPLE RISK" : false,
+    "SIMPLE RISK" : true,
     
-    "RUN TIME PARAMETERS": 30
+    "RUN TIME PARAMETERS": 30,
+
+    "HOLDINGS TO CSV": true
 
 }
