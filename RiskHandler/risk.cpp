@@ -111,7 +111,7 @@ void RiskHandler::on_signal(std::string symbol, Direction direction)
     money price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
     int quantity;
 
-    if (!simple) {
+    if (!simple) { // Currently doesn't work
         double WA = check_weights(symbol, 10, price, direction) / 100;
         quantity = std::floor(double(portfolio->TE) * WA / price);
     }
