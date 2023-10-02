@@ -39,7 +39,7 @@ class RiskHandler {
       std::unordered_map<std::string, double[2]> weights;
       double CASH_weight[2];
 
-      // How of asset to buy or sell
+      // How much of an asset to buy or sell
       // Reflected as a percentage of Total Equity
       // weight_adjustment = .1
 
