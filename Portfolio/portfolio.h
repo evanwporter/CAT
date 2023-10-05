@@ -8,6 +8,8 @@
 #include "../utility.h"
 #include "../DataHandler/dh.h"
 
+#include "../Libraries/robin_hood.h"
+
 #include <unordered_map>
 #include <string>
 #include <vector>
@@ -17,8 +19,8 @@ class Portfolio {
   public:
     bt_settings* settings;
 
-    std::unordered_map<std::string, Position> positions;
-    std::unordered_map<std::string, std::vector<money>> holdings;
+    robin_hood::unordered_map<std::string, Position> positions;
+    robin_hood::unordered_map<std::string, std::vector<money>> holdings;
 
     CASH CASH_position;
     std::vector<money> CASH_holding;

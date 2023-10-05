@@ -13,6 +13,7 @@
 #include <string_view>
 
 #include "../Libraries/simdjson.h"
+#include "../Libraries/robin_hood.h"
 #include "../utility.h"
 
 
@@ -26,12 +27,12 @@ class DataHandler {
       std::vector<datetime64> unionize(std::vector<datetime64> a, std::string symbol, std::vector<datetime64> b);
 
     public:
-      std::unordered_map<std::string, std::unordered_map<std::string, int>> symbol_headers;
-      std::unordered_map<std::string, std::vector<datetime64>> symbol_dates;
-      std::unordered_map<std::string, MoneyMatrixX> symbol_data;
+      robin_hood::unordered_map<std::string, robin_hood::unordered_map<std::string, int>> symbol_headers;
+      robin_hood::unordered_map<std::string, std::vector<datetime64>> symbol_dates;
+      robin_hood::unordered_map<std::string, MoneyMatrixX> symbol_data;
 
       // stores the location of the symbol data relative to the master collection
-      std::unordered_map<std::string, unsigned int[2]> symbol_data_locations;
+      robin_hood::unordered_map<std::string, unsigned int[2]> symbol_data_locations;
 
       std::map<std::string, int> s;
 

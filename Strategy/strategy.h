@@ -4,7 +4,6 @@
 #include "../DataHandler/dh.h"
 #include "../RiskHandler/risk.h"
 
-#include <unordered_map>
 #include <string>
 
 namespace CAT {

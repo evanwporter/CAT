@@ -5,7 +5,6 @@
 #include "../RiskHandler/risk.h"
 #include "strategy.h"
 
-#include <unordered_map>
 #include <string>
 
 namespace CAT {

@@ -1,5 +1,5 @@
-#ifndef BACKTESTER_H
-#define BACKTESTER_H
+#ifndef ENGINE_H
+#define ENGINE_H
 
 #include "../Portfolio/ticker.h"
 #include "../Portfolio/position.h"
