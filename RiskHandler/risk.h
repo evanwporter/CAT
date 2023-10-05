@@ -27,7 +27,9 @@ class RiskHandler {
       double TE;
 
       // Maximum Leverage Ratio
-      double MLR = 1;
+      // Defined in settings
+      // Calculated as Leverage to TE
+      double MLR = 0;
 
       // Cash Buffer
       double CB;

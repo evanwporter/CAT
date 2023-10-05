@@ -10,6 +10,8 @@
                 "/nologo",
                 // "/Fe${fileDirname}\\test.exe",
                 // "${fileDirname}\\test.cpp",
+                // "/I${fileDirname}\\..\\Libraries\\Eigen",
+
 
                 "/Fe${fileDirname}\\engine.exe",
                 "${fileDirname}\\**.cpp",

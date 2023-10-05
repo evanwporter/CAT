@@ -45,9 +45,6 @@
 #include <sstream>
 #include <locale>
 
-#include <Eigen/Core>
-#include <Eigen/Dense>
-
 
 #ifndef DEC_TYPE_LEVEL
 #define DEC_TYPE_LEVEL 2
