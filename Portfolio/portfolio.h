@@ -15,6 +15,8 @@
 namespace CAT {
 class Portfolio {
   public:
+    bt_settings* settings;
+
     std::unordered_map<std::string, Position> positions;
     std::unordered_map<std::string, std::vector<money>> holdings;
 
@@ -25,7 +27,9 @@ class Portfolio {
 
     Portfolio();
 
-    Portfolio(DataHandler *data_handler);
+    // Portfolio(DataHandler *data_handler);
+    Portfolio(DataHandler *data_handler, bt_settings *bts);
+
     void on_fill(std::string symbol, money price, int quantity, Direction direction);
 
     void update_position(long price, std::string symbol, int quantity, Direction direction);

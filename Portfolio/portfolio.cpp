@@ -7,16 +7,17 @@ using namespace CAT;
 
 Portfolio::Portfolio() {};
 
-Portfolio::Portfolio(DataHandler *data_handler)
+Portfolio::Portfolio(DataHandler *data_handler, bt_settings *bts)
 {
     dh = data_handler;
+    settings = bts;
 
-    for(std::string symbol : dh->symbols) {
+    for(std::string symbol : settings->symbols) {
         positions[symbol] = Position();
         holdings[symbol].reserve(dh->total_bars - 100);
         holdings[symbol].push_back(0);
     };
-    CASH_position = CASH(dh->initial_cash * dh->money_mult);
+    CASH_position = CASH(settings->initial_cash * settings->money_mult);
     CASH_holding.reserve(dh->total_bars);
     CASH_holding.push_back(CASH_position.quantity);
 
@@ -44,7 +45,7 @@ void Portfolio::on_fill(std::string symbol, money price, int quantity, Direction
     update_position(price, symbol, quantity, direction);
 
     if (!dh->quiet) std::cout << "Executed trade for " << direction * quantity << " shares of " << symbol << " at $" 
-                        << std::fixed << std::setprecision(2) << (double(price) / double(dh->money_mult)) 
+                        << std::fixed << std::setprecision(2) << (double(price) / double(dh->settings_->money_mult)) 
                         << "." << std::endl;
 
 };
@@ -62,7 +63,7 @@ void Portfolio::update_value()
     A = 0;
     L = 0;
 
-    for (std::string symbol : dh->symbols) {
+    for (std::string symbol : settings->symbols) {
         price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
         value = positions[symbol].update_value(price);
         holdings[symbol].push_back(value);

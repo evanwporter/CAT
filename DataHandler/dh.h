@@ -41,6 +41,8 @@ class DataHandler {
       sd::ondemand::document settings;
       std::string_view mode;
 
+      bt_settings* settings_;
+
       bool quiet = true;
       money initial_cash;
       unsigned long money_mult = 1;

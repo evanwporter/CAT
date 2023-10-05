@@ -19,10 +19,11 @@ class RiskHandler {
 
     public:
       RiskHandler();
-      RiskHandler(DataHandler *data_handler,  Portfolio *p);
+      RiskHandler(DataHandler *data_handler,  Portfolio *p, bt_settings *bts);
 
       DataHandler *dh;
       Portfolio *portfolio;
+      bt_settings *settings;
 
       double TE;
 

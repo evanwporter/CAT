@@ -21,10 +21,10 @@ Metrics::Metrics(Portfolio *p)
 
     portfolio = p;
 
-    holdings = MoneyMatrixX(portfolio->CASH_holding.size(), portfolio->dh->symbols.size() + 1);
+    holdings = MoneyMatrixX(portfolio->CASH_holding.size(), portfolio->settings->symbols.size() + 1);
     
     int i = 1;
-    for(std::string symbol : portfolio->dh->symbols){
+    for(std::string symbol : portfolio->settings->symbols){
         holdings.col(i) = Eigen::Map<MoneyVectorX, Eigen::Unaligned>(
             portfolio->holdings[symbol].data(), portfolio->holdings[symbol].size()
         );

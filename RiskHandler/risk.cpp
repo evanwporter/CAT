@@ -11,14 +11,15 @@ using namespace CAT;
 
 RiskHandler::RiskHandler() {};
 
-RiskHandler::RiskHandler(DataHandler *data_handler,  Portfolio *p) {
+RiskHandler::RiskHandler(DataHandler *data_handler,  Portfolio *p, bt_settings *bts) {
     dh = data_handler;
     portfolio = p;
+    settings = bts;
 
-    if (dh->mode == "backtest") simple = dh->settings["SIMPLE RISK"].get_bool();
-    MLR = dh->settings["MAXIMUM LEVERAGE RATIO"].get_uint64();
+    // if (settings->mode == "backtest") simple = dh->settings["SIMPLE RISK"].get_bool();
+    // MLR = dh->settings["MAXIMUM LEVERAGE RATIO"].get_uint64();
 
-    generate_weights("equal");
+    // generate_weights("equal");
 
 }
 
@@ -92,10 +93,10 @@ void RiskHandler::generate_weights(std::string method) {
 
     if (method == "equal") {
 
-        double individual_max_weight = Max_Total_Weight / dh->symbols.size();
-        double individual_min_weight = Min_Total_Weight / dh->symbols.size();
+        double individual_max_weight = Max_Total_Weight / settings->symbols.size();
+        double individual_min_weight = Min_Total_Weight / settings->symbols.size();
 
-        for (std::string symbol : dh->symbols) {
+        for (std::string symbol : settings->symbols) {
             weights[symbol][0] = individual_min_weight;
             weights[symbol][1] = individual_max_weight;
 

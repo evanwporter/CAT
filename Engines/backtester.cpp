@@ -18,14 +18,17 @@ Backtester::Backtester() {
     bts.quiet = settings["QUIET"].get_bool();
     bts.money_mult = settings["MONEY MULTIPLIER"].get_uint64();
     bts.initial_cash = settings["INITIAL CASH"].get_uint64();
+
+    dh.settings_ = &bts;
 };
 
 void Backtester::run()
 {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
-    p = Portfolio(&dh);
-    rh = RiskHandler(&dh, &p);
+    p = Portfolio(&dh, &bts);
+    rh = RiskHandler(&dh, &p, &bts);
+
     s = std::make_unique<MovingAverageCrossover>(&dh, &rh);
 
     for(dh.current = dh.warmup_period; dh.current < dh.total_bars; dh.current++) {
@@ -36,6 +39,7 @@ void Backtester::run()
         };
         p.update_value();
     };
+
     m = Metrics(&p);
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
@@ -52,8 +56,8 @@ void Backtester::optimize () {
     std::vector<int> param;
     std::vector<double> results;
     for (int i = 10; i < 30; i++) {
-        p = Portfolio(&dh);
-        rh = RiskHandler(&dh, &p);
+        p = Portfolio(&dh, &bts);
+        rh = RiskHandler(&dh, &p, &bts);
         s = std::make_unique<MovingAverageCrossover>(&dh, &rh);
         // s->modify_param(i);
         s->parameter = i;

@@ -8,10 +8,7 @@ MovingAverageCrossover::MovingAverageCrossover(DataHandler *data_handler, RiskHa
     dh = data_handler;
     rh = risk_handler;
 
-    if (dh->mode == "backtest") {
-        // dh->settings.rewind();
-        parameter = dh->settings["RUN TIME PARAMETERS"].get_int64();
-    }
+    if (rh->settings->mode == "backtest") parameter = dh->settings["RUN TIME PARAMETERS"].get_int64();
 }
 
 void MovingAverageCrossover::on_data(std::string symbol)
