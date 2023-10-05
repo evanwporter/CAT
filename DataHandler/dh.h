@@ -51,6 +51,8 @@ class DataHandler {
       unsigned int total_bars, current, data_size;
 
       DataHandler();
+      
+      DataHandler(bt_settings *bts);
 
       MoneyMatrixX getLatestBarsN(std::string symbol, int N);
 

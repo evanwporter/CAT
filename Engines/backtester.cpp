@@ -15,11 +15,13 @@ Backtester::Backtester() {
         bts.symbols.push_back(std::string(std::string_view(symbol)));
     };
 
+    bts.warmup_period = settings["DATA_WARMUP_PERIOD"].get_uint64();
+
     bts.quiet = settings["QUIET"].get_bool();
     bts.money_mult = settings["MONEY MULTIPLIER"].get_uint64();
     bts.initial_cash = settings["INITIAL CASH"].get_uint64();
 
-    dh.settings_ = &bts;
+    dh = DataHandler(&bts);
 };
 
 void Backtester::run()
@@ -31,8 +33,8 @@ void Backtester::run()
 
     s = std::make_unique<MovingAverageCrossover>(&dh, &rh);
 
-    for(dh.current = dh.warmup_period; dh.current < dh.total_bars; dh.current++) {
-        for (auto symbol : dh.symbols) {
+    for(dh.current = bts.warmup_period; dh.current < dh.total_bars; dh.current++) {
+        for (auto symbol : bts.symbols) {
             if (dh.symbol_data_locations[symbol][0] <= dh.current && dh.current < dh.symbol_data_locations[symbol][1]) {
                 s->on_data(symbol);
             };
@@ -62,9 +64,9 @@ void Backtester::optimize () {
         // s->modify_param(i);
         s->parameter = i;
 
-        for(dh.current = dh.warmup_period; dh.current < dh.total_bars; dh.current++) {
+        for(dh.current = bts.warmup_period; dh.current < dh.total_bars; dh.current++) {
             p.update_value();
-            for (auto symbol : dh.symbols) {
+            for (auto symbol : bts.symbols) {
                 if (dh.symbol_data_locations[symbol][0] <= dh.current && dh.current < dh.symbol_data_locations[symbol][1]) {
                     s->on_data(symbol);
                 };

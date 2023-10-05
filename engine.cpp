@@ -7,7 +7,6 @@ int main() {
     if (bt.dh.mode == "backtest") {
         std::cout << "here1";
         bt.run();
-        std::cout << "here1";
         bt.metrics();
     }
     

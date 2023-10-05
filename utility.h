@@ -30,7 +30,8 @@ struct bt_settings {
 
     bool quiet;
     long money_mult;
-    money initial_cash; 
+    money initial_cash;
+    unsigned long warmup_period = 1; 
 };
 
 #endif

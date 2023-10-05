@@ -13,9 +13,13 @@
 using namespace simdjson;
 using namespace CAT;
 
-DataHandler::DataHandler() {
+DataHandler::DataHandler() {};
+
+DataHandler::DataHandler(bt_settings *bts) {
+    settings_ = bts;
+
     std::string path = GetExePath();
-    if (!std::filesystem::exists(path + "\\settings.json")) std::cout << "ERROR: couldn't load settings.json" << std::endl;
+    if (!std::filesystem::exists(path + "\\settings.json")) std::cout << "ERROR: couldn't locate settings.json" << std::endl;
 
     ondemand::parser parser;
     padded_string json = padded_string::load("settings.json");
@@ -35,9 +39,9 @@ DataHandler::DataHandler() {
     money_mult = settings["MONEY MULTIPLIER"].get_uint64();
     initial_cash = settings["INITIAL CASH"].get_uint64();
 
-    for(std::string symbol : symbols) load_csv(symbol, path + "\\Data\\");
+    for(std::string symbol : settings_->symbols) load_csv(symbol, path + "\\Data\\");
 
-    for(std::string symbol : symbols) total_symbol_dates = unionize(total_symbol_dates, symbol, symbol_dates[symbol]);
+    for(std::string symbol : settings_->symbols) total_symbol_dates = unionize(total_symbol_dates, symbol, symbol_dates[symbol]);
 
     total_bars = total_symbol_dates.size();
 };
@@ -88,7 +92,7 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
         // while (std::getline(lineStream, cell, ',')) {
         for (unsigned int i = 0; i < headers.size() - 2; i++) {
             std::getline(lineStream, cell, ',');
-            money val = std::stod(cell) * money_mult;
+            money val = std::stod(cell) * settings_->money_mult;
             values.push_back(val);
         };
 

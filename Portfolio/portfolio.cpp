@@ -41,7 +41,6 @@ Portfolio::Portfolio(DataHandler *data_handler, bt_settings *bts)
 
 void Portfolio::on_fill(std::string symbol, money price, int quantity, Direction direction)
 {
-    // long price = dh->getLatestBarsN(symbol, 1)(dh->symbol_headers[symbol]["Adj Close"]);
     update_position(price, symbol, quantity, direction);
 
     if (!dh->quiet) std::cout << "Executed trade for " << direction * quantity << " shares of " << symbol << " at $" 
