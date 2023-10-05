@@ -3,6 +3,7 @@
 using namespace CAT;
 int main() {
     Backtester bt;
+
     if (bt.dh.mode == "backtest") {
         bt.run();
         bt.metrics();

@@ -4,7 +4,21 @@
 
 using namespace CAT;
 
-Backtester::Backtester() {};
+Backtester::Backtester() {
+    sd::ondemand::parser parser;
+    sd::padded_string json = sd::padded_string::load("settings.json");
+    sd::ondemand::document settings = parser.iterate(json);
+
+    bts.mode = std::string(std::string_view(settings["MODE"]));
+
+    for (sd::ondemand::value symbol : settings["SYMBOLS"]) {
+        bts.symbols.push_back(std::string(std::string_view(symbol)));
+    };
+
+    bts.quiet = settings["QUIET"].get_bool();
+    bts.money_mult = settings["MONEY MULTIPLIER"].get_uint64();
+    bts.initial_cash = settings["INITIAL CASH"].get_uint64();
+};
 
 void Backtester::run()
 {

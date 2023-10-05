@@ -23,8 +23,8 @@
 #include <memory>
 
 
-
 namespace CAT {
+
 class Backtester {
     public:
         Backtester();
@@ -34,6 +34,8 @@ class Backtester {
         RiskHandler rh;
         std::unique_ptr<Strategy> s;
         Metrics m;
+
+        bt_settings bts;
 
         void run();
 
