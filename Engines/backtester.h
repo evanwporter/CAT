@@ -35,7 +35,7 @@ class Backtester {
         std::unique_ptr<Strategy> s;
         Metrics m;
 
-        bt_settings bts;
+        bt_settings settings;
 
         void run();
 

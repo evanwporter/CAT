@@ -7,34 +7,35 @@ using namespace CAT;
 Backtester::Backtester() {
     sd::ondemand::parser parser;
     sd::padded_string json = sd::padded_string::load("settings.json");
-    sd::ondemand::document settings = parser.iterate(json);
 
-    bts.mode = std::string(std::string_view(settings["MODE"]));
+    settings.doc = parser.iterate(json);
 
-    for (sd::ondemand::value symbol : settings["SYMBOLS"]) {
-        bts.symbols.push_back(std::string(std::string_view(symbol)));
+    settings.mode = std::string(std::string_view(settings.doc["MODE"]));
+
+    for (sd::ondemand::value symbol : settings.doc["SYMBOLS"]) {
+        settings.symbols.push_back(std::string(std::string_view(symbol)));
     };
 
-    bts.warmup_period = settings["DATA_WARMUP_PERIOD"].get_uint64();
+    settings.warmup_period = settings.doc["DATA_WARMUP_PERIOD"].get_uint64();
 
-    bts.quiet = settings["QUIET"].get_bool();
-    bts.money_mult = settings["MONEY MULTIPLIER"].get_uint64();
-    bts.initial_cash = settings["INITIAL CASH"].get_uint64();
+    settings.quiet = settings.doc["QUIET"].get_bool();
+    settings.money_mult = settings.doc["MONEY MULTIPLIER"].get_uint64();
+    settings.initial_cash = settings.doc["INITIAL CASH"].get_uint64();
 
-    dh = DataHandler(&bts);
+    dh = DataHandler(&settings);
 };
 
 void Backtester::run()
 {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
-    p = Portfolio(&dh, &bts);
-    rh = RiskHandler(&dh, &p, &bts);
+    p = Portfolio(&dh, &settings);
+    rh = RiskHandler(&dh, &p, &settings);
 
     s = std::make_unique<MovingAverageCrossover>(&dh, &rh);
 
-    for(dh.current = bts.warmup_period; dh.current < dh.total_bars; dh.current++) {
-        for (auto symbol : bts.symbols) {
+    for(dh.current = settings.warmup_period; dh.current < dh.total_bars; dh.current++) {
+        for (auto symbol : settings.symbols) {
             if (dh.symbol_data_locations[symbol][0] <= dh.current && dh.current < dh.symbol_data_locations[symbol][1]) {
                 s->on_data(symbol);
             };
@@ -58,15 +59,15 @@ void Backtester::optimize () {
     std::vector<int> param;
     std::vector<double> results;
     for (int i = 10; i < 30; i++) {
-        p = Portfolio(&dh, &bts);
-        rh = RiskHandler(&dh, &p, &bts);
+        p = Portfolio(&dh, &settings);
+        rh = RiskHandler(&dh, &p, &settings);
         s = std::make_unique<MovingAverageCrossover>(&dh, &rh);
         // s->modify_param(i);
         s->parameter = i;
 
-        for(dh.current = bts.warmup_period; dh.current < dh.total_bars; dh.current++) {
+        for(dh.current = settings.warmup_period; dh.current < dh.total_bars; dh.current++) {
             p.update_value();
-            for (auto symbol : bts.symbols) {
+            for (auto symbol : settings.symbols) {
                 if (dh.symbol_data_locations[symbol][0] <= dh.current && dh.current < dh.symbol_data_locations[symbol][1]) {
                     s->on_data(symbol);
                 };

@@ -38,20 +38,11 @@ class DataHandler {
       std::vector<datetime64> total_symbol_dates;
       std::vector<std::string> symbols;
 
-      sd::ondemand::document settings;
-      std::string_view mode;
-
-      bt_settings* settings_;
-
-      bool quiet = true;
-      money initial_cash;
-      unsigned long money_mult = 1;
-      unsigned long warmup_period = 1;
+      bt_settings* settings;
 
       unsigned int total_bars, current, data_size;
 
       DataHandler();
-      
       DataHandler(bt_settings *bts);
 
       MoneyMatrixX getLatestBarsN(std::string symbol, int N);

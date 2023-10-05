@@ -21,9 +21,6 @@ Portfolio::Portfolio(DataHandler *data_handler, bt_settings *bts)
     CASH_holding.reserve(dh->total_bars);
     CASH_holding.push_back(CASH_position.quantity);
 
-    // std::cout << "Starting bank amount: " << CASH_position.quantity << std::endl;
-    // std::cout << "Effective money mult: " << dh->money_mult << std::endl;
-
     TOTAL_EQUITY.reserve(dh->total_bars);
     TE = CASH_position.quantity;
     TOTAL_EQUITY.push_back(CASH_position.quantity);
@@ -43,8 +40,8 @@ void Portfolio::on_fill(std::string symbol, money price, int quantity, Direction
 {
     update_position(price, symbol, quantity, direction);
 
-    if (!dh->quiet) std::cout << "Executed trade for " << direction * quantity << " shares of " << symbol << " at $" 
-                        << std::fixed << std::setprecision(2) << (double(price) / double(dh->settings_->money_mult)) 
+    if (!settings->quiet) std::cout << "Executed trade for " << direction * quantity << " shares of " << symbol << " at $" 
+                        << std::fixed << std::setprecision(2) << (double(price) / double(settings->money_mult)) 
                         << "." << std::endl;
 
 };

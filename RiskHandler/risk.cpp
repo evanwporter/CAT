@@ -16,8 +16,8 @@ RiskHandler::RiskHandler(DataHandler *data_handler,  Portfolio *p, bt_settings *
     portfolio = p;
     settings = bts;
 
-    // if (settings->mode == "backtest") simple = settings->doc["SIMPLE RISK"].get_bool();
-    // MLR = settings->doc["MAXIMUM LEVERAGE RATIO"].get_uint64();
+    if (settings->mode == "backtest") simple = settings->doc["SIMPLE RISK"].get_bool();
+    MLR = settings->doc["MAXIMUM LEVERAGE RATIO"].get_uint64();
 
     // generate_weights("equal");
 

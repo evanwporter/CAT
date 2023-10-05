@@ -32,6 +32,8 @@ struct bt_settings {
     long money_mult;
     money initial_cash;
     unsigned long warmup_period = 1; 
+
+    simdjson::ondemand::document doc;
 };
 
 #endif

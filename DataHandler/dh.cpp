@@ -16,32 +16,14 @@ using namespace CAT;
 DataHandler::DataHandler() {};
 
 DataHandler::DataHandler(bt_settings *bts) {
-    settings_ = bts;
+    settings = bts;
 
     std::string path = GetExePath();
     if (!std::filesystem::exists(path + "\\settings.json")) std::cout << "ERROR: couldn't locate settings.json" << std::endl;
 
-    ondemand::parser parser;
-    padded_string json = padded_string::load("settings.json");
-    settings = parser.iterate(json);
+    for(std::string symbol : settings->symbols) load_csv(symbol, path + "\\Data\\");
 
-    mode = std::string_view(settings["MODE"]);
-
-    for (ondemand::value symbol : settings["SYMBOLS"]) {
-        symbols.push_back(std::string(std::string_view(symbol)));
-    };
-
-    warmup_period = settings["DATA_WARMUP_PERIOD"].get_uint64();
-
-    std::string p = std::string(std::string_view(settings["DATA_DIRECTORY"]));
-    
-    quiet = settings["QUIET"].get_bool();
-    money_mult = settings["MONEY MULTIPLIER"].get_uint64();
-    initial_cash = settings["INITIAL CASH"].get_uint64();
-
-    for(std::string symbol : settings_->symbols) load_csv(symbol, path + "\\Data\\");
-
-    for(std::string symbol : settings_->symbols) total_symbol_dates = unionize(total_symbol_dates, symbol, symbol_dates[symbol]);
+    for(std::string symbol : settings->symbols) total_symbol_dates = unionize(total_symbol_dates, symbol, symbol_dates[symbol]);
 
     total_bars = total_symbol_dates.size();
 };
@@ -92,7 +74,7 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
         // while (std::getline(lineStream, cell, ',')) {
         for (unsigned int i = 0; i < headers.size() - 2; i++) {
             std::getline(lineStream, cell, ',');
-            money val = std::stod(cell) * settings_->money_mult;
+            money val = std::stod(cell) * settings->money_mult;
             values.push_back(val);
         };
 
@@ -106,7 +88,7 @@ void DataHandler::load_csv(const std::string &symbol, const std::string &path)
     for(unsigned int i = 1; i < headers.size(); i++) symbol_headers[symbol][headers[i]] = i - 1;
 
     symbol_data[symbol] = Map<MoneyMatrixX> (values.data(), rows, headers.size() - 2);
-    if (!quiet) std::cout << "Loaded " << symbol << ". Time taken: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << " microseconds." << std::endl;
+    if (!settings->quiet) std::cout << "Loaded " << symbol << ". Time taken: " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << " microseconds." << std::endl;
 };
 
 MoneyMatrixX DataHandler::getLatestBarsN(std::string symbol, int N)
