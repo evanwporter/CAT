@@ -12,6 +12,13 @@ Why is speed important?
 
 Because of optimizations of the backtest around a variable. Optimizations require the backtest to be run numerous times thus the backtester needs to be quick, and unfortunately python was too slow. (Also I really like optimizing things). 
 
+## Settings
+
+I used simdjson to parse settings.json. SimdJSON works as an iterator, thus its very important that the keys in the settings file are not moved out of the order that they are placed in.
+
+## File Organization
+
+This repo isn't really meant to be used by anyone else so I organized all of the files in a way that made sense to me. If this repo was to be used elsewhere then I would probably use the (Pitchform Layout)[https://api.csswg.org/bikeshed/?force=1&url=https://raw.githubusercontent.com/vector-of-bool/pitchfork/develop/data/spec.bs].
 
 ## TODO:
 * ~~Parse everything (relevant) out of settings.json~~
