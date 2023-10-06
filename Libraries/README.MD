@@ -7,5 +7,3 @@ The Libraries used in CAT are:
 * [Robinhood Hashing](https://github.com/martinus/robin-hood-hashing)
 * [DecimalsForC++](https://github.com/vpiotr/decimal_for_cpp) (Not implemented)
 
-When learning eigen [this link](https://eigen.tuxfamily.org/dox/AsciiQuickReference.txt) proved to be exceedingly helpful.
-
