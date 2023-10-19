@@ -24,6 +24,10 @@ This repo isn't really meant to be used by anyone else so I organized all of the
 
 I believe that the most important part of an Algorithmic is the risk management function. The strategy/signal generator is secondary.
 
+## Compiling
+
+I used VS code to compile the program. The settings I used are located in the `.vscode/launch.json`. Again this program was meant for widespread use then I would've likely used Visual Studio and adopted a more standard file organization policy.
+
 ## TODO:
 * ~~Parse everything (relevant) out of settings.json~~
 * Risk management
