@@ -26,7 +26,7 @@ I believe that the most important part of an Algorithmic is the risk management 
 
 ## Compiling
 
-I used VS code to compile the program. The settings I used are located in the `.vscode/launch.json`. Again this program was meant for widespread use then I would've likely used Visual Studio and adopted a more standard file organization policy.
+I used VS code to compile the program. The settings I used are located in the `.vscode/tasks.json`. Again this program was meant for widespread use then I would've likely used Visual Studio and adopted a more standard file organization policy.
 
 ## TODO:
 * ~~Parse everything (relevant) out of settings.json~~
