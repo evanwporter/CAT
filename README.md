@@ -28,6 +28,8 @@ I believe that the most important part of an Algorithmic is the risk management 
 
 I used VS code to compile the program. The settings I used are located in the `.vscode/tasks.json`. Again this program was meant for widespread use then I would've likely used Visual Studio and adopted a more standard file organization policy.
 
+This program only works on windows since I used the `windows.h` file in several places. Also I used c++20 to compile it, however it should work with c++14.
+
 ## TODO:
 * ~~Parse everything (relevant) out of settings.json~~
 * Risk management
